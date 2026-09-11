@@ -3,54 +3,397 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webdesign Bund — Websites für lokale Unternehmen</title>
-  <meta name="description" content="Moderne, schnelle Websites für lokale Unternehmen in Österreich.">
+
+  <!-- Content Security Policy: die Seite darf ausschliesslich Dateien von sich
+       selbst laden. Sollte jemals fremder Code ins HTML gelangen, kann er weder
+       ein Skript von aussen nachladen noch Daten irgendwohin senden.
+       Die Seite hat bewusst keine externen Abhaengigkeiten, deshalb ist 'self'
+       ueberall ausreichend. data: nur fuer das Favicon, das als SVG direkt im
+       HTML steht. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>Webdesign Bund: individuelle Websites für jede Branche</title>
+  <meta name="description" content="Individuelle Websites für Unternehmen und Selbstständige in ganz Österreich, in jeder Branche. Schnell, modern, auf dem Handy perfekt lesbar. Ohne Baukasten, ohne Vorlagenlook.">
+  <link rel="canonical" href="https://webdesign-bund.at/">
+
+  <!-- Vorschau beim Teilen (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_AT">
+  <meta property="og:url" content="https://webdesign-bund.at/">
+  <meta property="og:title" content="Webdesign Bund: individuelle Websites für jede Branche">
+  <meta property="og:description" content="Individuelle Websites für Unternehmen jeder Branche. Schnell, modern, auf dem Handy perfekt lesbar.">
+  <meta name="theme-color" content="#0A0B0F">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='10' fill='%235B7FFF'/></svg>">
+
+  <!-- Schriften lokal, keine Verbindung zu Google -->
+  <link rel="preload" href="assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
+  <!-- Ohne JavaScript blieben die Einblend-Elemente unsichtbar.
+       Diese Datei macht sie sofort sichtbar. -->
+  <noscript><link rel="stylesheet" href="css/nojs.css"></noscript>
 </head>
 <body>
 
-  <!-- NAV -->
-  <header>
-    <nav>
-      <div class="logo">Webdesign Bund</div>
-      <ul>
-        <li><a href="#leistungen">Leistungen</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
+  <a class="skip-link" href="#hero">Zum Inhalt springen</a>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav">
+      <a class="logo" href="#hero">
+        <span class="logo-dot" aria-hidden="true"></span>
+        Webdesign Bund
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navList" aria-label="Menü öffnen">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <ul class="nav-list" id="navList">
         <li><a href="#ueber-mich">Über mich</a></li>
-        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#leistungen">Leistungen</a></li>
+        <li><a href="#ablauf">Ablauf</a></li>
+        <li><a class="nav-cta" href="#kontakt">Kontakt</a></li>
       </ul>
-    </nav>
+    </div>
   </header>
 
-  <!-- HERO -->
-  <section id="hero">
-    <!-- TODO: value prop headline + subline + CTA button linking to #kontakt -->
-  </section>
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+      <div class="bg-grid" aria-hidden="true"></div>
+      <div class="glow-orb" id="glowOrb" aria-hidden="true"></div>
 
-  <!-- SERVICES -->
-  <section id="leistungen">
-    <!-- TODO: what's offered — new site builds, redesigns, maintenance -->
-  </section>
+      <div class="container">
+        <span class="hero-badge">
+          <span class="dot" aria-hidden="true"></span>
+          Neue Projekte möglich
+        </span>
 
-  <!-- PORTFOLIO -->
-  <section id="portfolio">
-    <!-- TODO: feature the Elke Bund KG project as proof point
-         Live site: https://maxbuilds-dev.github.io/bioenergetikmq5/index.html -->
-  </section>
+        <h1>Websites, die man nicht vergisst.</h1>
 
-  <!-- ABOUT -->
-  <section id="ueber-mich">
-    <!-- TODO: brief, credible background -->
-  </section>
+        <p class="hero-sub">
+          Individuelles Webdesign für Unternehmen jeder Branche, ohne
+          Baukasten und ohne Vorlagenlook. Damit Sie online genauso gut
+          aussehen, wie Sie Ihre Arbeit machen.
+        </p>
 
-  <!-- CONTACT -->
-  <section id="kontakt">
-    <!-- TODO: email, optional simple contact form -->
-  </section>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#kontakt">Kostenloses Erstgespräch</a>
+          <a class="btn btn-ghost" href="#portfolio">Arbeiten ansehen</a>
+        </div>
 
-  <!-- FOOTER / IMPRESSUM LINK -->
-  <footer>
-    <p>&copy; 2026 Webdesign Bund — <a href="impressum.html">Impressum</a></p>
+        <div class="hero-trust">
+          <div>
+            <strong>Ab 1 Woche</strong>
+            <span>von der Idee bis online</span>
+          </div>
+          <div>
+            <strong>100 %</strong>
+            <span>individuell gestaltet</span>
+          </div>
+          <div>
+            <strong>Fixpreis</strong>
+            <span>vorab vereinbart</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ÜBER MICH ===== -->
+    <section id="ueber-mich">
+      <div class="container">
+        <div class="about">
+          <div class="about-text reveal">
+            <span class="section-label">Über mich</span>
+            <h2>Max Bund</h2>
+            <p>
+              Ich baue Websites für Selbstständige und Unternehmen, quer durch
+              alle Branchen: Handwerk, Handel, Dienstleistung, Praxen, Vereine.
+              Alles selbst geschrieben, kein Baukasten, keine Vorlage, die auf
+              hundert anderen Seiten schon läuft.
+            </p>
+            <p>
+              Mein Betrieb ist jung, und das sage ich offen. Der Vorteil für Sie:
+              Sie reden immer direkt mit mir, nicht mit der Hotline einer Agentur.
+              Ich nehme mir Zeit, erkläre verständlich und liefere, was besprochen ist.
+            </p>
+            <p>
+              Was mir wichtig ist: Eine Website soll nicht nur schön aussehen,
+              sondern Ihnen Anfragen bringen. Schnell laden, am Handy lesbar,
+              und Besucher sollen in fünf Sekunden verstehen, was Sie anbieten.
+              Was Sie genau anbieten, erklären Sie mir. Dafür sind Sie der
+              Fachmann, nicht ich.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PORTFOLIO ===== -->
+    <section id="portfolio">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-label">Portfolio</span>
+          <h2>Ein Projekt, das online ist</h2>
+          <p>
+            Am besten überzeugt echte Arbeit. Schauen Sie sich die Seite in Ruhe an,
+            auch am Handy.
+          </p>
+        </div>
+
+        <article class="project reveal">
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="tag">Redesign</span>
+              <span class="tag">Humanenergetik</span>
+              <span class="tag">Launch 2026</span>
+            </div>
+            <h3>Bioenergetik mq5</h3>
+            <p>
+              Komplettes Redesign für eine Praxis für Humanenergetik: von der
+              ersten Idee über Struktur und Texte bis zum Launch. Ruhige Farben, klare
+              Wege zur Terminanfrage und eine Seite, die am Handy genauso gut
+              funktioniert wie am Computer.
+            </p>
+            <a class="btn btn-ghost" href="https://maxbuilds-dev.github.io/bioenergetikmq5/index.html" target="_blank" rel="noopener">
+              Live ansehen →
+            </a>
+          </div>
+
+          <div class="browser" aria-hidden="true">
+            <div class="browser-bar">
+              <i></i><i></i><i></i>
+              <span class="browser-url">maxbuilds-dev.github.io/bioenergetikmq5</span>
+            </div>
+            <div class="browser-body">
+              <div>
+                <span>Bioenergetik mq5</span>
+                <small>Praxis für Humanenergetik · Redesign 2026</small>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== LEISTUNGEN ===== -->
+    <section id="leistungen">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-label">Leistungen</span>
+          <h2>Was ich für Sie mache</h2>
+          <p>
+            Vom ersten Entwurf bis zur fertigen Seite: Sie haben einen
+            Ansprechpartner und müssen sich um die Technik nicht kümmern.
+          </p>
+        </div>
+
+        <div class="card-grid">
+
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                <path d="M3 9h18M8 4v5"></path>
+              </svg>
+            </div>
+            <h3>Neue Website</h3>
+            <p>
+              Sie haben noch keine Website? Ich baue Ihnen eine, die Kunden
+              findet und Vertrauen schafft, von der Struktur bis zu den Texten.
+            </p>
+            <ul class="card-list">
+              <li>Aufbau, Design und Umsetzung</li>
+              <li>Texte gemeinsam erarbeitet</li>
+              <li>Domain und Veröffentlichung inklusive</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 1 1-3-6.7"></path>
+                <path d="M21 3v6h-6"></path>
+              </svg>
+            </div>
+            <h3>Redesign</h3>
+            <p>
+              Ihre Seite ist in die Jahre gekommen oder am Handy kaum lesbar?
+              Ich bringe sie auf einen Stand, der zu Ihrem Betrieb passt.
+            </p>
+            <ul class="card-list">
+              <li>Modernes, klares Design</li>
+              <li>Auf dem Handy perfekt bedienbar</li>
+              <li>Bestehende Inhalte werden übernommen</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+                <circle cx="12" cy="12" r="3.5"></circle>
+              </svg>
+            </div>
+            <h3>Betreuung danach</h3>
+            <p>
+              Nach dem Start bleibe ich erreichbar. Änderungen, neue Bilder
+              oder Fragen zur Technik: Sie schreiben mir einfach.
+            </p>
+            <ul class="card-list">
+              <li>Inhalte aktualisieren</li>
+              <li>Hilfe bei Domain und Mailadresse</li>
+              <li>Kleine Erweiterungen jederzeit</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABLAUF ===== -->
+    <section id="ablauf">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-label">Ablauf</span>
+          <h2>So läuft die Zusammenarbeit</h2>
+          <p>
+            Kein Fachchinesisch, keine Überraschungen. Sie wissen von Anfang an,
+            was passiert und was es kostet.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step reveal">
+            <h3>Gespräch</h3>
+            <p>
+              Wir reden. Am Telefon, per Mail oder direkt bei Ihnen.
+              Ich frage, was Sie brauchen. Kostenlos und unverbindlich.
+            </p>
+          </div>
+          <div class="step reveal">
+            <h3>Angebot</h3>
+            <p>
+              Sie bekommen einen Vorschlag mit Umfang und Fixpreis.
+              Erst wenn der passt, geht es weiter.
+            </p>
+          </div>
+          <div class="step reveal">
+            <h3>Umsetzung</h3>
+            <p>
+              Ich baue die Seite und zeige Ihnen Zwischenstände.
+              Sie sagen, was noch anders soll.
+            </p>
+          </div>
+          <div class="step reveal">
+            <h3>Launch</h3>
+            <p>
+              Die Seite geht online, inklusive Domain, Verschlüsselung
+              und einer kurzen Einschulung für Sie.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== KONTAKT ===== -->
+    <section id="kontakt">
+      <div class="container">
+        <div class="contact reveal">
+
+          <div class="contact-intro">
+            <span class="section-label">Kontakt</span>
+            <h2>Reden wir über Ihr Projekt</h2>
+            <p>
+              Erstgespräch kostenlos und unverbindlich. Erzählen Sie mir kurz,
+              worum es geht. Ich melde mich in der Regel innerhalb eines Werktags.
+            </p>
+
+            <div class="contact-direct">
+              <!-- Die Adresse steht absichtlich nicht komplett im HTML.
+                   js/script.js setzt sie beim Laden zusammen, damit einfache
+                   Spam-Sammler sie nicht auslesen koennen. Ohne JavaScript
+                   bleibt die lesbare Schreibweise mit (at) stehen. -->
+              <a href="#kontakt" data-mail="office" data-domain="webdesign-bund.at">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                  <path d="m3 7 9 6 9-6"></path>
+                </svg>
+                <span class="mail-text">office (at) webdesign-bund.at</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Formular ohne Server: baut eine fertige Mail im Mailprogramm.
+               Siehe js/script.js. Ohne JavaScript bleibt der Maillink oben. -->
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <label for="name">Ihr Name</label>
+              <input type="text" id="name" name="name" required autocomplete="name" placeholder="Maria Musterfrau">
+            </div>
+
+            <div class="form-row">
+              <label for="betrieb">Betrieb (optional)</label>
+              <input type="text" id="betrieb" name="betrieb" autocomplete="organization" placeholder="Musterfrau GmbH">
+            </div>
+
+            <div class="form-row">
+              <label for="email">Mail oder Telefon</label>
+              <input type="text" id="email" name="email" required autocomplete="email" placeholder="maria@musterfrau.at">
+            </div>
+
+            <div class="form-row">
+              <label for="anliegen">Worum geht es?</label>
+              <select id="anliegen" name="anliegen">
+                <option>Neue Website</option>
+                <option>Redesign bestehende Website</option>
+                <option>Betreuung / Änderungen</option>
+                <option>Etwas anderes</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label for="nachricht">Ihre Nachricht</label>
+              <textarea id="nachricht" name="nachricht" required placeholder="Kurz beschrieben: was Sie vorhaben und bis wann."></textarea>
+            </div>
+
+            <!-- Bot-Falle: bleibt für Menschen unsichtbar und leer -->
+            <div class="hp" aria-hidden="true">
+              <label for="website">Website nicht ausfüllen</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Nachricht senden</button>
+
+            <p class="form-note" id="formNote">
+              Das Formular öffnet Ihr Mailprogramm mit der fertigen Nachricht.
+              Sie müssen nur noch auf „Senden“ drücken. Ihre Daten werden dabei
+              nicht auf dieser Website gespeichert.
+              <a href="datenschutz.html">Datenschutz</a>
+            </p>
+          </form>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="jahr">2026</span> Webdesign Bund, Max Bund</p>
+      <nav class="footer-links" aria-label="Rechtliches">
+        <a href="#kontakt" data-mail="office" data-domain="webdesign-bund.at"><span class="mail-text">office (at) webdesign-bund.at</span></a>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </nav>
+    </div>
   </footer>
 
   <script src="js/script.js"></script>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Content Security Policy: die Seite darf ausschliesslich Dateien von sich
+       selbst laden. Sollte jemals fremder Code ins HTML gelangen, kann er weder
+       ein Skript von aussen nachladen noch Daten irgendwohin senden.
+       Die Seite hat bewusst keine externen Abhaengigkeiten, deshalb ist 'self'
+       ueberall ausreichend. data: nur fuer das Favicon, das als SVG direkt im
+       HTML steht. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Seite nicht gefunden: Webdesign Bund</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0A0B0F">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='10' fill='%235B7FFF'/></svg>">
+  <!-- Schriften lokal, keine Verbindung zu Google -->
+  <link rel="preload" href="assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Ohne JavaScript blieben die Einblend-Elemente unsichtbar.
+       Diese Datei macht sie sofort sichtbar. -->
+  <noscript><link rel="stylesheet" href="css/nojs.css"></noscript>
+</head>
+<body>
+  <section class="hero page-404">
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="glow-orb" id="glowOrb" aria-hidden="true"></div>
+    <div class="container">
+      <span class="section-label">Fehler 404</span>
+      <h1>Diese Seite gibt es nicht.</h1>
+      <p class="hero-sub">
+        Der Link ist vielleicht veraltet oder hat sich vertippt.
+        Zurück zur Startseite geht es hier.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/">Zur Startseite</a>
+      </div>
+    </div>
+  </section>
+  <script src="js/script.js"></script>
+</body>
+</html>
