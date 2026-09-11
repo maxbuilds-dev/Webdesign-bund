@@ -42,6 +42,14 @@ downloaded if a character from it actually appears).
 All colours, spacing and radii are CSS custom properties at the top of
 `css/style.css` — change them there once and the whole site follows.
 
+## Starting a new client project
+
+See **`PROJEKTSTART.md`**. It contains the data to collect from the client before
+anything is written, a `CLAUDE.md` template to drop into the empty repo, and one
+complete prompt that produces the whole site including Impressum, Datenschutz,
+consent manager and the security baseline. It also lists the mistakes made while
+building this site so they are not repeated.
+
 ## Working with Claude Code
 
 1. Open this folder in Claude Code (or push it to a repo and connect that repo, same as the Elke Bund KG project).
