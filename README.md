@@ -8,6 +8,7 @@ Portfolio site for the web design business. Built with Claude Code.
 webdesign-bund/
 ├── CLAUDE.md          # project context — Claude Code reads this automatically
 ├── index.html         # the one-pager (hero, Leistungen, Ablauf, Portfolio, Über mich, Kontakt)
+├── bilder/            # photos (not created yet, see checklist)
 ├── impressum.html     # Impressum / Offenlegung — STILL HAS PLACEHOLDERS
 ├── datenschutz.html   # Datenschutzerklärung — STILL HAS PLACEHOLDERS
 ├── 404.html           # error page in the same style
@@ -54,6 +55,8 @@ All colours, spacing and radii are CSS custom properties at the top of
       Gewerbebehörde, Fachgruppe, UID if any) and delete the yellow `.todo-box`
 - [ ] **Datenschutz**: add the address, delete the yellow `.todo-box`
 - [x] Hero claims confirmed by Max: "Ab 1 Woche", "100 % individuell", "Fixpreis"
+- [ ] **Photo of Max**: save as `bilder/max.jpg` (portrait, ~800x1000 px) and
+      follow the instructions in the `FOTO EINSETZEN` comment in `index.html`
 - [ ] Swap the portfolio placeholder frame for a real screenshot of the
       Bioenergetik mq5 site (`.browser-body` in `index.html`)
 - [ ] Add an OG image (`og:image`) so shared links show a preview
