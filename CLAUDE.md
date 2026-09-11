@@ -23,8 +23,24 @@ average small-business site.
 Small businesses and self-employed people **across all industries**, Austria-wide.
 Max explicitly decided against restricting the copy to local businesses, so do not
 reintroduce "lokale Unternehmen", "Steiermark" or "Deutschlandsberg" into the visible
-copy without asking. Readers are often not tech-savvy: copy stays simple,
-benefit-focused, confidence-inspiring, no jargon.
+copy without asking.
+
+## Tone of voice
+Max asked for a **professional, elevated register**. No playful or chatty sentences.
+Concretely:
+- declarative statements, no rhetorical questions ("Sie haben noch keine Website?")
+- no colloquialisms ("Fachchinesisch", "Stundenfalle", "Wir reden.")
+- precise nouns over casual verbs: "Veröffentlichung" not "geht online",
+  "Konzeption" not "die erste Idee", "Erstgespräch" not "wir reden"
+- restrained and specific. This is **not** a licence for agency filler:
+  no "ganzheitlich", "Synergien", "maßgeschneiderte Lösungen", no superlatives.
+  Professional here means precise, not inflated.
+- claims stay truthful and checkable: "Ab 1 Woche", "100 % individuell entwickelt",
+  "Fixpreis vor Projektbeginn vereinbart"
+
+Note the tension with the audience: many readers are not tech-savvy, so keep sentences
+readable even in this register. If a term needs explaining, explain it rather than
+dropping to a chatty tone.
 
 ## Language and copy rules
 German (de-AT), formal "Sie" throughout.

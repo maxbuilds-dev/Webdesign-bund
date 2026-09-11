@@ -149,7 +149,7 @@
 
       if (!name || !email || !nachricht) {
         if (note) {
-          note.textContent = 'Bitte Name, Kontaktmöglichkeit und Nachricht ausfüllen.';
+          note.textContent = 'Bitte ergänzen Sie Name, Kontaktmöglichkeit und Nachricht.';
           note.style.color = '#FFC864';
         }
         return;
@@ -174,8 +174,8 @@
         '&body=' + encodeURIComponent(text);
 
       if (note) {
-        note.textContent = 'Ihr Mailprogramm sollte sich jetzt öffnen. ' +
-          'Falls nicht, schreiben Sie bitte direkt an ' + EMPFAENGER + '.';
+        note.textContent = 'Ihr Mailprogramm wurde geöffnet. Sollte das nicht ' +
+          'funktionieren, erreichen Sie mich direkt unter ' + EMPFAENGER + '.';
         note.style.color = '';
       }
     });
