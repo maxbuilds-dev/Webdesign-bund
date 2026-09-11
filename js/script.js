@@ -6,7 +6,7 @@
    3. Mobiles Menü öffnen/schließen
    4. Aktiven Menüpunkt hervorheben
    5. Elemente beim Scrollen einblenden
-   6. Kontaktformular -> fertige E-Mail im Mailprogramm
+   6. Kontaktformular, baut eine fertige Mail im Mailprogramm
    7. Jahreszahl im Footer
    ========================================================================== */
 
@@ -120,8 +120,8 @@
   }
 
   /* 6. KONTAKTFORMULAR ---------------------------------------------------- */
-  /* Kein Server, kein Backend: aus den Eingaben wird ein mailto-Link gebaut
-     und das E-Mail-Programm des Besuchers geöffnet. Es werden keine Daten
+  /* Kein Server, kein Backend: aus den Eingaben wird ein mailto Link gebaut
+     und das Mailprogramm des Besuchers geöffnet. Es werden keine Daten
      auf der Website gespeichert oder an Dritte gesendet. */
   var EMPFAENGER = 'office@webdesign-bund.at';
   var form = document.getElementById('contactForm');
@@ -154,7 +154,7 @@
       var betrieb = feld('betrieb');
       var anliegen = feld('anliegen');
 
-      var betreff = 'Anfrage über webdesign-bund.at — ' + (anliegen || 'Projekt');
+      var betreff = 'Anfrage über webdesign-bund.at: ' + (anliegen || 'Projekt');
       var text = [
         'Name: ' + name,
         betrieb ? 'Betrieb: ' + betrieb : null,
@@ -170,7 +170,7 @@
         '&body=' + encodeURIComponent(text);
 
       if (note) {
-        note.textContent = 'Ihr E-Mail-Programm sollte sich jetzt öffnen. ' +
+        note.textContent = 'Ihr Mailprogramm sollte sich jetzt öffnen. ' +
           'Falls nicht, schreiben Sie bitte direkt an ' + EMPFAENGER + '.';
         note.style.color = '';
       }
