@@ -164,3 +164,18 @@ plus DNS records at World4You, see README.md.
 Direct and iterative. Build section by section, show progress rather than a big single
 dump. If content or copy decisions are being assumed rather than given, say so
 explicitly before proceeding.
+
+## Git workflow (changed by Max)
+**Work directly on `main`.** No feature branch, no pull request, unless Max asks for
+one. He gave explicit permission for this. Commit and push straight to `main`.
+Background: he edits files on GitHub between sessions, and the branch workflow produced
+a merge conflict every round.
+
+## Max's own edits are final
+When Max changes wording himself, whether here or directly on GitHub, **take it as
+given and do not question it, correct it or argue it**. He said so explicitly. This
+includes spelling and grammar he wrote that way on purpose, for example
+"Ab 2 Woche" in the hero. Do not "fix" it. Report what you changed, nothing more.
+
+This does not cover factual or legal accuracy: if something would be untrue in the
+Impressum or would break the page, still say so once, plainly.
