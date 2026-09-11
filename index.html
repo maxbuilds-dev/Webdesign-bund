@@ -19,8 +19,8 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='10' fill='%235B7FFF'/></svg>">
 
   <!-- Schriften lokal, keine Verbindung zu Google -->
-  <link rel="preload" href="fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -41,17 +41,16 @@
       </button>
 
       <ul class="nav-list" id="navList">
+        <li><a href="#ueber-mich">Über mich</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#leistungen">Leistungen</a></li>
         <li><a href="#ablauf">Ablauf</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#ueber-mich">Über mich</a></li>
         <li><a class="nav-cta" href="#kontakt">Kontakt</a></li>
       </ul>
     </div>
   </header>
 
   <main>
-
     <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
       <div class="bg-grid" aria-hidden="true"></div>
@@ -90,6 +89,99 @@
             <span>vorab vereinbart</span>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ===== ÜBER MICH ===== -->
+    <section id="ueber-mich">
+      <div class="container">
+        <div class="about">
+          <div class="about-text reveal">
+            <span class="section-label">Über mich</span>
+            <h2>Max Bund</h2>
+            <p>
+              Ich baue Websites für Selbstständige und Unternehmen, quer durch
+              alle Branchen: Handwerk, Handel, Dienstleistung, Praxen, Vereine.
+              Alles selbst geschrieben, kein Baukasten, keine Vorlage, die auf
+              hundert anderen Seiten schon läuft.
+            </p>
+            <p>
+              Mein Betrieb ist jung, und das sage ich offen. Der Vorteil für Sie:
+              Sie reden immer direkt mit mir, nicht mit der Hotline einer Agentur.
+              Ich nehme mir Zeit, erkläre verständlich und liefere, was besprochen ist.
+            </p>
+            <p>
+              Was mir wichtig ist: Eine Website soll nicht nur schön aussehen,
+              sondern Ihnen Anfragen bringen. Schnell laden, am Handy lesbar,
+              und Besucher sollen in fünf Sekunden verstehen, was Sie anbieten.
+              Was Sie genau anbieten, erklären Sie mir. Dafür sind Sie der
+              Fachmann, nicht ich.
+            </p>
+          </div>
+
+          <!-- FOTO EINSETZEN:
+               1. Bild als assets/img/max.jpg speichern (Hochformat, ca. 800x1000 px)
+               2. Den ganzen Block <div class="photo-slot"> ... </div> unten
+                  durch diese eine Zeile ersetzen:
+                  <img class="about-photo reveal" src="assets/img/max.jpg"
+                       alt="Max Bund, Inhaber von Webdesign Bund" width="800" height="1000">
+               3. Diesen Kommentar loeschen. -->
+          <div class="photo-slot reveal" role="img" aria-label="Platzhalter für ein Foto von Max Bund">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8.5" r="3.8"></circle>
+              <path d="M4.5 20.5c0.6-4.2 3.6-6.6 7.5-6.6s6.9 2.4 7.5 6.6"></path>
+            </svg>
+            <span>Hier kommt ein Foto von Max hin</span>
+            <small>Hochformat, ca. 800 x 1000 px, als assets/img/max.jpg</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PORTFOLIO ===== -->
+    <section id="portfolio">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-label">Portfolio</span>
+          <h2>Ein Projekt, das online ist</h2>
+          <p>
+            Am besten überzeugt echte Arbeit. Schauen Sie sich die Seite in Ruhe an,
+            auch am Handy.
+          </p>
+        </div>
+
+        <article class="project reveal">
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="tag">Redesign</span>
+              <span class="tag">Humanenergetik</span>
+              <span class="tag">Launch 2026</span>
+            </div>
+            <h3>Bioenergetik mq5</h3>
+            <p>
+              Komplettes Redesign für eine Praxis für Humanenergetik: von der
+              ersten Idee über Struktur und Texte bis zum Launch. Ruhige Farben, klare
+              Wege zur Terminanfrage und eine Seite, die am Handy genauso gut
+              funktioniert wie am Computer.
+            </p>
+            <a class="btn btn-ghost" href="https://maxbuilds-dev.github.io/bioenergetikmq5/index.html" target="_blank" rel="noopener">
+              Live ansehen →
+            </a>
+          </div>
+
+          <div class="browser" aria-hidden="true">
+            <div class="browser-bar">
+              <i></i><i></i><i></i>
+              <span class="browser-url">maxbuilds-dev.github.io/bioenergetikmq5</span>
+            </div>
+            <div class="browser-body">
+              <div>
+                <span>Bioenergetik mq5</span>
+                <small>Praxis für Humanenergetik · Redesign 2026</small>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -213,99 +305,6 @@
       </div>
     </section>
 
-    <!-- ===== PORTFOLIO ===== -->
-    <section id="portfolio">
-      <div class="container">
-        <div class="section-head reveal">
-          <span class="section-label">Portfolio</span>
-          <h2>Ein Projekt, das online ist</h2>
-          <p>
-            Am besten überzeugt echte Arbeit. Schauen Sie sich die Seite in Ruhe an,
-            auch am Handy.
-          </p>
-        </div>
-
-        <article class="project reveal">
-          <div class="project-info">
-            <div class="project-meta">
-              <span class="tag">Redesign</span>
-              <span class="tag">Humanenergetik</span>
-              <span class="tag">Launch 2026</span>
-            </div>
-            <h3>Bioenergetik mq5</h3>
-            <p>
-              Komplettes Redesign für eine Praxis für Humanenergetik: von der
-              ersten Idee über Struktur und Texte bis zum Launch. Ruhige Farben, klare
-              Wege zur Terminanfrage und eine Seite, die am Handy genauso gut
-              funktioniert wie am Computer.
-            </p>
-            <a class="btn btn-ghost" href="https://maxbuilds-dev.github.io/bioenergetikmq5/index.html" target="_blank" rel="noopener">
-              Live ansehen →
-            </a>
-          </div>
-
-          <div class="browser" aria-hidden="true">
-            <div class="browser-bar">
-              <i></i><i></i><i></i>
-              <span class="browser-url">maxbuilds-dev.github.io/bioenergetikmq5</span>
-            </div>
-            <div class="browser-body">
-              <div>
-                <span>Bioenergetik mq5</span>
-                <small>Praxis für Humanenergetik · Redesign 2026</small>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ===== ÜBER MICH ===== -->
-    <section id="ueber-mich">
-      <div class="container">
-        <div class="about">
-          <div class="about-text reveal">
-            <span class="section-label">Über mich</span>
-            <h2>Max Bund</h2>
-            <p>
-              Ich baue Websites für Selbstständige und Unternehmen, quer durch
-              alle Branchen: Handwerk, Handel, Dienstleistung, Praxen, Vereine.
-              Alles selbst geschrieben, kein Baukasten, keine Vorlage, die auf
-              hundert anderen Seiten schon läuft.
-            </p>
-            <p>
-              Mein Betrieb ist jung, und das sage ich offen. Der Vorteil für Sie:
-              Sie reden immer direkt mit mir, nicht mit der Hotline einer Agentur.
-              Ich nehme mir Zeit, erkläre verständlich und liefere, was besprochen ist.
-            </p>
-            <p>
-              Was mir wichtig ist: Eine Website soll nicht nur schön aussehen,
-              sondern Ihnen Anfragen bringen. Schnell laden, am Handy lesbar,
-              und Besucher sollen in fünf Sekunden verstehen, was Sie anbieten.
-              Was Sie genau anbieten, erklären Sie mir. Dafür sind Sie der
-              Fachmann, nicht ich.
-            </p>
-          </div>
-
-          <!-- FOTO EINSETZEN:
-               1. Bild als bilder/max.jpg speichern (Hochformat, ca. 800x1000 px)
-               2. Den ganzen Block <div class="photo-slot"> ... </div> unten
-                  durch diese eine Zeile ersetzen:
-                  <img class="about-photo reveal" src="bilder/max.jpg"
-                       alt="Max Bund, Inhaber von Webdesign Bund" width="800" height="1000">
-               3. Diesen Kommentar loeschen. -->
-          <div class="photo-slot reveal" role="img" aria-label="Platzhalter für ein Foto von Max Bund">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="8.5" r="3.8"></circle>
-              <path d="M4.5 20.5c0.6-4.2 3.6-6.6 7.5-6.6s6.9 2.4 7.5 6.6"></path>
-            </svg>
-            <span>Hier kommt ein Foto von Max hin</span>
-            <small>Hochformat, ca. 800 x 1000 px, als bilder/max.jpg</small>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ===== KONTAKT ===== -->
     <section id="kontakt">
       <div class="container">
@@ -382,7 +381,6 @@
         </div>
       </div>
     </section>
-
   </main>
 
   <!-- ===== FOOTER ===== -->
