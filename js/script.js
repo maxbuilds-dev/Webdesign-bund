@@ -7,7 +7,8 @@
    4. Aktiven Menüpunkt hervorheben
    5. Elemente beim Scrollen einblenden
    6. Kontaktformular, baut eine fertige Mail im Mailprogramm
-   7. Jahreszahl im Footer
+   7. Mailadressen in den Links zusammensetzen
+   8. Jahreszahl im Footer
    ========================================================================== */
 
 (function () {
@@ -123,7 +124,10 @@
   /* Kein Server, kein Backend: aus den Eingaben wird ein mailto Link gebaut
      und das Mailprogramm des Besuchers geöffnet. Es werden keine Daten
      auf der Website gespeichert oder an Dritte gesendet. */
-  var EMPFAENGER = 'office@webdesign-bund.at';
+  /* Die Adresse wird zur Laufzeit zusammengesetzt und steht deshalb
+     nirgends komplett im Quelltext. Das haelt einfache Spam-Sammler ab,
+     die nur nach dem Muster name@domain suchen. */
+  var EMPFAENGER = 'office' + String.fromCharCode(64) + 'webdesign-bund.at';
   var form = document.getElementById('contactForm');
   var note = document.getElementById('formNote');
 
@@ -177,7 +181,25 @@
     });
   }
 
-  /* 7. JAHRESZAHL --------------------------------------------------------- */
+  /* 7. MAILADRESSEN EINSETZEN ---------------------------------------------- */
+  /* Aus data-mail und data-domain wird die fertige Adresse gebaut und als
+     echter mailto Link gesetzt. Im HTML steht nur "office (at) ...", damit
+     Spam-Sammler, die den Quelltext durchsuchen, nichts Brauchbares finden. */
+  Array.prototype.forEach.call(
+    document.querySelectorAll('a[data-mail][data-domain]'),
+    function (link) {
+      var adresse = link.getAttribute('data-mail') +
+                    String.fromCharCode(64) +
+                    link.getAttribute('data-domain');
+      link.setAttribute('href', 'mailto:' + adresse);
+      var text = link.querySelector('.mail-text');
+      if (text) text.textContent = adresse;
+      link.removeAttribute('data-mail');
+      link.removeAttribute('data-domain');
+    }
+  );
+
+  /* 8. JAHRESZAHL --------------------------------------------------------- */
   var jahr = document.getElementById('jahr');
   if (jahr) jahr.textContent = String(new Date().getFullYear());
 

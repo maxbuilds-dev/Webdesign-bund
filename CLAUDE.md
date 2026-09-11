@@ -87,8 +87,32 @@ Order confirmed by Max. The nav in the header must mirror it.
 ## Contact form
 There is no backend and there will not be one. The form builds a mailto link and opens
 the visitor's own mail program. Nothing is stored. A hidden honeypot field catches
-simple bots. The address is also a plain link next to the form, because some phones have
-no mail program configured.
+simple bots.
+
+## Security decisions (do not undo without asking)
+- **No secrets, ever.** Nothing in this repo needs a key. If a form service is ever
+  added, only a public key belongs in the client, never a private one.
+- **Content Security Policy** is set as a `<meta http-equiv>` on all four pages:
+  `default-src 'none'` with `'self'` for script, style and font. GitHub Pages cannot
+  send real HTTP headers, so the meta tag is the only option here. Consequence:
+  **no inline `<style>` blocks, no inline `<script>`, no `style="..."` attributes.**
+  Put new CSS in `css/style.css` and new JS in `js/script.js`, otherwise it is blocked
+  silently. `img-src` allows `data:` only for the inline SVG favicon.
+- **No external resources at all**, so Subresource Integrity is not applicable: there is
+  nothing third-party to pin. Keep it that way. If a library ever becomes unavoidable,
+  self-host it in `assets/` rather than pulling it from a CDN.
+- **Mail address is obfuscated on index.html only.** The markup carries
+  `data-mail` and `data-domain`, and `js/script.js` assembles the real address at
+  runtime. Without JavaScript the readable form "office (at) webdesign-bund.at" stays.
+  On **impressum.html and datenschutz.html the address stays in plain text on purpose**:
+  ECG §5 requires it to be directly and permanently accessible, and hiding it behind
+  JavaScript there would be legally risky. This means a determined scraper can still
+  find it there. The obfuscation only reduces volume from the most visited page.
+- **`css/nojs.css`** is loaded inside `<noscript>`. Without it the `.reveal` elements
+  stay at `opacity: 0` and most of the page is blank for visitors without JavaScript.
+  If you add new `.reveal` elements, this file already covers them.
+- **Enforce HTTPS** has to be switched on in the repository settings under Pages. That
+  is a GitHub setting, not something in this repo.
 
 ## Legal note — flag before publishing
 Impressum and Datenschutz both still contain `[PLATZHALTER]` fields and a yellow

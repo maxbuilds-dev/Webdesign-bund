@@ -18,7 +18,8 @@ webdesign-bund/
 ├── CLAUDE.md           # project context, Claude Code reads this automatically
 ├── css/
 │   ├── style.css       # design tokens, then all sections, commented in German
-│   └── fonts.css       # @font-face rules only
+│   ├── fonts.css       # @font-face rules only
+│   └── nojs.css        # loaded via <noscript>, makes hidden sections visible
 ├── js/
 │   └── script.js       # nav, scroll reveals, mailto contact form
 └── assets/
@@ -54,7 +55,21 @@ All colours, spacing and radii are CSS custom properties at the top of
 3. For the custom domain:
    - Keep the `CNAME` file in this repo (already set to `webdesign-bund.at`).
    - At World4You, add a DNS record pointing `webdesign-bund.at` to GitHub Pages (an `A` record to GitHub's IPs, or a `CNAME` record if using a subdomain like `www`). GitHub's own Pages docs have the current IP list — check before setting this, IPs occasionally change.
-   - In the repo's Pages settings, enter `webdesign-bund.at` as the custom domain and enable "Enforce HTTPS" once DNS propagates.
+   - In the repo's Pages settings, enter `webdesign-bund.at` as the custom domain and enable "Enforce HTTPS" once DNS propagates. **Do not skip the HTTPS step** — without it the site is served over plain HTTP and browsers will flag it.
+
+## Security notes
+
+The site has no backend, no secrets and no third-party resources. A few things are set
+up deliberately and are easy to break by accident:
+
+- A **Content Security Policy** meta tag on every page forbids anything external. Because
+  of it, inline `<style>` blocks, inline `<script>` blocks and `style="..."` attributes
+  are blocked and will silently do nothing. Put CSS in `css/` and JS in `js/`.
+- The **mail address is assembled by JavaScript** on `index.html`, so it is not sitting in
+  the HTML for spam harvesters. On `impressum.html` and `datenschutz.html` it stays in
+  plain text on purpose, because Austrian law requires it to be directly accessible there.
+- **Never commit keys or passwords.** Nothing here needs them. If a form service like
+  Formspree or EmailJS is added later, only its public key belongs in the client code.
 
 ## Before launch checklist
 

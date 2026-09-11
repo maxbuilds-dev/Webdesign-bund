@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Content Security Policy: die Seite darf ausschliesslich Dateien von sich
+       selbst laden. Sollte jemals fremder Code ins HTML gelangen, kann er weder
+       ein Skript von aussen nachladen noch Daten irgendwohin senden.
+       Die Seite hat bewusst keine externen Abhaengigkeiten, deshalb ist 'self'
+       ueberall ausreichend. data: nur fuer das Favicon, das als SVG direkt im
+       HTML steht. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Impressum: Webdesign Bund</title>
   <meta name="description" content="Impressum und Offenlegung gemäß § 5 ECG und § 25 Mediengesetz.">
   <meta name="robots" content="noindex">
@@ -14,6 +23,9 @@
   <link rel="preload" href="assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
+  <!-- Ohne JavaScript blieben die Einblend-Elemente unsichtbar.
+       Diese Datei macht sie sofort sichtbar. -->
+  <noscript><link rel="stylesheet" href="css/nojs.css"></noscript>
 </head>
 <body>
 
