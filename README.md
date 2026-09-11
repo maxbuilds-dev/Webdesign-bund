@@ -53,8 +53,7 @@ All colours, spacing and radii are CSS custom properties at the top of
 - [ ] **Impressum**: replace every `[PLATZHALTER]` (address, GISA number,
       Gewerbebehörde, Fachgruppe, UID if any) and delete the yellow `.todo-box`
 - [ ] **Datenschutz**: add the address, delete the yellow `.todo-box`
-- [ ] Check the three hero claims are ones you can keep: "Ab 2 Wochen",
-      "100 % individuell", "Fixpreis"
+- [x] Hero claims confirmed by Max: "Ab 1 Woche", "100 % individuell", "Fixpreis"
 - [ ] Swap the portfolio placeholder frame for a real screenshot of the
       Bioenergetik mq5 site (`.browser-body` in `index.html`)
 - [ ] Add an OG image (`og:image`) so shared links show a preview
