@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Webdesign Bund — Stylesheet
+   Webdesign Bund, Stylesheet
    Aufbau:
    1. Design-Tokens (Farben, Schrift, Abstände)
    2. Reset & Grundlagen
@@ -689,7 +689,7 @@ section { padding-block: var(--section-pad); position: relative; }
 }
 .form-note a { color: var(--text-muted); text-decoration: underline; }
 
-/* Honeypot – für Menschen unsichtbar, fängt einfache Bots ab */
+/* Honeypot: für Menschen unsichtbar, fängt einfache Bots ab */
 .hp { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
 
 /* 11. FOOTER
@@ -738,7 +738,7 @@ section { padding-block: var(--section-pad); position: relative; }
 }
 .back-link:hover { color: var(--text); }
 
-/* Warnbox für offene Platzhalter – vor dem Launch entfernen */
+/* Warnbox für offene Platzhalter, vor dem Launch entfernen */
 .todo-box {
   border: 1px solid rgba(255, 176, 32, 0.45);
   background: rgba(255, 176, 32, 0.08);

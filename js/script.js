@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Webdesign Bund — script.js
+   Webdesign Bund, script.js
    Inhalt:
    1. Leuchtpunkt im Hero (Bloom -> Dauerpuls)
    2. Navigationsleiste beim Scrollen abdunkeln
