@@ -9,9 +9,10 @@
   <meta name="theme-color" content="#0A0B0F">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='10' fill='%235B7FFF'/></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Schriften lokal, keine Verbindung zu Google -->
+  <link rel="preload" href="fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -35,8 +36,7 @@
       <div class="todo-box">
         <p>
           <strong>Hinweis für Max (nicht veröffentlichen):</strong>
-          Adresse ergänzen und prüfen, ob die Beschreibung zu GitHub Pages und
-          den Google Fonts zum tatsächlichen Stand passt. Danach diese Box entfernen.
+          Nur noch die Adresse ergänzen, dann diese Box entfernen.
         </p>
       </div>
 
@@ -47,7 +47,8 @@
       <h2>Grundsatz</h2>
       <p>
         Diese Website ist bewusst einfach gehalten. Es gibt keine Cookies für
-        Werbung oder Statistik, kein Tracking und keine Analyse-Werkzeuge.
+        Werbung oder Statistik, kein Tracking, keine Analyse-Werkzeuge und
+        keine Inhalte, die von fremden Servern nachgeladen werden.
       </p>
 
       <h2>Kontaktaufnahme</h2>
@@ -79,14 +80,12 @@
         <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a>.
       </p>
 
-      <h2>Schriftarten (Google Fonts)</h2>
+      <h2>Schriftarten</h2>
       <p>
-        Für die Darstellung werden Schriftarten von Google Fonts geladen
-        (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland).
-        Dabei wird Ihre IP-Adresse an Google übertragen. Rechtsgrundlage ist
-        Art. 6 Abs. 1 lit. f DSGVO (einheitliche Darstellung der Website).
-        Hinweis: Werden die Schriftarten stattdessen lokal eingebunden,
-        entfällt diese Übertragung.
+        Die verwendeten Schriftarten (Inter und Space Grotesk) sind direkt auf
+        diesem Server gespeichert und werden von dort geladen. Es besteht keine
+        Verbindung zu Google Fonts oder einem anderen externen Anbieter,
+        Ihre IP-Adresse wird dafür an niemanden weitergegeben.
       </p>
 
       <h2>Ihre Rechte</h2>
