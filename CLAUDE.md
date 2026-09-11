@@ -49,8 +49,8 @@ HTML/CSS/JS background. Don't introduce a framework or bundler unless explicitly
 ```
 /
 ├── index.html          # the single page, all visible copy lives here
-├── impressum.html      # ECG §5 / MedienG §25, STILL HAS PLACEHOLDERS
-├── datenschutz.html    # DSGVO, STILL HAS PLACEHOLDERS
+├── impressum.html      # ECG §5 / MedienG §25, real data, complete
+├── datenschutz.html    # DSGVO, real data, complete
 ├── 404.html            # must stay at root, GitHub Pages only reads it there
 ├── robots.txt          # must stay at root
 ├── sitemap.xml         # must stay at root
