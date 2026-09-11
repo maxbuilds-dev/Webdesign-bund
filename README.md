@@ -73,8 +73,10 @@ up deliberately and are easy to break by accident:
 
 ## Before launch checklist
 
-- [ ] **Impressum**: one field left, the WKO Fachgruppe. Replace the
-      `[PLATZHALTER]` and delete the yellow `.todo-box` below it
+- [x] **Impressum**: complete, real business data, no placeholders left
+- [ ] Confirm the WKO Fachgruppe with the chamber. It currently reads
+      "Fachgruppe Werbung und Marktkommunikation", derived from the
+      Gewerbewortlaut but not yet verified. One phone call to WK Steiermark
 - [x] **Datenschutz**: complete, real address in place
 - [x] Hero claims confirmed by Max: "Ab 1 Woche", "100 % individuell", "Fixpreis"
 - [ ] Swap the portfolio placeholder frame for a real screenshot of the

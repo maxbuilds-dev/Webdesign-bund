@@ -121,11 +121,18 @@ simple bots.
   is a GitHub setting, not something in this repo.
 
 ## Legal pages — status
-Max supplied his real business data, so both pages now carry it. Datenschutz is
-complete. Impressum has **one remaining gap**: the WKO Fachgruppe, marked with a
-`[PLATZHALTER]` and a yellow `.todo-box` right below it. § 5 Abs. 1 Z 5 ECG requires
-naming the chamber, so the site should not go live until it is filled in. Do not guess
-the Fachgruppe; it is on Max's WKO membership letter or at firmen.wko.at.
+Both pages carry Max's real business data. No placeholders and no `.todo-box` left.
+
+**One entry is unverified:** the WKO Fachgruppe reads "Wirtschaftskammer Steiermark,
+Fachgruppe Werbung und Marktkommunikation". That was derived from the Gewerbewortlaut
+"Werbegrafik-Designer" (Sparte Information und Consulting) and Max asked for it to be
+entered as-is, because he could not find his own entry at firmen.wko.at. He has not
+confirmed it with the chamber yet. There is an HTML comment at that spot in
+impressum.html. If Max ever reports a different Fachgruppe, correct it there.
+
+WKO membership itself is not in doubt: it follows automatically from holding a
+Gewerbeberechtigung (he has GISA-Zahl 40118864) and is independent of the Firmenbuch,
+where he is deliberately not registered.
 
 No phone number and no UID: the phone number is optional under ECG §5, and as a
 Kleinunternehmer he has no UID.
