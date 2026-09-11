@@ -345,18 +345,24 @@
             </div>
 
             <div class="form-row">
-              <label for="betrieb">Unternehmen (optional)</label>
-              <input type="text" id="betrieb" name="betrieb" autocomplete="organization" placeholder="Mustermann GmbH">
+              <label for="betrieb">Unternehmen</label>
+              <input type="text" id="betrieb" name="betrieb" required autocomplete="organization" placeholder="Mustermann GmbH">
             </div>
 
             <div class="form-row">
-              <label for="email">Mail oder Telefon</label>
-              <input type="text" id="email" name="email" required autocomplete="email" placeholder="max@mustermann.at">
+              <label for="email">Mail</label>
+              <input type="email" id="email" name="email" required autocomplete="email" placeholder="max@mustermann.at">
+            </div>
+
+            <div class="form-row">
+              <label for="telefon">Telefon</label>
+              <input type="tel" id="telefon" name="telefon" required autocomplete="tel" placeholder="+43 660 1234567">
             </div>
 
             <div class="form-row">
               <label for="anliegen">Anliegen</label>
-              <select id="anliegen" name="anliegen">
+              <select id="anliegen" name="anliegen" required>
+                <option value="" disabled selected>Bitte auswählen</option>
                 <option>Neue Website</option>
                 <option>Redesign einer bestehenden Website</option>
                 <option>Laufende Betreuung</option>

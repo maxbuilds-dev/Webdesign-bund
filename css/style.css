@@ -660,6 +660,13 @@ section { padding-block: var(--section-pad); position: relative; }
 .form-row input::placeholder,
 .form-row textarea::placeholder { color: var(--text-dim); }
 
+/* Die Auswahlliste startet ohne Wert. Solange nichts gewaehlt ist, greift
+   :invalid und der Text wird so grau dargestellt wie die Platzhalter in den
+   uebrigen Feldern. Nach der Auswahl faerbt er sich normal ein. */
+.form-row select { color: var(--text); }
+.form-row select:invalid { color: var(--text-dim); }
+.form-row select option { color: var(--text); background: var(--bg-soft); }
+
 .form-note {
   margin-top: 0.9rem;
   font-size: 0.78rem;

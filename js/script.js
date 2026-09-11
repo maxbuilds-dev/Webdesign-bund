@@ -143,31 +143,43 @@
       // Bot-Falle: wenn das unsichtbare Feld ausgefüllt ist, passiert nichts
       if (feld('website') !== '') return;
 
-      var name = feld('name');
-      var email = feld('email');
-      var nachricht = feld('nachricht');
+      /* Alle Felder sind Pflicht. Fehlt eines, wird es benannt, damit der
+         Besucher nicht suchen muss. */
+      var felder = [
+        { id: 'name',      titel: 'Name' },
+        { id: 'betrieb',   titel: 'Unternehmen' },
+        { id: 'email',     titel: 'Mail' },
+        { id: 'telefon',   titel: 'Telefon' },
+        { id: 'anliegen',  titel: 'Anliegen' },
+        { id: 'nachricht', titel: 'Nachricht' }
+      ];
 
-      if (!name || !email || !nachricht) {
+      var fehlend = felder.filter(function (f) { return feld(f.id) === ''; });
+
+      if (fehlend.length) {
         if (note) {
-          note.textContent = 'Bitte ergänzen Sie Name, Kontaktmöglichkeit und Nachricht.';
+          var titel = fehlend.map(function (f) { return f.titel; });
+          note.textContent = fehlend.length === 1
+            ? 'Bitte füllen Sie das Feld ' + titel[0] + ' aus.'
+            : 'Bitte füllen Sie diese Felder aus: ' + titel.join(', ') + '.';
           note.style.color = '#FFC864';
         }
+        var erstes = document.getElementById(fehlend[0].id);
+        if (erstes) erstes.focus();
         return;
       }
 
-      var betrieb = feld('betrieb');
-      var anliegen = feld('anliegen');
-
-      var betreff = 'Anfrage über webdesign-bund.at: ' + (anliegen || 'Projekt');
+      var betreff = 'Anfrage über webdesign-bund.at: ' + feld('anliegen');
       var text = [
-        'Name: ' + name,
-        betrieb ? 'Betrieb: ' + betrieb : null,
-        'Kontakt: ' + email,
-        'Anliegen: ' + anliegen,
+        'Name: ' + feld('name'),
+        'Unternehmen: ' + feld('betrieb'),
+        'Mail: ' + feld('email'),
+        'Telefon: ' + feld('telefon'),
+        'Anliegen: ' + feld('anliegen'),
         '',
         'Nachricht:',
-        nachricht
-      ].filter(Boolean).join('\n');
+        feld('nachricht')
+      ].join('\n');
 
       window.location.href = 'mailto:' + EMPFAENGER +
         '?subject=' + encodeURIComponent(betreff) +
