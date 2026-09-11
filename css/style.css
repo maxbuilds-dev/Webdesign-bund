@@ -584,45 +584,13 @@ section { padding-block: var(--section-pad); position: relative; }
 
 /* 9. ÜBER MICH
    ------------------------------------------------------------------------ */
-.about {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(1.75rem, 5vw, 4rem);
-  align-items: start;
-}
+/* Einspaltig, seit der Bildplatz entfallen ist. Die Breite ist begrenzt,
+   weil Fliesstext ueber die volle Seitenbreite schlecht lesbar wird. */
+.about { max-width: 680px; }
 .about-text p + p { margin-top: 1rem; }
+.about-text h2 { margin-bottom: 1rem; }
 
-/* Portraitfoto. Bis das echte Bild da ist, steht der Platzhalter
-   .photo-slot an derselben Stelle und in derselben Groesse. */
-.about-photo,
-.photo-slot {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-}
 
-.about-photo {
-  object-fit: cover;
-  height: auto;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
-}
-
-.photo-slot {
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 0.6rem;
-  text-align: center;
-  padding: 1.5rem;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(91, 127, 255, 0.14), transparent 70%),
-    var(--surface);
-  color: var(--text-dim);
-}
-.photo-slot svg { width: 54px; height: 54px; color: var(--accent); opacity: 0.65; }
-.photo-slot span { font-family: var(--font-display); font-size: 1rem; color: var(--text-muted); }
-.photo-slot small { font-size: 0.78rem; max-width: 22ch; line-height: 1.5; }
 
 /* 10. KONTAKT
    ------------------------------------------------------------------------ */
@@ -813,14 +781,9 @@ section { padding-block: var(--section-pad); position: relative; }
 
 @media (max-width: 860px) {
   .project,
-  .about,
   .contact { grid-template-columns: 1fr; }
 
   .project .browser { order: -1; }
-
-  /* gestapelt wirkt ein volles Hochformat zu wuchtig */
-  .about-photo,
-  .photo-slot { aspect-ratio: 3 / 2; max-width: 420px; }
 }
 
 @media (max-width: 720px) {

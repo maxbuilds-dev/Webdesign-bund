@@ -1,10 +1,15 @@
 # webdesign-bund.at — Project Context
 
 ## Business
-- Owner: Max Bund, Einzelunternehmer (freies Gewerbe, Webdesign), Austria (Deutschlandsberg area)
+- Owner: Max Bund, Einzelunternehmen
+- Address: Alfred-Coßmann-Weg 8a, 8530 Deutschlandsberg, Austria
+- Gewerbe: **Werbegrafik-Designer (freies Gewerbe)**, GISA-Zahl 40118864,
+  Gewerbebehörde Bezirkshauptmannschaft Deutschlandsberg.
+  Note: the registered trade is Werbegrafik-Designer, not "Webdesign". The old
+  ÖNACE code 62.10-0 (Programmierungstätigkeiten) did not match it and has been
+  removed from the Impressum. Ask Max before reintroducing any ÖNACE code.
 - Brand name on the site: **Webdesign Bund** (matches the domain; do not switch to "Bund Webdesign")
 - Kleinunternehmerregelung — no VAT on invoices unless this changes
-- ÖNACE 62.10-0
 - Domain: webdesign-bund.at
 - Contact: office@webdesign-bund.at
 
@@ -55,7 +60,8 @@ HTML/CSS/JS background. Don't introduce a framework or bundler unless explicitly
 ├── js/script.js        # nav, scroll reveals, contact form
 └── assets/
     ├── fonts/          # Inter + Space Grotesk, self-hosted woff2
-    └── img/            # logo, screenshots, portrait photo
+    └── img/            # logo and screenshots. No portrait photo: Max decided
+                        # against a picture in the Über mich section.
 ```
 The HTML is deliberately not split into partials: that would need a build step or
 runtime JavaScript, both of which contradict the stack decision above.
@@ -114,12 +120,18 @@ simple bots.
 - **Enforce HTTPS** has to be switched on in the repository settings under Pages. That
   is a GitHub setting, not something in this repo.
 
-## Legal note — flag before publishing
-Impressum and Datenschutz both still contain `[PLATZHALTER]` fields and a yellow
-`.todo-box` warning at the top. **The site must not go live like this.** Missing:
-address, GISA number, exact Gewerbewortlaut, Bezirkshauptmannschaft, WKO Fachgruppe,
-optionally phone number and UID. This is not legal advice; if anything about the
-requirements looks uncertain, say so rather than asserting it.
+## Legal pages — status
+Max supplied his real business data, so both pages now carry it. Datenschutz is
+complete. Impressum has **one remaining gap**: the WKO Fachgruppe, marked with a
+`[PLATZHALTER]` and a yellow `.todo-box` right below it. § 5 Abs. 1 Z 5 ECG requires
+naming the chamber, so the site should not go live until it is filled in. Do not guess
+the Fachgruppe; it is on Max's WKO membership letter or at firmen.wko.at.
+
+No phone number and no UID: the phone number is optional under ECG §5, and as a
+Kleinunternehmer he has no UID.
+
+This is not legal advice; if anything about the requirements looks uncertain, say so
+rather than asserting it.
 
 ## Deployment
 GitHub Pages, same pattern as the Elke Bund KG site. Custom domain via the CNAME file

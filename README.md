@@ -73,12 +73,10 @@ up deliberately and are easy to break by accident:
 
 ## Before launch checklist
 
-- [ ] **Impressum**: replace every `[PLATZHALTER]` (address, GISA number,
-      Gewerbebehörde, Fachgruppe, UID if any) and delete the yellow `.todo-box`
-- [ ] **Datenschutz**: add the address, delete the yellow `.todo-box`
+- [ ] **Impressum**: one field left, the WKO Fachgruppe. Replace the
+      `[PLATZHALTER]` and delete the yellow `.todo-box` below it
+- [x] **Datenschutz**: complete, real address in place
 - [x] Hero claims confirmed by Max: "Ab 1 Woche", "100 % individuell", "Fixpreis"
-- [ ] **Photo of Max**: save as `assets/img/max.jpg` (portrait, ~800x1000 px) and
-      follow the instructions in the `FOTO EINSETZEN` comment in `index.html`
 - [ ] Swap the portfolio placeholder frame for a real screenshot of the
       Bioenergetik mq5 site (`.browser-body` in `index.html`)
 - [ ] Add an OG image (`og:image`) so shared links show a preview
