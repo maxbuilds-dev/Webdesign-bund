@@ -150,8 +150,9 @@ WKO membership itself is not in doubt: it follows automatically from holding a
 Gewerbeberechtigung (he has GISA-Zahl 40118864) and is independent of the Firmenbuch,
 where he is deliberately not registered.
 
-No phone number and no UID: the phone number is optional under ECG §5, and as a
-Kleinunternehmer he has no UID.
+Phone number: +43 664 3988466. It appears in the Impressum and as a clickable
+`tel:` link in the contact section of index.html. No UID: as a Kleinunternehmer he
+has none.
 
 This is not legal advice; if anything about the requirements looks uncertain, say so
 rather than asserting it.
