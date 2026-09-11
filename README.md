@@ -6,13 +6,26 @@ Portfolio site for the web design business. Built with Claude Code.
 
 ```
 webdesign-bund/
-├── CLAUDE.md        # project context — Claude Code reads this automatically
-├── index.html       # the page
-├── css/style.css
-├── js/script.js
-├── CNAME             # custom domain for GitHub Pages
-└── .gitignore
+├── CLAUDE.md          # project context — Claude Code reads this automatically
+├── index.html         # the one-pager (hero, Leistungen, Ablauf, Portfolio, Über mich, Kontakt)
+├── impressum.html     # Impressum / Offenlegung — STILL HAS PLACEHOLDERS
+├── datenschutz.html   # Datenschutzerklärung — STILL HAS PLACEHOLDERS
+├── 404.html           # error page in the same style
+├── css/style.css      # design system + all sections, commented in German
+├── js/script.js       # mobile nav, scroll reveals, mailto contact form
+├── robots.txt
+├── sitemap.xml
+├── CNAME              # custom domain for GitHub Pages
+├── .gitignore
+└── .design/           # design reference, not published (dot folder = ignored by Pages)
 ```
+
+## Design
+
+Dark theme built on the original design reference: background `#0A0B0F`,
+accent blue `#5B7FFF`, fonts Space Grotesk (headings) + Inter (body).
+All colours, spacing and radii are CSS custom properties at the top of
+`css/style.css` — change them there once and the whole site follows.
 
 ## Working with Claude Code
 
@@ -31,7 +44,25 @@ webdesign-bund/
 
 ## Before launch checklist
 
-- [ ] Impressum has real business details, not placeholders
-- [ ] Portfolio section links to the live Elke Bund KG site
-- [ ] Contact email is correct (office@webdesign-bund.at)
-- [ ] Mobile check — most local business owners will open this on a phone
+- [ ] **Impressum**: replace every `[PLATZHALTER]` (address, GISA number,
+      Gewerbebehörde, Fachgruppe, UID if any) and delete the yellow `.todo-box`
+- [ ] **Datenschutz**: add the address, delete the yellow `.todo-box`
+- [ ] Check the three hero claims are ones you can keep: "Ab 2 Wochen",
+      "100 % individuell", "Fixpreis"
+- [ ] Swap the portfolio placeholder frame for a real screenshot of the
+      Bioenergetik mq5 site (`.browser-body` in `index.html`)
+- [ ] Add an OG image (`og:image`) so shared links show a preview
+- [ ] Consider hosting the fonts locally instead of Google Fonts — it removes
+      the Google section from the privacy policy and loads faster
+- [x] Portfolio section links to the live Elke Bund KG site
+- [x] Contact email is correct (office@webdesign-bund.at)
+- [x] Mobile check — tested at 390 px, no horizontal scrolling
+
+## Local preview
+
+No build step. Either open `index.html` directly, or serve it so that the
+mailto form and anchors behave exactly like on the live site:
+
+```bash
+python3 -m http.server 8000   # then open http://localhost:8000
+```
