@@ -10,7 +10,7 @@
        Die Seite hat bewusst keine externen Abhaengigkeiten, deshalb ist 'self'
        ueberall ausreichend. data: nur fuer das Favicon, das als SVG direkt im
        HTML steht. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; frame-src https://maxbuilds-dev.github.io; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <title>Webdesign Bund: individuelle Websites für Unternehmen und Selbstständige</title>
@@ -173,15 +173,26 @@
             </a>
           </div>
 
-          <div class="browser" aria-hidden="true">
-            <div class="browser-bar">
+          <div class="browser">
+            <div class="browser-bar" aria-hidden="true">
               <i></i><i></i><i></i>
               <span class="browser-url">maxbuilds-dev.github.io/bioenergetikmq5</span>
             </div>
-            <div class="browser-body">
-              <div>
+
+            <!-- Solange externe Inhalte nicht freigegeben sind, steht hier nur
+                 dieser Platzhalter. Es wird nichts von einem fremden Server
+                 geladen, kein Bild, kein Skript, keine Verbindung. Erst die
+                 Freigabe setzt den iframe ein, siehe js/script.js. -->
+            <div class="browser-body" id="portfolioRahmen">
+              <div class="embed-platzhalter" id="embedPlatzhalter">
                 <span>Bioenergetik mq5</span>
-                <small>Praxis für Humanenergetik · Redesign 2026</small>
+                <small>
+                  Die Live-Vorschau wird von maxbuilds-dev.github.io geladen.
+                  Sie bleibt blockiert, bis Sie externe Inhalte freigeben.
+                </small>
+                <button type="button" class="cc-btn cc-btn-klein" id="embedErlauben">
+                  Vorschau laden
+                </button>
               </div>
             </div>
           </div>
@@ -416,30 +427,58 @@
         <a href="#kontakt" data-mail="office" data-domain="webdesign-bund.at"><span class="mail-text">office (at) webdesign-bund.at</span></a>
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
+        <button type="button" class="footer-btn" id="ccOeffnen">Cookie-Einstellungen</button>
       </nav>
     </div>
   </footer>
 
-  <!-- ===== COOKIE-LEISTE =====
-       Erscheint nur, solange keine Entscheidung gespeichert ist.
-       Aufbau und Verhalten stehen in js/script.js, Abschnitt 8. -->
-  <div class="cookie-banner" id="cookieBanner" role="dialog"
-       aria-labelledby="cookieTitel" aria-describedby="cookieText" hidden>
-    <div class="cookie-inner">
-      <div class="cookie-text">
-        <strong id="cookieTitel">Cookies</strong>
-        <p id="cookieText">
-          Diese Website verwendet keine Cookies für Werbung, Statistik oder
-          Tracking. Gespeichert wird ausschließlich Ihre Entscheidung auf
-          dieser Leiste, damit sie beim nächsten Besuch nicht erneut
-          erscheint. Lehnen Sie ab, wird nichts gespeichert.
-          <a href="datenschutz.html">Datenschutz</a>
+  <!-- ===== ZUSTIMMUNGSMANAGER =====
+       Zwei Ansichten in einem Dialog: die kurze Abfrage und die
+       ausfuehrlichen Einstellungen. Steuerung in js/script.js, Abschnitt 8.
+       Die Kategorien sind dort als Datenstruktur hinterlegt und lassen sich
+       fuer Kundenprojekte erweitern. -->
+  <div class="cc-overlay" id="ccOverlay" hidden>
+    <div class="cc-dialog" role="dialog" aria-modal="true"
+         aria-labelledby="ccTitel" id="ccDialog">
+
+      <h2 class="cc-titel" id="ccTitel">Cookies und externe Inhalte</h2>
+
+      <!-- Ansicht 1: kurze Abfrage -->
+      <div class="cc-view" id="ccKurz">
+        <p class="cc-text">
+          Diese Website benötigt einen einzigen Cookie, der Ihre Entscheidung
+          auf dieser Seite speichert. Darüber hinaus werden keine Cookies für
+          Werbung, Statistik oder Tracking gesetzt und keine Daten an Dritte
+          übertragen.
         </p>
+        <p class="cc-text">
+          Optional können Sie die Live-Vorschau im Portfolio freigeben. Sie
+          wird von einem fremden Server geladen und bleibt bis zu Ihrer
+          Zustimmung vollständig blockiert.
+        </p>
+
+        <div class="cc-actions">
+          <button type="button" class="cc-btn" id="ccEinstellungen">Einstellungen</button>
+          <button type="button" class="cc-btn" id="ccAblehnen">Alle ablehnen</button>
+          <button type="button" class="cc-btn" id="ccAnnehmen">Alle akzeptieren</button>
+        </div>
       </div>
-      <div class="cookie-actions">
-        <button type="button" class="cookie-btn cookie-btn-ablehnen" id="cookieAblehnen">Ablehnen</button>
-        <button type="button" class="cookie-btn cookie-btn-annehmen" id="cookieAnnehmen">Einverstanden</button>
+
+      <!-- Ansicht 2: Einstellungen, per JavaScript gefüllt -->
+      <div class="cc-view" id="ccDetail" hidden>
+        <div class="cc-kategorien" id="ccKategorien"></div>
+
+        <div class="cc-actions">
+          <button type="button" class="cc-btn" id="ccZurueck">Zurück</button>
+          <button type="button" class="cc-btn" id="ccSpeichern">Auswahl speichern</button>
+          <button type="button" class="cc-btn" id="ccAnnehmen2">Alle akzeptieren</button>
+        </div>
       </div>
+
+      <p class="cc-links">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </p>
     </div>
   </div>
 

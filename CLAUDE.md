@@ -115,7 +115,9 @@ simple bots.
 - **No secrets, ever.** Nothing in this repo needs a key. If a form service is ever
   added, only a public key belongs in the client, never a private one.
 - **Content Security Policy** is set as a `<meta http-equiv>` on all four pages:
-  `default-src 'none'` with `'self'` for script, style and font. GitHub Pages cannot
+  `default-src 'none'` with `'self'` for script, style and font. index.html also
+  allows `frame-src https://maxbuilds-dev.github.io`, the single narrow exception,
+  for the consent gated portfolio preview. Do not widen it. GitHub Pages cannot
   send real HTTP headers, so the meta tag is the only option here. Consequence:
   **no inline `<style>` blocks, no inline `<script>`, no `style="..."` attributes.**
   Put new CSS in `css/style.css` and new JS in `js/script.js`, otherwise it is blocked
@@ -130,6 +132,13 @@ simple bots.
   ECG §5 requires it to be directly and permanently accessible, and hiding it behind
   JavaScript there would be legally risky. This means a determined scraper can still
   find it there. The obfuscation only reduces volume from the most visited page.
+- **Consent manager** in `js/script.js` section 8. Categories are a data structure
+  (`CC_KATEGORIEN`) so client projects can add Statistik or more embeds without
+  touching the logic. Rules that must not be softened: all buttons identical in
+  size and colour, refusal stored so it is honoured, withdrawal via the footer
+  button, Escape counts as refusal, and **nothing external loads before consent**
+  (the portfolio iframe is created at runtime, it is not in the HTML). Bump
+  `CC_VERSION` when the category list changes so visitors are asked again.
 - **`css/nojs.css`** is loaded inside `<noscript>`. Without it the `.reveal` elements
   stay at `opacity: 0` and most of the page is blank for visitors without JavaScript.
   If you add new `.reveal` elements, this file already covers them.

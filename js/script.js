@@ -8,7 +8,7 @@
    5. Elemente beim Scrollen einblenden
    6. Kontaktformular, baut eine fertige Mail im Mailprogramm
    7. Mailadressen in den Links zusammensetzen
-   8. Cookie-Leiste
+   8. Zustimmungsmanager fuer Cookies und externe Inhalte
    9. Jahreszahl im Footer
    ========================================================================== */
 
@@ -212,60 +212,294 @@
     }
   );
 
-  /* 8. COOKIE-LEISTE ------------------------------------------------------- */
-  /* Die Seite setzt keine Cookies fuer Werbung, Statistik oder Tracking.
-     Gespeichert wird nur die Entscheidung selbst, und auch die nur bei
-     Zustimmung. Wer ablehnt, hinterlaesst nichts: die Leiste erscheint beim
-     naechsten Besuch wieder. Das ist ehrlicher als ein Ablehnen, das
-     seinerseits eine Spur hinterlaesst. */
-  var COOKIE_NAME = 'zustimmung';
+  /* 8. ZUSTIMMUNGSMANAGER --------------------------------------------------
+     Kategorien stehen unten als Datenstruktur. Fuer ein Kundenprojekt mit
+     Statistik oder eingebetteten Videos wird hier ein Eintrag ergaenzt, der
+     Rest funktioniert unveraendert weiter.
 
+     Grundsatz: nichts wird geladen, bevor zugestimmt wurde. Der iframe im
+     Portfolio entsteht erst nach der Freigabe, vorher steht dort nur ein
+     Platzhalter und es geht keine einzige Verbindung nach aussen.        */
+
+  /* --- Cookies lesen und schreiben -------------------------------------- */
   function cookieLesen(name) {
     var treffer = document.cookie.split('; ').filter(function (teil) {
       return teil.indexOf(name + '=') === 0;
     });
-    return treffer.length ? decodeURIComponent(treffer[0].split('=')[1]) : null;
+    return treffer.length ? decodeURIComponent(treffer[0].split('=').slice(1).join('=')) : null;
   }
 
   function cookieSetzen(name, wert, tage) {
-    var ablauf = 'max-age=' + (tage * 24 * 60 * 60);
-    /* Secure nur ueber https, sonst wuerde der Cookie beim lokalen Testen
-       ueber http gar nicht erst gesetzt. */
+    /* Secure nur ueber https, sonst liesse sich lokal nicht testen. */
     var sicher = window.location.protocol === 'https:' ? '; Secure' : '';
     document.cookie = name + '=' + encodeURIComponent(wert) +
-      '; ' + ablauf + '; path=/; SameSite=Lax' + sicher;
+      '; max-age=' + (tage * 24 * 60 * 60) + '; path=/; SameSite=Lax' + sicher;
   }
 
-  var banner = document.getElementById('cookieBanner');
+  var CC_NAME = 'zustimmung';
+  var CC_VERSION = 1;   /* aendert sich die Liste unten, hochzaehlen.
+                           Dann wird erneut gefragt, statt eine veraltete
+                           Zustimmung weiterzuverwenden. */
 
-  if (banner && cookieLesen(COOKIE_NAME) === null) {
-    banner.hidden = false;
-
-    var annehmen = document.getElementById('cookieAnnehmen');
-    var ablehnen = document.getElementById('cookieAblehnen');
-
-    function leisteSchliessen() {
-      banner.hidden = true;
+  var CC_KATEGORIEN = [
+    {
+      id: 'notwendig',
+      titel: 'Notwendig',
+      pflicht: true,
+      zweck: 'Speichert ausschließlich Ihre Entscheidung auf dieser Seite, ' +
+             'damit die Abfrage nicht bei jedem Besuch erneut erscheint.',
+      eintraege: [
+        {
+          name: 'zustimmung',
+          dauer: '1 Jahr',
+          text: 'Enthält das Datum Ihrer Entscheidung und welche Kategorien ' +
+                'Sie freigegeben haben. Keine Kennung, keine Auswertung, ' +
+                'keine Weitergabe.'
+        }
+      ]
+    },
+    {
+      id: 'extern',
+      titel: 'Externe Inhalte',
+      pflicht: false,
+      zweck: 'Erlaubt die Live-Vorschau im Portfolio. Sie wird direkt von ' +
+             'maxbuilds-dev.github.io geladen. Ohne Freigabe wird diese ' +
+             'Verbindung nicht aufgebaut.',
+      eintraege: [
+        {
+          name: 'keine Cookies',
+          dauer: 'entfällt',
+          text: 'Die Vorschau selbst setzt keine Cookies. Beim Laden erfährt ' +
+                'der fremde Server jedoch die Adresse Ihres Internetanschlusses, ' +
+                'weil jede Verbindung technisch bedingt eine Adresse benötigt.'
+        }
+      ]
     }
+  ];
 
-    if (annehmen) {
-      annehmen.addEventListener('click', function () {
-        cookieSetzen(COOKIE_NAME, 'ja', 365);
-        leisteSchliessen();
-      });
+  var overlay   = document.getElementById('ccOverlay');
+  var dialog    = document.getElementById('ccDialog');
+  var ansichtKurz   = document.getElementById('ccKurz');
+  var ansichtDetail = document.getElementById('ccDetail');
+
+  function ccLesen() {
+    var roh = cookieLesen(CC_NAME);
+    if (!roh) return null;
+    try {
+      var daten = JSON.parse(roh);
+      /* veraltete Fassung: erneut fragen */
+      if (daten.v !== CC_VERSION) return null;
+      return daten;
+    } catch (e) {
+      return null;
     }
+  }
 
-    if (ablehnen) {
-      ablehnen.addEventListener('click', function () {
-        /* bewusst kein Cookie: Ablehnen speichert nichts */
-        leisteSchliessen();
-      });
-    }
-
-    /* Escape schliesst die Leiste, ohne etwas zu speichern */
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !banner.hidden) leisteSchliessen();
+  function ccSpeichern(auswahl) {
+    var daten = { v: CC_VERSION, zeit: new Date().toISOString().slice(0, 10) };
+    CC_KATEGORIEN.forEach(function (k) {
+      daten[k.id] = k.pflicht ? true : !!auswahl[k.id];
     });
+    cookieSetzen(CC_NAME, JSON.stringify(daten), 365);
+    ccAnwenden(daten);
+    ccSchliessen();
+  }
+
+  /* --- Wirkung der Entscheidung ---------------------------------------- */
+  var EMBED_URL = 'https://maxbuilds-dev.github.io/bioenergetikmq5/index.html';
+
+  function ccAnwenden(daten) {
+    var rahmen = document.getElementById('portfolioRahmen');
+    if (!rahmen) return;
+
+    if (daten && daten.extern) {
+      if (rahmen.querySelector('iframe')) return;
+      var platzhalter = document.getElementById('embedPlatzhalter');
+      if (platzhalter) platzhalter.hidden = true;
+      var rahmenFenster = document.createElement('iframe');
+      rahmenFenster.src = EMBED_URL;
+      rahmenFenster.title = 'Live-Vorschau der Website Bioenergetik mq5';
+      rahmenFenster.loading = 'lazy';
+      rahmenFenster.referrerPolicy = 'no-referrer';
+      rahmenFenster.className = 'embed-rahmen';
+      rahmen.appendChild(rahmenFenster);
+    } else {
+      /* Freigabe zurueckgenommen: iframe entfernen, Platzhalter zurueck */
+      var vorhanden = rahmen.querySelector('iframe');
+      if (vorhanden) vorhanden.remove();
+      var ph = document.getElementById('embedPlatzhalter');
+      if (ph) ph.hidden = false;
+    }
+  }
+
+  /* --- Einstellungen aufbauen ------------------------------------------- */
+  function ccDetailAufbauen(daten) {
+    var ziel = document.getElementById('ccKategorien');
+    if (!ziel) return;
+    ziel.textContent = '';
+
+    CC_KATEGORIEN.forEach(function (k) {
+      var block = document.createElement('div');
+      block.className = 'cc-kat';
+
+      var kopf = document.createElement('div');
+      kopf.className = 'cc-kat-kopf';
+
+      var name = document.createElement('span');
+      name.className = 'cc-kat-titel';
+      name.textContent = k.titel;
+      kopf.appendChild(name);
+
+      var schalter = document.createElement('label');
+      schalter.className = 'cc-schalter';
+
+      var box = document.createElement('input');
+      box.type = 'checkbox';
+      box.id = 'cc-' + k.id;
+      box.checked = k.pflicht ? true : !!(daten && daten[k.id]);
+      box.disabled = !!k.pflicht;
+      box.setAttribute('aria-label',
+        k.pflicht ? k.titel + ', immer aktiv' : k.titel + ' erlauben');
+
+      var regler = document.createElement('span');
+      regler.className = 'cc-regler';
+      regler.setAttribute('aria-hidden', 'true');
+
+      schalter.appendChild(box);
+      schalter.appendChild(regler);
+      kopf.appendChild(schalter);
+      block.appendChild(kopf);
+
+      if (k.pflicht) {
+        var hinweis = document.createElement('span');
+        hinweis.className = 'cc-pflicht';
+        hinweis.textContent = 'immer aktiv';
+        block.appendChild(hinweis);
+      }
+
+      var zweck = document.createElement('p');
+      zweck.className = 'cc-kat-zweck';
+      zweck.textContent = k.zweck;
+      block.appendChild(zweck);
+
+      k.eintraege.forEach(function (e) {
+        var zeile = document.createElement('div');
+        zeile.className = 'cc-eintrag';
+
+        var code = document.createElement('code');
+        code.textContent = e.name;
+        zeile.appendChild(code);
+
+        var text = document.createElement('p');
+        text.textContent = e.text;
+        zeile.appendChild(text);
+
+        var dauer = document.createElement('span');
+        dauer.className = 'cc-dauer';
+        dauer.textContent = e.dauer;
+        zeile.appendChild(dauer);
+
+        block.appendChild(zeile);
+      });
+
+      ziel.appendChild(block);
+    });
+  }
+
+  /* --- Anzeigen und schliessen ------------------------------------------ */
+  var ccZuletztFokussiert = null;
+
+  function ccOeffnen(detail) {
+    if (!overlay) return;
+    ccZuletztFokussiert = document.activeElement;
+    ccDetailAufbauen(ccLesen());
+    ansichtKurz.hidden = !!detail;
+    ansichtDetail.hidden = !detail;
+    overlay.hidden = false;
+    document.body.classList.add('cc-offen');
+    var ersterKnopf = dialog.querySelector('button:not([hidden])');
+    if (ersterKnopf) ersterKnopf.focus();
+  }
+
+  function ccSchliessen() {
+    if (!overlay) return;
+    overlay.hidden = true;
+    document.body.classList.remove('cc-offen');
+    if (ccZuletztFokussiert && ccZuletztFokussiert.focus) ccZuletztFokussiert.focus();
+  }
+
+  function ccAlle(wert) {
+    var auswahl = {};
+    CC_KATEGORIEN.forEach(function (k) { auswahl[k.id] = wert; });
+    ccSpeichern(auswahl);
+  }
+
+  if (overlay) {
+    document.getElementById('ccAnnehmen').addEventListener('click', function () { ccAlle(true); });
+    document.getElementById('ccAnnehmen2').addEventListener('click', function () { ccAlle(true); });
+    document.getElementById('ccAblehnen').addEventListener('click', function () { ccAlle(false); });
+
+    document.getElementById('ccEinstellungen').addEventListener('click', function () {
+      ansichtKurz.hidden = true;
+      ansichtDetail.hidden = false;
+      document.getElementById('ccZurueck').focus();
+    });
+
+    document.getElementById('ccZurueck').addEventListener('click', function () {
+      ansichtDetail.hidden = true;
+      ansichtKurz.hidden = false;
+      document.getElementById('ccEinstellungen').focus();
+    });
+
+    document.getElementById('ccSpeichern').addEventListener('click', function () {
+      var auswahl = {};
+      CC_KATEGORIEN.forEach(function (k) {
+        var box = document.getElementById('cc-' + k.id);
+        auswahl[k.id] = box ? box.checked : false;
+      });
+      ccSpeichern(auswahl);
+    });
+
+    var oeffner = document.getElementById('ccOeffnen');
+    if (oeffner) oeffner.addEventListener('click', function () { ccOeffnen(true); });
+
+    /* Klick auf "Vorschau laden" gibt genau diese eine Kategorie frei */
+    var embedKnopf = document.getElementById('embedErlauben');
+    if (embedKnopf) {
+      embedKnopf.addEventListener('click', function () {
+        var bisher = ccLesen() || {};
+        var auswahl = {};
+        CC_KATEGORIEN.forEach(function (k) { auswahl[k.id] = !!bisher[k.id]; });
+        auswahl.extern = true;
+        ccSpeichern(auswahl);
+      });
+    }
+
+    /* Escape zaehlt als Ablehnung, nicht als stille Zustimmung */
+    document.addEventListener('keydown', function (e) {
+      if (overlay.hidden) return;
+      if (e.key === 'Escape') { ccAlle(false); return; }
+      if (e.key !== 'Tab') return;
+      /* Fokus im Dialog halten */
+      var ziele = dialog.querySelectorAll('button:not([disabled]), a[href], input:not([disabled])');
+      var sichtbar = Array.prototype.filter.call(ziele, function (el) {
+        return el.offsetParent !== null;
+      });
+      if (!sichtbar.length) return;
+      var erster = sichtbar[0], letzter = sichtbar[sichtbar.length - 1];
+      if (e.shiftKey && document.activeElement === erster) {
+        e.preventDefault(); letzter.focus();
+      } else if (!e.shiftKey && document.activeElement === letzter) {
+        e.preventDefault(); erster.focus();
+      }
+    });
+
+    var gespeichert = ccLesen();
+    if (gespeichert) {
+      ccAnwenden(gespeichert);
+    } else {
+      ccOeffnen(false);
+    }
   }
 
   /* 9. JAHRESZAHL --------------------------------------------------------- */
