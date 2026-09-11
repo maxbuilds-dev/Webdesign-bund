@@ -8,7 +8,8 @@
    5. Elemente beim Scrollen einblenden
    6. Kontaktformular, baut eine fertige Mail im Mailprogramm
    7. Mailadressen in den Links zusammensetzen
-   8. Jahreszahl im Footer
+   8. Cookie-Leiste
+   9. Jahreszahl im Footer
    ========================================================================== */
 
 (function () {
@@ -211,7 +212,63 @@
     }
   );
 
-  /* 8. JAHRESZAHL --------------------------------------------------------- */
+  /* 8. COOKIE-LEISTE ------------------------------------------------------- */
+  /* Die Seite setzt keine Cookies fuer Werbung, Statistik oder Tracking.
+     Gespeichert wird nur die Entscheidung selbst, und auch die nur bei
+     Zustimmung. Wer ablehnt, hinterlaesst nichts: die Leiste erscheint beim
+     naechsten Besuch wieder. Das ist ehrlicher als ein Ablehnen, das
+     seinerseits eine Spur hinterlaesst. */
+  var COOKIE_NAME = 'zustimmung';
+
+  function cookieLesen(name) {
+    var treffer = document.cookie.split('; ').filter(function (teil) {
+      return teil.indexOf(name + '=') === 0;
+    });
+    return treffer.length ? decodeURIComponent(treffer[0].split('=')[1]) : null;
+  }
+
+  function cookieSetzen(name, wert, tage) {
+    var ablauf = 'max-age=' + (tage * 24 * 60 * 60);
+    /* Secure nur ueber https, sonst wuerde der Cookie beim lokalen Testen
+       ueber http gar nicht erst gesetzt. */
+    var sicher = window.location.protocol === 'https:' ? '; Secure' : '';
+    document.cookie = name + '=' + encodeURIComponent(wert) +
+      '; ' + ablauf + '; path=/; SameSite=Lax' + sicher;
+  }
+
+  var banner = document.getElementById('cookieBanner');
+
+  if (banner && cookieLesen(COOKIE_NAME) === null) {
+    banner.hidden = false;
+
+    var annehmen = document.getElementById('cookieAnnehmen');
+    var ablehnen = document.getElementById('cookieAblehnen');
+
+    function leisteSchliessen() {
+      banner.hidden = true;
+    }
+
+    if (annehmen) {
+      annehmen.addEventListener('click', function () {
+        cookieSetzen(COOKIE_NAME, 'ja', 365);
+        leisteSchliessen();
+      });
+    }
+
+    if (ablehnen) {
+      ablehnen.addEventListener('click', function () {
+        /* bewusst kein Cookie: Ablehnen speichert nichts */
+        leisteSchliessen();
+      });
+    }
+
+    /* Escape schliesst die Leiste, ohne etwas zu speichern */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !banner.hidden) leisteSchliessen();
+    });
+  }
+
+  /* 9. JAHRESZAHL --------------------------------------------------------- */
   var jahr = document.getElementById('jahr');
   if (jahr) jahr.textContent = String(new Date().getFullYear());
 

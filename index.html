@@ -420,6 +420,29 @@
     </div>
   </footer>
 
+  <!-- ===== COOKIE-LEISTE =====
+       Erscheint nur, solange keine Entscheidung gespeichert ist.
+       Aufbau und Verhalten stehen in js/script.js, Abschnitt 8. -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog"
+       aria-labelledby="cookieTitel" aria-describedby="cookieText" hidden>
+    <div class="cookie-inner">
+      <div class="cookie-text">
+        <strong id="cookieTitel">Cookies</strong>
+        <p id="cookieText">
+          Diese Website verwendet keine Cookies für Werbung, Statistik oder
+          Tracking. Gespeichert wird ausschließlich Ihre Entscheidung auf
+          dieser Leiste, damit sie beim nächsten Besuch nicht erneut
+          erscheint. Lehnen Sie ab, wird nichts gespeichert.
+          <a href="datenschutz.html">Datenschutz</a>
+        </p>
+      </div>
+      <div class="cookie-actions">
+        <button type="button" class="cookie-btn cookie-btn-ablehnen" id="cookieAblehnen">Ablehnen</button>
+        <button type="button" class="cookie-btn cookie-btn-annehmen" id="cookieAnnehmen">Einverstanden</button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/script.js"></script>
 </body>
 </html>
