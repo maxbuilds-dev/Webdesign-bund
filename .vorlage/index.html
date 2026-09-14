@@ -19,7 +19,7 @@
        eine eigene Erlaubnis. Dann ergaenzen:
          frame-src https://www.google.com;
        Immer nur die eine konkrete Adresse, niemals ein Platzhalterzeichen. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; frame-src https://www.google.com https://www.youtube-nocookie.com; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <title>[PLATZHALTER: Seitentitel]</title>
@@ -69,6 +69,71 @@
       <div class="container">
         <h1>[PLATZHALTER: Überschrift]</h1>
         <p class="reveal">[PLATZHALTER: Text]</p>
+      </div>
+    </section>
+
+    <!-- ===== EINGEBETTETE INHALTE =====
+         Beide bleiben blockiert, bis der Besucher die jeweilige Kategorie
+         freigibt. Im HTML steht nur die Adresse als data-src, kein iframe.
+         js/script.js erzeugt ihn erst nach der Zustimmung.
+
+         Nicht benoetigte Einbettung ersatzlos loeschen, dann auch die
+         Kategorie in js/script.js, den Eintrag in der CSP oben und den
+         Abschnitt in datenschutz.html. -->
+    <section id="anfahrt">
+      <div class="container">
+        <h2>Anfahrt</h2>
+
+        <div class="einbettung"
+             data-kategorie="maps"
+             data-titel="Karte mit dem Standort"
+             data-src="https://www.google.com/maps?q=[PLATZHALTER-ADRESSE]&amp;output=embed">
+          <div class="einbettung-platzhalter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>Karte</span>
+            <small>
+              Die Karte wird von Google geladen. Dabei erfährt Google die
+              Adresse Ihres Internetanschlusses.
+            </small>
+            <button type="button" class="cc-btn cc-btn-klein" data-freigeben="maps">
+              Karte laden
+            </button>
+          </div>
+        </div>
+
+        <p class="einbettung-hinweis">
+          Adresse: [PLATZHALTER: Straße, PLZ Ort]
+        </p>
+      </div>
+    </section>
+
+    <section id="video">
+      <div class="container">
+        <h2>[PLATZHALTER: Überschrift]</h2>
+
+        <div class="einbettung"
+             data-kategorie="youtube"
+             data-titel="[PLATZHALTER: Beschreibung des Videos]"
+             data-src="https://www.youtube-nocookie.com/embed/[PLATZHALTER-VIDEO-ID]">
+          <div class="einbettung-platzhalter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="m10 8 6 4-6 4z"></path>
+            </svg>
+            <span>Video</span>
+            <small>
+              Das Video wird von youtube-nocookie.com geladen, dem
+              datensparsameren Zugang von YouTube. Dabei erfährt Google die
+              Adresse Ihres Internetanschlusses.
+            </small>
+            <button type="button" class="cc-btn cc-btn-klein" data-freigeben="youtube">
+              Video laden
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 

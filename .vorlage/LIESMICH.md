@@ -24,6 +24,8 @@ Dann in dieser Reihenfolge:
 |---|---|
 | Content Security Policy auf jeder Seite | alle HTML-Dateien |
 | Zustimmungsmanager mit Kategorien und Details | `js/script.js`, `css/style.css` |
+| Google Maps, blockiert bis zur Freigabe | `index.html`, `js/script.js` |
+| YouTube über youtube-nocookie.com, blockiert bis zur Freigabe | `index.html`, `js/script.js` |
 | Mailadresse gegen Spam-Sammler verschleiert | `index.html`, `js/script.js` |
 | Kontaktformular ohne Server, mit Bot-Falle | `index.html`, `js/script.js` |
 | Notfall-Stile ohne JavaScript | `css/nojs.css` |
@@ -47,19 +49,46 @@ Selbst hosten kostet vier Dateien.
 eingebettete Dienst, jeder Cookie muss dort auftauchen. Das ist der häufigste
 Fehler überhaupt.
 
-## Eine Kategorie ergänzen
+## Karte und Video
 
-Für ein Projekt mit Google Maps, YouTube oder Statistik:
+Beide sind fertig eingebaut und bis zur Freigabe vollständig blockiert.
 
-1. In `js/script.js` in `CC_KATEGORIEN` einen Eintrag ergänzen. Ein
-   auskommentiertes Beispiel steht dort.
-2. `CC_VERSION` um eins hochzählen, damit alte Zustimmungen neu abgefragt werden.
-3. In `ccAnwenden()` eintragen, was die Freigabe bewirkt. Das eingebettete
-   Element **erst dort** erzeugen, niemals ins HTML schreiben.
-4. In der Sicherheitsrichtlinie der betroffenen Seite `frame-src` um genau
-   diese eine Adresse erweitern.
-5. Den auskommentierten Abschnitt in `datenschutz.html` einkommentieren und
-   ausfüllen.
+**Karte:** In `index.html` im Abschnitt Anfahrt die Adresse in `data-src`
+eintragen, an der Stelle `[PLATZHALTER-ADRESSE]`. Format:
+`https://www.google.com/maps?q=Strasse+1,+8530+Ort&output=embed`
+
+**Video:** Im Abschnitt Video die Video-Kennung in `data-src` eintragen. Die
+steht in jeder YouTube-Adresse hinter `v=`. Verwendet wird bewusst
+`youtube-nocookie.com`, der datensparsamere Zugang.
+
+**Nicht benötigt?** Dann an vier Stellen löschen:
+1. den `<section>` in `index.html`
+2. die Kategorie in `CC_KATEGORIEN` in `js/script.js`
+3. den Eintrag in `frame-src` in der Sicherheitsrichtlinie in `index.html`
+4. den Abschnitt in `datenschutz.html`
+
+### Eine weitere Einbettung ergänzen
+
+Jedes Element mit der Klasse `.einbettung` funktioniert automatisch. Es braucht
+nur drei Attribute:
+
+```html
+<div class="einbettung"
+     data-kategorie="<id aus CC_KATEGORIEN>"
+     data-titel="<Beschreibung für Screenreader>"
+     data-src="<Adresse>">
+```
+
+Für einen neuen Anbieter zusätzlich:
+
+1. In `js/script.js` in `CC_KATEGORIEN` einen Eintrag ergänzen
+2. `CC_VERSION` um eins hochzählen, damit alte Zustimmungen neu abgefragt werden
+3. `frame-src` in der Sicherheitsrichtlinie um genau diese eine Adresse erweitern
+4. Einen Abschnitt in `datenschutz.html` ergänzen
+
+**Warum je Anbieter eine eigene Kategorie und kein Sammeltopf?** Eine Zustimmung
+muss sich auf einen konkreten Empfänger beziehen. Wer nur die Karte sehen will,
+soll YouTube nicht mitfreigeben müssen.
 
 ## Abnahmeprüfung
 
@@ -72,5 +101,9 @@ Vor der Übergabe an den Kunden:
 - [ ] Kein seitliches Scrollen bei 390 Pixel
 - [ ] GitHub Pages auf `main`, Domain eingetragen, Enforce HTTPS aktiv
 
-Ausführliche Anleitung samt fertigem Prompt: `PROJEKTSTART.md` im
-Wurzelverzeichnis.
+## Kein Vorschaubild vom Anbieter
+
+Der Platzhalter zeigt ein gezeichnetes Symbol, kein YouTube-Vorschaubild. Das
+ist Absicht: ein Vorschaubild käme von Googles Servern und wäre damit bereits
+die Verbindung, die die Zustimmung verhindern soll. Genau daran scheitern viele
+Umsetzungen, die sonst richtig aussehen.

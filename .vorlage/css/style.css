@@ -587,33 +587,61 @@ body.cc-offen { overflow: hidden; }
   outline-offset: 3px;
 }
 
-/* Platzhalter und Rahmen fuer die blockierte Vorschau */
-.embed-platzhalter {
+/* Eingebettete Inhalte, solange sie blockiert sind
+   ------------------------------------------------------------------------
+   Der Platzhalter laedt nichts nach. Bewusst kein Vorschaubild von YouTube:
+   das waere bereits eine Verbindung zu Google, also genau das, was die
+   Zustimmung verhindern soll. Deshalb ein gezeichnetes Symbol. */
+.einbettung {
+  position: relative;
   display: grid;
-  place-items: center;
-  gap: 0.4rem;
-  text-align: center;
-  padding: 1.5rem;
-}
-.embed-platzhalter[hidden] { display: none; }
-.embed-platzhalter span {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: var(--text);
-}
-.embed-platzhalter small {
-  font-size: 0.78rem;
-  color: var(--text-dim);
-  max-width: 34ch;
-  line-height: 1.5;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-hi);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(91, 127, 255, 0.12), transparent 70%),
+    var(--surface);
 }
 
-.embed-rahmen {
+.einbettung iframe {
   width: 100%;
   height: 100%;
   border: 0;
   display: block;
-  background: var(--bg-soft);
+}
+
+.einbettung-platzhalter {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  padding: 1.5rem;
+}
+.einbettung-platzhalter[hidden] { display: none; }
+.einbettung-platzhalter svg {
+  width: 44px;
+  height: 44px;
+  color: var(--accent);
+  opacity: 0.7;
+}
+.einbettung-platzhalter span {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--text);
+}
+.einbettung-platzhalter small {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+  max-width: 40ch;
+}
+
+.einbettung-hinweis {
+  margin-top: 0.9rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
 }
 
 /* Schaltflaeche in der Fusszeile, sieht aus wie die Links daneben */

@@ -107,25 +107,47 @@
         }
       ]
     },
-    /* BEISPIEL fuer ein Projekt mit eingebetteter Karte oder Video.
-       Einkommentieren, CC_VERSION hochzaehlen, in ccAnwenden() die Wirkung
-       ergaenzen und frame-src in der CSP der Seite erlauben.
+    /* Je Anbieter eine eigene Kategorie. Ein Sammeltopf "Externe Inhalte"
+       waere bequemer, aber eine Zustimmung muss sich auf einen konkreten
+       Empfaenger beziehen. Wer nur die Karte will, soll nicht YouTube
+       mitfreigeben muessen.
 
+       Nicht benoetigte Kategorie loeschen, samt Abschnitt in index.html,
+       Eintrag in der CSP und Abschnitt in datenschutz.html. */
     {
-      id: 'extern',
-      titel: 'Externe Inhalte',
+      id: 'maps',
+      titel: 'Google Maps',
       pflicht: false,
-      zweck: 'Erlaubt das Laden von <Dienst>. Ohne Freigabe wird diese ' +
-             'Verbindung nicht aufgebaut.',
+      zweck: 'Zeigt die Karte mit dem Standort. Ohne Freigabe wird keine ' +
+             'Verbindung zu Google aufgebaut.',
       eintraege: [
         {
-          name: '<Cookiename oder "keine Cookies">',
-          dauer: '<Laufzeit>',
-          text: '<Was der Anbieter erfaehrt, in klaren Worten>'
+          name: 'Google Maps',
+          dauer: 'siehe Google',
+          text: 'Anbieter ist Google Ireland Limited, Gordon House, Barrow ' +
+                'Street, Dublin 4, Irland. Beim Laden erfährt Google die ' +
+                'Adresse Ihres Internetanschlusses, Datum und Uhrzeit sowie ' +
+                'Angaben zu Ihrem Browser und setzt eigene Cookies.'
+        }
+      ]
+    },
+    {
+      id: 'youtube',
+      titel: 'YouTube',
+      pflicht: false,
+      zweck: 'Zeigt eingebettete Videos. Ohne Freigabe wird keine Verbindung ' +
+             'zu YouTube aufgebaut.',
+      eintraege: [
+        {
+          name: 'youtube-nocookie.com',
+          dauer: 'siehe Google',
+          text: 'Verwendet wird der datensparsamere Zugang von YouTube, der ' +
+                'erst beim Abspielen Cookies setzt. Beim Laden erfährt Google ' +
+                'dennoch die Adresse Ihres Internetanschlusses, Datum und ' +
+                'Uhrzeit sowie Angaben zu Ihrem Browser.'
         }
       ]
     }
-    */
   ];
 
   var overlay   = document.getElementById('ccOverlay');
@@ -157,26 +179,38 @@
   }
 
   /* --- Wirkung der Entscheidung ----------------------------------------
-     Hier steht, was eine Kategorie tatsaechlich bewirkt. Grundsatz: nichts
-     Externes darf im HTML stehen. Erzeuge es erst hier, zur Laufzeit, und
-     entferne es wieder, wenn die Freigabe zurueckgenommen wird.
+     Jedes Element mit der Klasse .einbettung traegt in data-kategorie, zu
+     welcher Kategorie es gehoert, und in data-src die Adresse. Der iframe
+     entsteht erst hier, zur Laufzeit. Im HTML steht er nicht, deshalb geht
+     vor der Zustimmung nachweislich keine Verbindung nach aussen.
 
-     Beispiel fuer eine eingebettete Karte:
-
-       if (daten && daten.extern) {
-         if (ziel.querySelector('iframe')) return;
-         var rahmen = document.createElement('iframe');
-         rahmen.src = '<Adresse>';
-         rahmen.title = '<Beschreibung>';
-         rahmen.loading = 'lazy';
-         rahmen.referrerPolicy = 'no-referrer';
-         ziel.appendChild(rahmen);
-       } else {
-         var da = ziel.querySelector('iframe');
-         if (da) da.remove();
-       }                                                                  */
+     Wird eine Freigabe zurueckgenommen, verschwindet der iframe sofort
+     wieder und der Platzhalter kommt zurueck.                            */
   function ccAnwenden(daten) {
-    /* absichtlich leer, solange das Projekt nichts Externes laedt */
+    Array.prototype.forEach.call(
+      document.querySelectorAll('.einbettung'),
+      function (feld) {
+        var kategorie = feld.getAttribute('data-kategorie');
+        var erlaubt = !!(daten && daten[kategorie]);
+        var platzhalter = feld.querySelector('.einbettung-platzhalter');
+        var vorhanden = feld.querySelector('iframe');
+
+        if (erlaubt) {
+          if (vorhanden) return;
+          if (platzhalter) platzhalter.hidden = true;
+          var rahmen = document.createElement('iframe');
+          rahmen.src = feld.getAttribute('data-src');
+          rahmen.title = feld.getAttribute('data-titel') || 'Eingebetteter Inhalt';
+          rahmen.loading = 'lazy';
+          rahmen.referrerPolicy = 'no-referrer';
+          rahmen.allowFullscreen = true;
+          feld.appendChild(rahmen);
+        } else {
+          if (vorhanden) vorhanden.remove();
+          if (platzhalter) platzhalter.hidden = false;
+        }
+      }
+    );
   }
 
   /* --- Einstellungen aufbauen ------------------------------------------- */
@@ -310,17 +344,21 @@
     var oeffner = document.getElementById('ccOeffnen');
     if (oeffner) oeffner.addEventListener('click', function () { ccOeffnen(true); });
 
-    /* Klick auf "Vorschau laden" gibt genau diese eine Kategorie frei */
-    var embedKnopf = document.getElementById('embedErlauben');
-    if (embedKnopf) {
-      embedKnopf.addEventListener('click', function () {
-        var bisher = ccLesen() || {};
-        var auswahl = {};
-        CC_KATEGORIEN.forEach(function (k) { auswahl[k.id] = !!bisher[k.id]; });
-        auswahl.extern = true;
-        ccSpeichern(auswahl);
-      });
-    }
+    /* Ein Klick auf "Karte laden" oder "Video laden" gibt genau diese eine
+       Kategorie frei, nicht alle. Das ist der schnellste Weg fuer den
+       Besucher und bleibt trotzdem eine bewusste Einzelentscheidung. */
+    Array.prototype.forEach.call(
+      document.querySelectorAll('[data-freigeben]'),
+      function (knopf) {
+        knopf.addEventListener('click', function () {
+          var bisher = ccLesen() || {};
+          var auswahl = {};
+          CC_KATEGORIEN.forEach(function (k) { auswahl[k.id] = !!bisher[k.id]; });
+          auswahl[knopf.getAttribute('data-freigeben')] = true;
+          ccSpeichern(auswahl);
+        });
+      }
+    );
 
     /* Escape zaehlt als Ablehnung, nicht als stille Zustimmung */
     document.addEventListener('keydown', function (e) {
