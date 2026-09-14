@@ -7,8 +7,9 @@ statt in zwanzig Runden entsteht.
 Der Ablauf hat drei Schritte:
 
 1. Daten beim Kunden einsammeln, siehe Abschnitt 1
-2. `CLAUDE.md` ins leere Repo legen, siehe Abschnitt 2
-3. Den Prompt aus Abschnitt 3 ausfüllen und abschicken
+2. Grundgerüst aus `.vorlage/` kopieren, siehe Abschnitt 2
+3. `CLAUDE.md` ausfüllen, siehe Abschnitt 3
+4. Den Prompt aus Abschnitt 4 ausfüllen und abschicken
 
 ---
 
@@ -58,7 +59,26 @@ kostenlose Auskunft.
 
 ---
 
-## 2. CLAUDE.md ins Repo legen
+## 2. Grundgerüst kopieren
+
+Im Ordner `.vorlage/` liegt ein fertiges, getestetes Grundgerüst mit der
+kompletten Sicherheits- und Rechtsmaschinerie, ohne Gestaltung.
+
+```bash
+cp -r .vorlage/. ../neues-projekt/
+grep -rn "PLATZHALTER" .
+```
+
+Darin enthalten: Content Security Policy, Zustimmungsmanager mit Kategorien,
+verschleierte Mailadresse, Kontaktformular mit Bot-Falle, Notfall-Stile ohne
+JavaScript, Impressum, Datenschutz, Fehlerseite, robots.txt, sitemap.xml und
+eine ausfüllbare `CLAUDE.md`. Einzelheiten in `.vorlage/LIESMICH.md`.
+
+Wenn du das Grundgerüst verwendest, überspringst du in Abschnitt 3 alles unter
+SICHERHEIT und die beiden Rechtsblöcke. Es genügt dann der Satz:
+"Baue auf dem Grundgerüst aus .vorlage auf, die Sicherheitsvorgaben bleiben."
+
+## 3. CLAUDE.md ins Repo legen
 
 Lege diese Datei als `CLAUDE.md` ins leere Repo, **bevor** du den Prompt
 abschickst. Ich lese sie automatisch und muss dann nicht jedes Mal nachfragen.
@@ -100,7 +120,7 @@ Direkt auf main arbeiten, kein Feature-Branch, kein Pull Request.
 
 ---
 
-## 3. Der Prompt
+## 4. Der Prompt
 
 Kopieren, die Klammern ausfüllen, abschicken. Alles in einem Stück.
 
@@ -206,7 +226,7 @@ Zeig mir am Ende eine Vorschau, die ich anschauen kann.
 
 ---
 
-## 4. Was du danach noch selbst machen musst
+## 5. Was du danach noch selbst machen musst
 
 Das liegt außerhalb des Codes, das kann ich nicht für dich erledigen:
 
@@ -220,7 +240,7 @@ Das liegt außerhalb des Codes, das kann ich nicht für dich erledigen:
 
 ---
 
-## 5. Prüfliste vor dem Livegang
+## 6. Prüfliste vor dem Livegang
 
 - [ ] Impressum vollständig, keine Platzhalter, Daten vom Kunden bestätigt
 - [ ] Datenschutz beschreibt den tatsächlichen Stand, nicht eine Vorlage
@@ -236,7 +256,7 @@ Das liegt außerhalb des Codes, das kann ich nicht für dich erledigen:
 
 ---
 
-## 6. Fehler aus diesem Projekt, die du kennen solltest
+## 7. Fehler aus diesem Projekt, die du kennen solltest
 
 **Dateipfade vor dem Launch prüfen.** Im ersten Stand zeigte `index.html` auf
 `css/` und `js/`, die Dateien lagen aber im Wurzelverzeichnis. Live wäre die
@@ -266,7 +286,7 @@ Einbau prüfen, sonst steht dort später eine Fehlermeldung.
 
 ---
 
-## 7. Warum die Voreinstellungen so sind
+## 8. Warum die Voreinstellungen so sind
 
 **Schriften selbst hosten.** Über das Google CDN wandert die Adresse jedes
 Besuchers zu Google. Das zwingt dich zu einem Google-Abschnitt im Datenschutz
