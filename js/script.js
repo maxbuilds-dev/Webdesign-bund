@@ -263,8 +263,11 @@
       titel: 'Externe Inhalte',
       pflicht: false,
       zweck: 'Erlaubt die Live-Vorschau im Portfolio. Sie wird direkt von ' +
-             'maxbuilds-dev.github.io geladen. Ohne Freigabe wird diese ' +
-             'Verbindung nicht aufgebaut.',
+             (function () {
+               var l = document.getElementById('projektLink');
+               return l ? l.hostname : 'einem fremden Server';
+             }()) +
+             ' geladen. Ohne Freigabe wird diese Verbindung nicht aufgebaut.',
       eintraege: [
         {
           name: 'keine Cookies',
@@ -306,7 +309,28 @@
   }
 
   /* --- Wirkung der Entscheidung ---------------------------------------- */
-  var EMBED_URL = 'https://maxbuilds-dev.github.io/bioenergetikmq5/index.html';
+  /* Die Adresse der Kundenseite steht nur an einer Stelle im HTML, naemlich
+     im Link "Projekt ansehen". Von dort wird sie hier ausgelesen. So koennen
+     Link, Vorschau und Beschriftung nicht mehr auseinanderlaufen.
+     Ausnahme: frame-src in der Sicherheitsrichtlinie. Dort verlangt der
+     Browser die Adresse buchstaeblich, sie laesst sich nicht ableiten. */
+  var projektLink = document.getElementById('projektLink');
+  var EMBED_URL = projektLink ? projektLink.href : '';
+
+  /* Beschriftungen aus derselben Adresse ableiten */
+  if (EMBED_URL) {
+    var ohneProtokoll = EMBED_URL.replace(/^https?:\/\//, '').replace(/\/index\.html$/, '');
+    var host = ohneProtokoll.split('/')[0];
+
+    var urlFeld = document.querySelector('.browser-url');
+    if (urlFeld) urlFeld.textContent = ohneProtokoll;
+
+    var hinweis = document.getElementById('embedHinweis');
+    if (hinweis) {
+      hinweis.textContent = 'Die Live-Vorschau wird von ' + host + ' geladen. ' +
+        'Sie bleibt blockiert, bis Sie externe Inhalte freigeben.';
+    }
+  }
 
   function ccAnwenden(daten) {
     var rahmen = document.getElementById('portfolioRahmen');

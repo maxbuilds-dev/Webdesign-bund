@@ -168,7 +168,14 @@
               Strecke zur Terminanfrage und eine Darstellung, die auf dem
               Smartphone ebenso trägt wie am Desktop.
             </p>
-            <a class="btn btn-ghost" href="https://maxbuilds-dev.github.io/bioenergetikmq5/index.html" target="_blank" rel="noopener">
+            <!-- EINZIGE STELLE FUER DIE ADRESSE DER KUNDENSEITE.
+                 js/script.js liest sie hier aus und erzeugt daraus die
+                 Live-Vorschau und die Beschriftungen im Browser-Rahmen.
+                 Zweite Stelle: frame-src in der Sicherheitsrichtlinie ganz
+                 oben, dort muss die Adresse buchstaeblich stehen. -->
+            <a class="btn btn-ghost" id="projektLink"
+               href="https://maxbuilds-dev.github.io/bioenergetikmq5/index.html"
+               target="_blank" rel="noopener">
               Projekt ansehen →
             </a>
           </div>
@@ -186,8 +193,8 @@
             <div class="browser-body" id="portfolioRahmen">
               <div class="embed-platzhalter" id="embedPlatzhalter">
                 <span>Bioenergetik mq5</span>
-                <small>
-                  Die Live-Vorschau wird von maxbuilds-dev.github.io geladen.
+                <small id="embedHinweis">
+                  Die Live-Vorschau wird von einem fremden Server geladen.
                   Sie bleibt blockiert, bis Sie externe Inhalte freigeben.
                 </small>
                 <button type="button" class="cc-btn cc-btn-klein" id="embedErlauben">
