@@ -1,53 +1,104 @@
 /* ==========================================================================
-   Webdesign Bund, Stylesheet
+   Webdesign Bund, Stylesheet (Design 2: hell mit dunklen Akzentflaechen)
    Aufbau:
-   1. Design-Tokens (Farben, Schrift, Abstände)
+   1. Design-Tokens (Farben, Schrift, Abstaende)
    2. Reset & Grundlagen
-   3. Layout-Hilfsklassen
+   3. Layout-Hilfsklassen, Schaltflaechen
    4. Navigation
-   5. Hero
-   6. Leistungen
-   7. Ablauf
-   8. Portfolio
-   9. Über mich
-   10. Kontakt
-   11. Footer
-   12. Unterseiten (Impressum, Datenschutz)
-   13. Animationen
+   5. Hero (dunkel)
+   6. Ueber mich
+   7. Portfolio
+   8. Leistungen
+   9. Ablauf
+   10. Kontakt (dunkel)
+   11. Footer (dunkel)
+   12. Unterseiten (Impressum, Datenschutz, 404)
+   13. Zustimmungsmanager
+   14. Animationen
+   15. Responsive
    ========================================================================== */
 
 /* 1. DESIGN-TOKENS
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------
+   Die Seite ist hell. Einzelne Bloecke (Hero, Kontakt, Fusszeile) sind
+   dunkel: sie ueberschreiben die Farbtoken lokal, siehe .theme-dark.
+   Komponenten kennen nur die Token, nie konkrete Farben. */
 :root {
-  /* Farben */
-  --bg:           #0A0B0F;
-  --bg-soft:      #0E1016;
-  --surface:      #12141B;
-  --surface-hi:   #171A23;
-  --border:       rgba(255, 255, 255, 0.08);
-  --border-hi:    rgba(255, 255, 255, 0.14);
+  /* helle Grundflaeche */
+  --bg:           #F6F7FB;
+  --bg-soft:      #EEF1F9;
+  --surface:      #FFFFFF;
+  --surface-hi:   #F3F5FB;
+  --border:       rgba(15, 18, 32, 0.08);
+  --border-hi:    rgba(15, 18, 32, 0.15);
 
-  --text:         #F2F3F7;
-  --text-muted:   #9BA0AF;
-  --text-dim:     #6B7086;
+  --text:         #0F1220;
+  --text-muted:   #4B5169;
+  --text-dim:     #6B7189;
 
-  --accent:       #5B7FFF;
-  --accent-soft:  rgba(91, 127, 255, 0.12);
-  --accent-line:  rgba(91, 127, 255, 0.45);
+  /* Akzente: Indigo als Hauptfarbe, Violett und Cyan fuer Verlaeufe */
+  --accent:       #4B6BF5;
+  --accent-2:     #8B5CF6;
+  --accent-3:     #22D3EE;
+  --accent-soft:  rgba(75, 107, 245, 0.10);
+  --accent-line:  rgba(75, 107, 245, 0.45);
+  --grad:         linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  --grad-wide:    linear-gradient(90deg, var(--accent-3) 0%, var(--accent) 45%, var(--accent-2) 100%);
+
+  /* dunkle Bloecke */
+  --dark-bg:          #0A0B10;
+  --dark-bg-soft:     #0F1118;
+  --dark-surface:     #14161F;
+  --dark-surface-hi:  #1A1D28;
+  --dark-border:      rgba(255, 255, 255, 0.09);
+  --dark-border-hi:   rgba(255, 255, 255, 0.16);
+  --dark-text:        #F4F5F9;
+  --dark-text-muted:  #A3A8B8;
+  --dark-text-dim:    #767B8F;
+
+  /* Schatten */
+  --shadow-sm:    0 1px 2px rgba(15, 18, 32, 0.05), 0 4px 14px rgba(15, 18, 32, 0.06);
+  --shadow-md:    0 6px 18px rgba(15, 18, 32, 0.08), 0 18px 48px rgba(15, 18, 32, 0.10);
+  --shadow-lg:    0 24px 70px rgba(15, 18, 32, 0.22);
 
   /* Schrift */
   --font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
   --font-body:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  /* Abstände */
+  /* Abstaende */
   --gutter:       6%;
-  --max-width:    1120px;
+  --max-width:    1160px;
   --section-pad:  clamp(4.5rem, 10vw, 7.5rem);
 
-  /* Radius & Übergänge */
-  --radius:       12px;
-  --radius-lg:    16px;
+  /* Radius & Uebergaenge */
+  --radius:       14px;
+  --radius-lg:    22px;
   --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Hoehe der Navigationsleiste samt Unterkante, siehe .nav und .hero */
+  --header-h:     75px;
+}
+
+/* Dunkle Bloecke: dieselben Token, andere Werte. Alles darin (Absaetze,
+   Karten, Eingabefelder, Schaltflaechen) faerbt sich automatisch um. */
+.theme-dark {
+  --bg:           var(--dark-bg);
+  --bg-soft:      var(--dark-bg-soft);
+  --surface:      var(--dark-surface);
+  --surface-hi:   var(--dark-surface-hi);
+  --border:       var(--dark-border);
+  --border-hi:    var(--dark-border-hi);
+  --text:         var(--dark-text);
+  --text-muted:   var(--dark-text-muted);
+  --text-dim:     var(--dark-text-dim);
+  --accent:       #6B86FF;
+  --accent-soft:  rgba(107, 134, 255, 0.14);
+  --accent-line:  rgba(107, 134, 255, 0.5);
+  --shadow-sm:    0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-md:    0 12px 34px rgba(0, 0, 0, 0.45);
+  --shadow-lg:    0 30px 90px rgba(0, 0, 0, 0.6);
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* 2. RESET & GRUNDLAGEN
@@ -69,7 +120,9 @@ body {
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.6;
-  overflow-x: hidden;
+  /* kein overflow-x: hidden hier: das machte body zum Scrollcontainer und
+     die klebende Navigationsleiste blieb nicht mehr oben. html hat
+     overflow-x: clip, das reicht gegen seitliches Scrollen. */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -80,16 +133,17 @@ a { color: inherit; text-decoration: none; }
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--text);
 }
 
-h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); }
-h3 { font-size: 1.15rem; font-weight: 500; }
+h2 { font-size: clamp(1.9rem, 4.2vw, 2.8rem); }
+h3 { font-size: 1.2rem; font-weight: 700; }
 
 p { color: var(--text-muted); }
 
-::selection { background: var(--accent); color: var(--bg); }
+::selection { background: var(--accent); color: #FFFFFF; }
 
 :focus-visible {
   outline: 2px solid var(--accent);
@@ -97,13 +151,13 @@ p { color: var(--text-muted); }
   border-radius: 4px;
 }
 
-/* Link für Tastatur-Nutzer, springt direkt zum Inhalt */
+/* Link fuer Tastatur-Nutzer, springt direkt zum Inhalt */
 .skip-link {
   position: absolute;
   left: -9999px;
   top: 0;
   background: var(--accent);
-  color: var(--bg);
+  color: #FFFFFF;
   padding: 0.75rem 1.25rem;
   z-index: 200;
   border-radius: 0 0 8px 0;
@@ -111,7 +165,7 @@ p { color: var(--text-muted); }
 }
 .skip-link:focus { left: 0; }
 
-/* 3. LAYOUT-HILFSKLASSEN
+/* 3. LAYOUT-HILFSKLASSEN, SCHALTFLAECHEN
    ------------------------------------------------------------------------ */
 .container {
   width: 100%;
@@ -122,83 +176,108 @@ p { color: var(--text-muted); }
 
 section { padding-block: var(--section-pad); position: relative; }
 
+/* Kleine Kennzeichnung ueber jeder Ueberschrift: Pille mit Farbpunkt */
 .section-label {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  font-size: 0.78rem;
+  gap: 0.5rem;
+  font-size: 0.74rem;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 1rem;
+  background: var(--accent-soft);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.38rem 0.85rem 0.38rem 0.7rem;
+  margin-bottom: 1.1rem;
 }
 .section-label::before {
   content: '';
-  width: 22px;
-  height: 1px;
-  background: var(--accent-line);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--grad);
+  box-shadow: 0 0 0 3px rgba(75, 107, 245, 0.18);
 }
 
-.section-head { max-width: 640px; margin-bottom: 3rem; }
-.section-head p { margin-top: 1rem; font-size: 1.02rem; }
+.section-head { max-width: 680px; margin-bottom: 3.25rem; }
+.section-head p { margin-top: 1.1rem; font-size: 1.06rem; }
 
 .btn {
-  display: inline-block;
-  padding: 0.85rem 1.9rem;
-  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.9rem;
+  border-radius: 10px;
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
   font-family: var(--font-body);
   cursor: pointer;
   border: 1px solid transparent;
+  position: relative;
   transition: box-shadow 0.3s var(--ease), transform 0.2s var(--ease),
-              background 0.3s var(--ease), border-color 0.3s var(--ease);
+              background 0.3s var(--ease), border-color 0.3s var(--ease),
+              color 0.3s var(--ease);
 }
 
+/* Hauptschaltflaeche: Farbverlauf mit weichem Leuchten */
 .btn-primary {
-  background: var(--accent);
-  color: #0A0B0F;
+  background: var(--grad);
+  color: #FFFFFF;
+  box-shadow: 0 8px 22px rgba(75, 107, 245, 0.32);
 }
 .btn-primary:hover {
-  box-shadow: 0 0 32px rgba(91, 127, 255, 0.55);
+  box-shadow: 0 12px 34px rgba(75, 107, 245, 0.48);
   transform: translateY(-2px);
 }
 
 .btn-ghost {
-  background: transparent;
+  background: var(--surface);
   color: var(--text);
   border-color: var(--border-hi);
+  box-shadow: var(--shadow-sm);
 }
 .btn-ghost:hover {
   border-color: var(--accent-line);
-  background: var(--accent-soft);
+  color: var(--accent);
   transform: translateY(-2px);
 }
+.theme-dark .btn-ghost {
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: none;
+}
+.theme-dark .btn-ghost:hover {
+  background: var(--accent-soft);
+  color: var(--text);
+}
 
-/* Hintergrund-Raster + Leuchtpunkt (nur im Hero-Bereich) */
+/* Hintergrundraster im Hero */
 .bg-grid {
   position: absolute;
   inset: 0;
-  height: 720px;
   background-image:
-    linear-gradient(rgba(91, 127, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(91, 127, 255, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black 20%, transparent 75%);
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black 20%, transparent 75%);
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 52px 52px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 10%, transparent 75%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 10%, transparent 75%);
   pointer-events: none;
   z-index: 0;
 }
 
+/* Leuchtpunkt: bluehte urspruenglich mittig auf, sitzt jetzt hinter dem
+   Visual rechts. Die Animationen in Abschnitt 14 sind unveraendert. */
 .glow-orb {
   position: absolute;
-  top: -140px;
-  left: 50%;
-  width: min(560px, 88vw);
-  height: min(560px, 88vw);
+  top: -120px;
+  left: 68%;
+  width: min(640px, 90vw);
+  height: min(640px, 90vw);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(91, 127, 255, 0.35) 0%, rgba(91, 127, 255, 0) 70%);
-  filter: blur(40px);
+  background: radial-gradient(circle, rgba(91, 127, 255, 0.55) 0%, rgba(139, 92, 246, 0.22) 40%, rgba(91, 127, 255, 0) 70%);
+  filter: blur(46px);
   pointer-events: none;
   opacity: 0;
   transform: translateX(-50%) scale(0.2);
@@ -208,58 +287,68 @@ section { padding-block: var(--section-pad); position: relative; }
 .glow-orb.pulse-loop { animation: pulse 6s ease-in-out infinite; }
 
 /* 4. NAVIGATION
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------
+   Ganz oben liegt die Leiste ueber dem dunklen Hero und ist durchsichtig
+   mit heller Schrift. Sobald gescrollt wird, legt sie sich als weisses
+   Glas ueber die helle Seite. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
   border-bottom: 1px solid transparent;
-  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+  color: var(--dark-text);
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease),
+              color 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
-.site-header.scrolled {
-  background: rgba(10, 11, 15, 0.82);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+.site-header.scrolled,
+.site-header:has(.nav-list.open) {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
   border-bottom-color: var(--border);
+  color: var(--text);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
 }
 
+/* feste Hoehe: der Hero zieht sich um genau diesen Wert nach oben */
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-block: 1.15rem;
+  height: calc(var(--header-h) - 1px); /* 1px ist die Unterkante */
 }
 
 .logo {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.12rem;
   letter-spacing: -0.02em;
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.6rem;
 }
 .logo-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 12px rgba(91, 127, 255, 0.9);
+  background: var(--grad);
+  box-shadow: 0 0 0 3px rgba(75, 107, 245, 0.2), 0 0 14px rgba(91, 127, 255, 0.7);
 }
 
 .nav-list {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.9rem;
 }
 
 .nav-list a {
-  color: var(--text-muted);
   font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.78;
   position: relative;
   padding-bottom: 4px;
-  transition: color 0.25s var(--ease);
+  transition: opacity 0.25s var(--ease), color 0.25s var(--ease);
 }
 .nav-list a::after {
   content: '';
@@ -267,38 +356,42 @@ section { padding-block: var(--section-pad); position: relative; }
   left: 0;
   bottom: 0;
   width: 0;
-  height: 1px;
-  background: var(--accent);
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad-wide);
   transition: width 0.3s var(--ease);
 }
 .nav-list a:hover,
-.nav-list a.active { color: var(--text); }
+.nav-list a.active { opacity: 1; }
 .nav-list a:hover::after,
 .nav-list a.active::after { width: 100%; }
 
 .nav-list .nav-cta {
-  color: var(--text);
-  border: 1px solid var(--border-hi);
-  border-radius: 7px;
-  padding: 0.5rem 1.1rem;
+  opacity: 1;
+  color: #FFFFFF;
+  background: var(--grad);
+  border-radius: 9px;
+  padding: 0.55rem 1.15rem;
+  box-shadow: 0 6px 18px rgba(75, 107, 245, 0.3);
 }
 .nav-list .nav-cta::after { display: none; }
 .nav-list .nav-cta:hover {
-  border-color: var(--accent-line);
-  background: var(--accent-soft);
+  box-shadow: 0 8px 26px rgba(75, 107, 245, 0.45);
 }
 
-/* Burger-Menü (nur mobil sichtbar) */
+/* Burger-Menue (nur mobil sichtbar) */
 .nav-toggle {
   display: none;
   background: none;
-  border: 1px solid var(--border-hi);
-  border-radius: 8px;
+  border: 1px solid currentColor;
+  border-radius: 9px;
   width: 42px;
   height: 42px;
   cursor: pointer;
   padding: 0;
   position: relative;
+  color: inherit;
+  opacity: 0.85;
 }
 .nav-toggle span,
 .nav-toggle span::before,
@@ -307,12 +400,12 @@ section { padding-block: var(--section-pad); position: relative; }
   position: absolute;
   left: 50%;
   width: 18px;
-  height: 1.5px;
-  background: var(--text);
+  height: 1.6px;
+  background: currentColor;
   transform: translateX(-50%);
   transition: transform 0.3s var(--ease), opacity 0.2s var(--ease);
 }
-.nav-toggle span { top: 50%; margin-top: -0.75px; }
+.nav-toggle span { top: 50%; margin-top: -0.8px; }
 .nav-toggle span::before { top: -6px; left: 0; transform: none; }
 .nav-toggle span::after  { top: 6px;  left: 0; transform: none; }
 
@@ -320,38 +413,87 @@ section { padding-block: var(--section-pad); position: relative; }
 .nav-toggle[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span::after  { transform: translateY(-6px) rotate(-45deg); }
 
-/* 5. HERO
-   ------------------------------------------------------------------------ */
+/* 5. HERO (dunkel)
+   ------------------------------------------------------------------------
+   Zweispaltig: links der Text, rechts ein Visual aus dem Bildschirmfoto
+   der Referenz in einem schwebenden Browser- und Telefonrahmen. Die
+   Leiste liegt sticky darueber, deshalb beginnt der Hero unter ihr und
+   zieht sich per negativem Rand nach oben, damit die dunkle Flaeche bis
+   zur Oberkante reicht. */
 .hero {
   position: relative;
-  text-align: center;
-  padding-block: clamp(4.5rem, 11vw, 7rem) clamp(3.5rem, 8vw, 5.5rem);
+  overflow: hidden;
+  margin-top: calc(-1 * var(--header-h));
+  padding-block: clamp(8rem, 16vw, 10.5rem) clamp(4rem, 9vw, 6.5rem);
+  border-radius: 0 0 clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px);
+  isolation: isolate;
 }
-.hero .container { position: relative; z-index: 1; max-width: 760px; }
+/* zwei weitere, farbige Nebel hinter dem Visual */
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.75;
+}
+.hero::before {
+  width: 520px;
+  height: 520px;
+  right: -180px;
+  bottom: -220px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.55), transparent 65%);
+  animation: drift 14s ease-in-out infinite alternate;
+}
+.hero::after {
+  width: 420px;
+  height: 420px;
+  left: -160px;
+  top: 30%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.32), transparent 65%);
+  animation: drift 18s ease-in-out infinite alternate-reverse;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.hero-copy { position: relative; }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
   font-size: 0.8rem;
+  font-weight: 500;
   color: var(--text-muted);
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-hi);
   border-radius: 999px;
-  padding: 0.4rem 0.95rem;
-  margin-bottom: 1.75rem;
+  padding: 0.42rem 1rem 0.42rem 0.8rem;
+  margin-bottom: 1.6rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 .hero-badge .dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #46D39A;
-  box-shadow: 0 0 8px rgba(70, 211, 154, 0.9);
+  background: #3DD68C;
+  box-shadow: 0 0 0 3px rgba(61, 214, 140, 0.22), 0 0 10px rgba(61, 214, 140, 0.9);
 }
 
 .hero h1 {
   position: relative;
-  font-size: clamp(2.1rem, 6.4vw, 3.6rem);
+  font-size: clamp(2.2rem, 4.6vw, 3.5rem);
+  line-height: 1.06;
   display: inline-block;
   clip-path: inset(0 100% 0 0);
   animation: textReveal 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.25s forwards;
@@ -367,223 +509,236 @@ section { padding-block: var(--section-pad); position: relative; }
   box-shadow: 0 0 16px 2px rgba(91, 127, 255, 0.8);
   animation: glintMove 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.25s forwards;
 }
+/* Hervorgehobener Teil der Ueberschrift im Farbverlauf */
+.hero h1 .hl {
+  background: var(--grad-wide);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 .hero-sub {
-  margin: 1.35rem auto 0;
+  margin: 1.4rem 0 0;
   max-width: 520px;
-  font-size: 1.06rem;
+  font-size: 1.1rem;
+  line-height: 1.65;
   opacity: 0;
   animation: fadeUp 0.8s ease 0.9s forwards;
 }
 
 .hero-actions {
-  margin-top: 2.25rem;
+  margin-top: 2.1rem;
   display: flex;
-  gap: 0.9rem;
-  justify-content: center;
+  gap: 0.85rem;
   flex-wrap: wrap;
   opacity: 0;
   animation: fadeUp 0.8s ease 1.1s forwards;
 }
 
+/* Drei Fakten als Leiste mit Trennlinien, unter beiden Spalten */
 .hero-trust {
-  margin-top: 3rem;
+  grid-column: 1 / -1;
+  margin-top: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
   display: flex;
-  gap: 2.5rem;
-  justify-content: center;
+  gap: 0;
   flex-wrap: wrap;
   opacity: 0;
   animation: fadeUp 0.8s ease 1.3s forwards;
 }
-.hero-trust div { text-align: center; }
+.hero-trust div {
+  padding: 0.2rem 1.5rem 0.2rem 0;
+  margin-right: 1.5rem;
+  border-right: 1px solid var(--border-hi);
+}
+.hero-trust div:last-child { border-right: none; margin-right: 0; padding-right: 0; }
 .hero-trust strong {
   display: block;
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.45rem;
+  letter-spacing: -0.02em;
   color: var(--text);
 }
-.hero-trust span { font-size: 0.82rem; color: var(--text-dim); }
+.hero-trust span { font-size: 0.8rem; color: var(--text-dim); }
 
-/* 6. LEISTUNGEN
-   ------------------------------------------------------------------------ */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
-}
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.75rem;
-  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease),
-              transform 0.3s var(--ease);
-}
-.card:hover {
-  border-color: var(--accent-line);
-  box-shadow: 0 0 28px rgba(91, 127, 255, 0.13);
-  transform: translateY(-3px);
-}
-
-.card-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  background: var(--accent-soft);
-  border: 1px solid var(--accent-line);
-  display: grid;
-  place-items: center;
-  margin-bottom: 1.1rem;
-  color: var(--accent);
-}
-.card-icon svg { width: 20px; height: 20px; }
-
-.card h3 { margin-bottom: 0.6rem; }
-.card p { font-size: 0.93rem; }
-
-.card-list {
-  list-style: none;
-  margin-top: 1.1rem;
-  display: grid;
-  gap: 0.5rem;
-}
-.card-list li {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  padding-left: 1.4rem;
+/* Visual rechts */
+.hero-visual {
   position: relative;
+  aspect-ratio: 11 / 9;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.6s forwards;
 }
-.card-list li::before {
+
+.hv-browser,
+.hv-phone {
+  position: absolute;
+  overflow: hidden;
+  background: var(--dark-surface);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+.hv-browser img,
+.hv-phone img { width: 100%; height: 100%; object-fit: cover; }
+
+.hv-browser {
+  top: 4%;
+  right: 0;
+  width: 92%;
+  aspect-ratio: 16 / 10.9;
+  border-radius: 14px;
+  transform: perspective(1400px) rotateY(-7deg) rotateX(2deg);
+  animation: floatA 7s ease-in-out infinite;
+}
+.hv-browser img { object-position: top; }
+
+/* Telefon: schmaler Rahmen, zeigt links oben denselben Ausschnitt,
+   also Logo und Ueberschrift der Referenz */
+.hv-phone {
+  left: 0;
+  bottom: 0;
+  width: 27%;
+  aspect-ratio: 9 / 18.5;
+  border-radius: 22px;
+  padding: 6px;
+  background: #1C1F2B;
+  animation: floatB 8s ease-in-out infinite;
+}
+.hv-phone img {
+  border-radius: 16px;
+  object-position: 9% 0;
+}
+/* Kerbe oben */
+.hv-phone::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
+  top: 12px;
+  left: 50%;
+  width: 34%;
+  height: 8px;
+  border-radius: 999px;
+  background: #1C1F2B;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 
-/* 7. ABLAUF
-   ------------------------------------------------------------------------ */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  counter-reset: step;
-}
-.step {
-  position: relative;
-  padding-top: 2.4rem;
-  border-top: 1px solid var(--border);
-}
-.step::before {
-  counter-increment: step;
-  content: '0' counter(step);
+/* Kleine schwebende Karte mit Haken, rein dekorativ */
+.hv-chip {
   position: absolute;
-  top: 1rem;
-  left: 0;
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  color: var(--accent);
-  letter-spacing: 0.08em;
+  right: -2%;
+  bottom: 10%;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--grad);
+  box-shadow: 0 12px 30px rgba(75, 107, 245, 0.45);
+  display: grid;
+  place-items: center;
+  color: #FFFFFF;
+  animation: floatB 6s ease-in-out infinite 1s;
 }
-.step h3 { margin-bottom: 0.5rem; }
-.step p { font-size: 0.92rem; }
+.hv-chip svg { width: 22px; height: 22px; }
 
-/* Technische Umsetzung, Ausbaustufen
+/* 6. UEBER MICH
    ------------------------------------------------------------------------
-   Nutzt denselben Baustein .step wie der Abschnitt Ablauf. Statt der
-   Nummern 01 bis 04 steht hier "Stufe 1" bis "Stufe 3", und es sind drei
-   Spalten statt vier. */
-.technik { margin-top: clamp(3rem, 7vw, 4.5rem); }
+   Zweispaltig: links Kennzeichnung und Name bleiben beim Scrollen stehen,
+   rechts der Text. Der erste Absatz ist groesser gesetzt. */
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+.about-head { position: sticky; top: 110px; }
+.about-head h2 { margin-bottom: 1.2rem; }
+/* dekorativer Farbstreifen unter dem Namen */
+.about-head::after {
+  content: '';
+  display: block;
+  width: 72px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--grad-wide);
+}
 
-.technik-titel {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 700;
+.about-text p + p { margin-top: 1.1rem; }
+.about-text p:first-child {
+  font-size: 1.12rem;
+  line-height: 1.55;
   color: var(--text);
-  margin-bottom: 0.75rem;
-}
-.technik-intro {
-  max-width: 640px;
-  font-size: 1rem;
-  margin-bottom: 2.25rem;
 }
 
-.steps-technik { grid-template-columns: repeat(3, 1fr); }
-.steps-technik .step::before { content: 'Stufe ' counter(step); }
-.steps-technik .step h4 {
-  font-size: 1.02rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-}
-
-/* Die Abgrenzung zum Baukasten ist das eigentliche Argument, deshalb eine
-   Akzentkante statt einer weiteren Karte. */
-.technik-schluss {
-  margin-top: 2.25rem;
-  max-width: 640px;
-  font-size: 0.96rem;
-  border-left: 2px solid var(--accent-line);
-  padding-left: 1.1rem;
-}
-
-/* 8. PORTFOLIO
+/* 7. PORTFOLIO
    ------------------------------------------------------------------------ */
 .project {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(1.5rem, 4vw, 3rem);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
   align-items: center;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: clamp(1.5rem, 4vw, 2.5rem);
-  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.35s var(--ease), transform 0.35s var(--ease);
+}
+/* farbiger Nebel hinter dem Bildschirmfoto */
+.project::before {
+  content: '';
+  position: absolute;
+  right: -10%;
+  top: -30%;
+  width: 60%;
+  height: 160%;
+  background: radial-gradient(ellipse at center, rgba(75, 107, 245, 0.14), rgba(139, 92, 246, 0.06) 45%, transparent 70%);
+  pointer-events: none;
 }
 .project:hover {
-  border-color: var(--accent-line);
-  box-shadow: 0 0 40px rgba(91, 127, 255, 0.12);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
 }
+.project > * { position: relative; }
 
 .project-meta {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
 }
 .tag {
   font-size: 0.74rem;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-  border: 1px solid var(--border-hi);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+  background: var(--accent-soft);
   border-radius: 999px;
-  padding: 0.25rem 0.7rem;
+  padding: 0.3rem 0.75rem;
 }
 
-.project h3 { font-size: clamp(1.3rem, 2.6vw, 1.75rem); font-weight: 700; }
-.project p { margin-top: 0.85rem; font-size: 0.96rem; }
-.project .btn { margin-top: 1.5rem; }
+.project h3 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 700; }
+.project p { margin-top: 0.9rem; font-size: 0.98rem; }
+.project .btn { margin-top: 1.6rem; }
 
-/* Rahmen um das Bildschirmfoto */
+/* Rahmen um das Bildschirmfoto, leicht gekippt, richtet sich beim
+   Ueberfahren auf */
 .browser {
-  border: 1px solid var(--border-hi);
-  border-radius: 10px;
+  border-radius: 14px;
   overflow: hidden;
   background: var(--bg-soft);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  transform: perspective(1400px) rotateY(-5deg) rotateX(1.5deg);
+  transition: transform 0.6s var(--ease);
 }
-/* Kein Seitenverhaeltnis vorgeben: das Bildschirmfoto bestimmt die Hoehe
-   selbst, dadurch wird nichts beschnitten und es entstehen keine Raender. */
+.project:hover .browser { transform: perspective(1400px) rotateY(0) rotateX(0); }
+
 .browser-body {
   display: grid;
   text-align: center;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(91, 127, 255, 0.16), transparent 70%),
-    var(--bg-soft);
+  background: var(--bg-soft);
 }
 .browser-body span {
   font-family: var(--font-display);
@@ -597,59 +752,316 @@ section { padding-block: var(--section-pad); position: relative; }
   color: var(--text-dim);
 }
 
-/* 9. ÜBER MICH
-   ------------------------------------------------------------------------ */
-/* Einspaltig, seit der Bildplatz entfallen ist. Die Breite ist begrenzt,
-   weil Fliesstext ueber die volle Seitenbreite schlecht lesbar wird. */
-.about { max-width: 680px; }
-.about-text p + p { margin-top: 1rem; }
-.about-text h2 { margin-bottom: 1rem; }
+/* Platzhalter, falls das Bildschirmfoto fehlt */
+.embed-platzhalter {
+  display: grid;
+  place-items: center;
+  gap: 0.4rem;
+  text-align: center;
+  padding: 1.5rem;
+  min-height: 16rem;
+}
+.embed-platzhalter[hidden] { display: none; }
+.embed-platzhalter span {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--text);
+}
+.embed-platzhalter small {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  max-width: 34ch;
+  line-height: 1.5;
+}
 
+.projekt-bild {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.projekt-bild[hidden] { display: none; }
 
+/* 8. LEISTUNGEN
+   ------------------------------------------------------------------------
+   Liegt auf einer leicht getoenten Flaeche mit Punktraster. */
+#leistungen {
+  background:
+    radial-gradient(rgba(15, 18, 32, 0.07) 1px, transparent 1px) 0 0 / 26px 26px,
+    var(--bg-soft);
+}
 
-/* 10. KONTAKT
-   ------------------------------------------------------------------------ */
-.contact {
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.35rem;
+}
+
+.card {
   background: var(--surface);
   border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem 1.75rem 1.9rem;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.35s var(--ease), transform 0.35s var(--ease),
+              border-color 0.35s var(--ease);
+}
+/* Farbkante oben, faehrt beim Ueberfahren aus */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--grad-wide);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease);
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-5px);
+  border-color: transparent;
+}
+.card:hover::before { transform: scaleX(1); }
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: var(--grad);
+  box-shadow: 0 8px 20px rgba(75, 107, 245, 0.3);
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.3rem;
+  color: #FFFFFF;
+}
+.card-icon svg { width: 24px; height: 24px; }
+
+.card h3 { margin-bottom: 0.65rem; }
+.card p { font-size: 0.95rem; }
+
+.card-list {
+  list-style: none;
+  margin-top: 1.2rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 0.55rem;
+}
+.card-list li {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  padding-left: 1.6rem;
+  position: relative;
+}
+/* Haken statt Punkt */
+.card-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.42em;
+  width: 8px;
+  height: 5px;
+  border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(-45deg);
+}
+
+/* Technische Umsetzung, Ausbaustufen */
+.technik { margin-top: clamp(3.5rem, 8vw, 5.5rem); }
+
+.technik-titel {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+.technik-intro {
+  max-width: 660px;
+  font-size: 1.02rem;
+  margin-bottom: 2.25rem;
+}
+
+/* Stufen als drei Karten mit Pille "Stufe n". Doppelte Klasse im Selektor,
+   damit die Vier-Spalten-Regel von .steps weiter unten nicht gewinnt. */
+.steps.steps-technik {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.35rem;
+  counter-reset: step;
+}
+.steps-technik .step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.5rem 1.6rem;
+  padding-top: 3.9rem;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+/* .steps-technik traegt auch die Klasse .steps, deshalb hier Linie und
+   Kreisform des Ablaufs ausdruecklich zuruecknehmen */
+.steps-technik::before { display: none; }
+.steps-technik .step::before {
+  counter-increment: step;
+  content: 'Stufe ' counter(step);
+  position: absolute;
+  top: 1.35rem;
+  left: 1.5rem;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  box-shadow: none;
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: var(--grad);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+}
+.steps-technik .step h4 {
+  font-size: 1.08rem;
+  font-weight: 700;
+  margin-bottom: 0.55rem;
+}
+.steps-technik .step p { font-size: 0.93rem; }
+
+/* Die Abgrenzung zum Baukasten ist das eigentliche Argument, deshalb ein
+   farbig hinterlegter Kasten. */
+.technik-schluss {
+  margin-top: 2rem;
+  font-size: 0.98rem;
+  color: var(--text);
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: 1.1rem 1.4rem;
+}
+
+/* 9. ABLAUF
+   ------------------------------------------------------------------------
+   Vier Schritte auf einer durchgehenden Linie, mit Nummern in Kreisen. */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+  counter-reset: step;
+  position: relative;
+}
+/* die verbindende Linie */
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: var(--grad-wide);
+  opacity: 0.45;
+}
+.step {
+  position: relative;
+  padding-top: 4.2rem;
+}
+.step::before {
+  counter-increment: step;
+  content: '0' counter(step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: var(--grad);
+  box-shadow: 0 0 0 6px var(--bg), 0 8px 20px rgba(75, 107, 245, 0.35);
+}
+.step h3 { margin-bottom: 0.5rem; }
+.step p { font-size: 0.95rem; }
+
+/* 10. KONTAKT (dunkel)
+   ------------------------------------------------------------------------ */
+#kontakt {
+  border-radius: clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px) 0 0;
+  overflow: hidden;
+  padding-bottom: clamp(3rem, 7vw, 5rem);
+}
+#kontakt::before {
+  content: '';
+  position: absolute;
+  top: -260px;
+  left: 50%;
+  width: 900px;
+  height: 600px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(91, 127, 255, 0.28), rgba(139, 92, 246, 0.12) 45%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.contact {
+  background: var(--surface);
+  border: 1px solid var(--border-hi);
   border-radius: var(--radius-lg);
   padding: clamp(1.75rem, 5vw, 3rem);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   gap: clamp(1.75rem, 5vw, 3.5rem);
   position: relative;
-  overflow: hidden;
-}
-.contact::before {
-  content: '';
-  position: absolute;
-  top: -120px;
-  right: -80px;
-  width: 340px;
-  height: 340px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(91, 127, 255, 0.18), transparent 70%);
-  filter: blur(30px);
-  pointer-events: none;
+  box-shadow: var(--shadow-md);
 }
 .contact > * { position: relative; }
+.contact h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 0.2rem; }
 
 .contact-direct {
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
   display: grid;
-  gap: 0.75rem;
+  gap: 0.7rem;
 }
 .contact-direct a {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.7rem;
   color: var(--text);
   font-size: 0.98rem;
+  font-weight: 500;
+  padding: 0.7rem 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
 }
-.contact-direct a:hover { color: var(--accent); }
+.contact-direct a svg { color: var(--accent); flex-shrink: 0; }
+.contact-direct a:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+
+/* Formular: zwei Spalten fuer die kurzen Felder */
+#contactForm {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+#contactForm .form-row:nth-of-type(5),
+#contactForm .form-row:nth-of-type(6),
+#contactForm .btn,
+#contactForm .form-note { grid-column: 1 / -1; }
 
 .form-row { display: grid; gap: 0.4rem; margin-bottom: 1rem; }
-.form-row label { font-size: 0.85rem; color: var(--text-muted); }
+.form-row label { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
 
 .form-row input,
 .form-row textarea,
@@ -657,30 +1069,31 @@ section { padding-block: var(--section-pad); position: relative; }
   width: 100%;
   background: var(--bg-soft);
   border: 1px solid var(--border-hi);
-  border-radius: 8px;
-  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  padding: 0.8rem 0.95rem;
   color: var(--text);
   font-family: var(--font-body);
   font-size: 0.95rem;
   transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
-.form-row textarea { resize: vertical; min-height: 120px; }
+.form-row textarea { resize: vertical; min-height: 130px; }
 .form-row input:focus,
 .form-row textarea:focus,
 .form-row select:focus {
   outline: none;
-  border-color: var(--accent-line);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
 }
 .form-row input::placeholder,
 .form-row textarea::placeholder { color: var(--text-dim); }
 
 /* Die Auswahlliste startet ohne Wert. Solange nichts gewaehlt ist, greift
-   :invalid und der Text wird so grau dargestellt wie die Platzhalter in den
-   uebrigen Feldern. Nach der Auswahl faerbt er sich normal ein. */
+   :invalid und der Text wird so grau dargestellt wie die Platzhalter. */
 .form-row select { color: var(--text); }
 .form-row select:invalid { color: var(--text-dim); }
 .form-row select option { color: var(--text); background: var(--bg-soft); }
+
+#contactForm .btn { width: 100%; margin-top: 0.25rem; }
 
 .form-note {
   margin-top: 0.9rem;
@@ -690,15 +1103,14 @@ section { padding-block: var(--section-pad); position: relative; }
 }
 .form-note a { color: var(--text-muted); text-decoration: underline; }
 
-/* Honeypot: für Menschen unsichtbar, fängt einfache Bots ab */
+/* Honeypot: fuer Menschen unsichtbar, faengt einfache Bots ab */
 .hp { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
 
-/* 11. FOOTER
+/* 11. FOOTER (dunkel, schliesst an Kontakt an)
    ------------------------------------------------------------------------ */
 .site-footer {
   border-top: 1px solid var(--border);
-  padding-block: 2.5rem;
-  margin-top: 2rem;
+  padding-block: 2.25rem;
 }
 .footer-inner {
   display: flex;
@@ -712,18 +1124,29 @@ section { padding-block: var(--section-pad); position: relative; }
 .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 .footer-links a:hover { color: var(--text); }
 
-/* 12. UNTERSEITEN (Impressum, Datenschutz)
+.footer-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.footer-btn:hover { color: var(--text); }
+
+/* 12. UNTERSEITEN (Impressum, Datenschutz, 404)
    ------------------------------------------------------------------------ */
 .legal { padding-block: clamp(3rem, 8vw, 5rem); }
 .legal .container { max-width: 760px; }
-.legal h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); margin-bottom: 2rem; }
+.legal h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin-bottom: 2rem; }
 .legal h2 {
-  font-size: 1.15rem;
-  font-weight: 500;
+  font-size: 1.2rem;
+  font-weight: 700;
   margin-top: 2.5rem;
   margin-bottom: 0.75rem;
 }
-.legal p, .legal li { font-size: 0.95rem; color: var(--text-muted); }
+.legal p, .legal li { font-size: 0.97rem; color: var(--text-muted); }
 .legal p + p { margin-top: 0.6rem; }
 .legal ul { margin: 0.75rem 0 0 1.2rem; display: grid; gap: 0.4rem; }
 .legal a { color: var(--accent); }
@@ -734,41 +1157,45 @@ section { padding-block: var(--section-pad); position: relative; }
   align-items: center;
   gap: 0.5rem;
   font-size: 0.88rem;
+  font-weight: 500;
   color: var(--text-muted);
   margin-bottom: 2rem;
 }
-.back-link:hover { color: var(--text); }
+.back-link:hover { color: var(--accent); }
 
-/* Warnbox für offene Platzhalter, vor dem Launch entfernen */
+/* Warnbox fuer offene Platzhalter, vor dem Launch entfernen */
 .todo-box {
-  border: 1px solid rgba(255, 176, 32, 0.45);
-  background: rgba(255, 176, 32, 0.08);
+  border: 1px solid rgba(217, 119, 6, 0.45);
+  background: rgba(251, 191, 36, 0.12);
   border-radius: 10px;
   padding: 1rem 1.25rem;
   margin-bottom: 2rem;
 }
-.todo-box p { color: #FFC864; font-size: 0.88rem; }
+.todo-box p { color: #92400E; font-size: 0.88rem; }
 
-/* Fehlerseite 404. Eigene Klasse statt style-Attributen im HTML,
-   damit die Content-Security-Policy ohne unsafe-inline auskommt. */
+/* Fehlerseite 404: nutzt den dunklen Hero als ganze Seite */
 .page-404 {
   min-height: 100vh;
   display: grid;
   place-items: center;
+  margin-top: 0;
+  border-radius: 0;
+  text-align: center;
 }
+.page-404 .container { display: block; max-width: 800px; }
 .page-404 .section-label { justify-content: center; }
 .page-404 h1 { animation: none; clip-path: none; }
 .page-404 h1::after { display: none; }
+.page-404 .hero-sub { margin-inline: auto; }
+.page-404 .hero-actions { justify-content: center; }
 .page-404 .hero-sub,
 .page-404 .hero-actions { animation: none; opacity: 1; }
 
-/* Zustimmungsmanager
+/* 13. ZUSTIMMUNGSMANAGER
    ------------------------------------------------------------------------
    Alle Schaltflaechen sind absichtlich gleich gross, gleich gefaerbt und
    gleich stark hervorgehoben. Die DSGVO verlangt, dass Ablehnen genauso
-   leicht faellt wie Zustimmen. Ein dunkel gefuellter Akzeptieren-Knopf neben
-   einem blassen Ablehnen-Knopf ist genau das, was Aufsichtsbehoerden als
-   unzulaessige Beeinflussung werten. */
+   leicht faellt wie Zustimmen. */
 .cc-overlay {
   position: fixed;
   inset: 0;
@@ -776,9 +1203,9 @@ section { padding-block: var(--section-pad); position: relative; }
   display: grid;
   place-items: center;
   padding: 1.25rem;
-  background: rgba(6, 7, 10, 0.72);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(10, 11, 16, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .cc-overlay[hidden] { display: none; }
 
@@ -789,17 +1216,18 @@ body.cc-offen { overflow: hidden; }
   max-width: 560px;
   max-height: calc(100vh - 2.5rem);
   overflow-y: auto;
-  background: var(--surface);
-  border: 1px solid var(--border-hi);
+  background: #FFFFFF;
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: clamp(1.4rem, 4vw, 2rem);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--shadow-lg);
   animation: ccRein 0.35s var(--ease);
+  color: var(--text);
 }
 
 .cc-titel {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 1rem;
@@ -808,7 +1236,7 @@ body.cc-offen { overflow: hidden; }
 .cc-view[hidden] { display: none; }
 
 .cc-text {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   line-height: 1.6;
   color: var(--text-muted);
 }
@@ -824,9 +1252,9 @@ body.cc-offen { overflow: hidden; }
   width: 100%;
   font-family: var(--font-body);
   font-size: 0.92rem;
-  font-weight: 500;
+  font-weight: 600;
   padding: 0.8rem 1.2rem;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   color: var(--text);
   background: var(--bg-soft);
@@ -872,7 +1300,7 @@ body.cc-offen { overflow: hidden; }
 .cc-kat-titel {
   font-family: var(--font-display);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--text);
 }
 .cc-pflicht {
@@ -918,7 +1346,7 @@ body.cc-offen { overflow: hidden; }
 }
 
 /* Schiebeschalter. Die Box bleibt ein echtes Eingabefeld und ist deshalb
-   mit der Tastatur bedienbar, sie wird nur unsichtbar darübergelegt. */
+   mit der Tastatur bedienbar, sie wird nur unsichtbar darueber gelegt. */
 .cc-schalter {
   position: relative;
   flex-shrink: 0;
@@ -952,7 +1380,8 @@ body.cc-offen { overflow: hidden; }
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: var(--text);
+  background: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   transition: transform 0.25s var(--ease);
 }
 .cc-schalter input:checked + .cc-regler { background: var(--accent); }
@@ -962,49 +1391,6 @@ body.cc-offen { overflow: hidden; }
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
-
-/* Platzhalter und Rahmen fuer die blockierte Vorschau */
-.embed-platzhalter {
-  display: grid;
-  place-items: center;
-  gap: 0.4rem;
-  text-align: center;
-  padding: 1.5rem;
-  min-height: 16rem;
-}
-.embed-platzhalter[hidden] { display: none; }
-.embed-platzhalter span {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: var(--text);
-}
-.embed-platzhalter small {
-  font-size: 0.78rem;
-  color: var(--text-dim);
-  max-width: 34ch;
-  line-height: 1.5;
-}
-
-/* Bildschirmfoto der Kundenseite. Volle Breite, eigene Hoehe, kein
-   Beschnitt. */
-.projekt-bild {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.projekt-bild[hidden] { display: none; }
-
-/* Schaltflaeche in der Fusszeile, sieht aus wie die Links daneben */
-.footer-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  text-align: left;
-}
-.footer-btn:hover { color: var(--text); }
 
 @keyframes ccRein {
   from { opacity: 0; transform: translateY(12px); }
@@ -1016,7 +1402,7 @@ body.cc-offen { overflow: hidden; }
   .cc-btn { padding-inline: 0.8rem; }
 }
 
-/* 13. ANIMATIONEN
+/* 14. ANIMATIONEN
    ------------------------------------------------------------------------ */
 @keyframes textReveal { to { clip-path: inset(0 0 0 0); } }
 
@@ -1026,7 +1412,7 @@ body.cc-offen { overflow: hidden; }
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -1041,30 +1427,52 @@ body.cc-offen { overflow: hidden; }
   50%      { opacity: 0.95; transform: translateX(-50%) scale(1.1); }
 }
 
+/* Nebel im Hero treiben langsam */
+@keyframes drift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(40px, -30px); }
+}
+
+/* Schweben der Rahmen im Hero */
+@keyframes floatA {
+  0%, 100% { transform: perspective(1400px) rotateY(-7deg) rotateX(2deg) translateY(0); }
+  50%      { transform: perspective(1400px) rotateY(-7deg) rotateX(2deg) translateY(-12px); }
+}
+@keyframes floatB {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
 /* Elemente, die beim Scrollen eingeblendet werden (per JS aktiviert) */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(22px);
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
 }
 .reveal.visible { opacity: 1; transform: none; }
 
-/* 14. RESPONSIVE
+/* 15. RESPONSIVE
    ------------------------------------------------------------------------ */
-@media (max-width: 980px) {
-  .steps { grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
-  .steps-technik { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 1080px) {
+  .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps.steps-technik { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.25rem 2rem; }
+  .steps::before { display: none; }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
+  .hero .container { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-trust { margin-top: 0; }
+  .hero-visual { max-width: 560px; }
+  .about { grid-template-columns: 1fr; gap: 1.5rem; }
+  .about-head { position: static; }
   .project,
   .contact { grid-template-columns: 1fr; }
-
-  .project .browser { order: -1; }
+  .project .browser { order: -1; transform: none; }
 }
 
 @media (max-width: 720px) {
-  :root { --gutter: 6%; }
+  .hero { padding-top: 7rem; }
 
   .nav-toggle { display: block; }
 
@@ -1076,10 +1484,10 @@ body.cc-offen { overflow: hidden; }
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    background: rgba(10, 11, 15, 0.97);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: #FFFFFF;
+    color: var(--text);
     border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
     padding: 0.5rem var(--gutter) 1.25rem;
     /* geschlossen: unsichtbar und nicht anklickbar */
     opacity: 0;
@@ -1092,18 +1500,44 @@ body.cc-offen { overflow: hidden; }
 
   .nav-list li { border-bottom: 1px solid var(--border); }
   .nav-list li:last-child { border-bottom: none; }
-  .nav-list a { display: block; padding: 0.95rem 0; font-size: 1rem; }
+  .nav-list a { display: block; padding: 0.95rem 0; font-size: 1rem; opacity: 1; }
   .nav-list a::after { display: none; }
   .nav-list .nav-cta {
-    border: none;
-    color: var(--accent);
-    padding: 0.95rem 0;
+    margin-top: 0.75rem;
+    text-align: center;
+    padding: 0.85rem 1rem;
   }
-  .nav-list .nav-cta:hover { background: none; }
 
+  .card-grid,
   .steps,
-  .steps-technik { grid-template-columns: 1fr; gap: 1.5rem; }
-  .hero-trust { gap: 1.75rem; }
+  .steps.steps-technik { grid-template-columns: 1fr; gap: 1.25rem; }
+
+  /* Fakten untereinander, Zahl und Erklaerung in einer Zeile */
+  .hero-trust { flex-direction: column; gap: 0.7rem; padding-top: 1.5rem; }
+  .hero-trust div {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0;
+    margin: 0;
+    border-right: none;
+  }
+  .hero-trust strong { font-size: 1.2rem; }
+
+  /* Ablauf: senkrechte Linie durch die Nummernkreise */
+  .steps { gap: 1.75rem; }
+  .steps::before {
+    display: block;
+    top: 25px;
+    bottom: 25px;
+    left: 24px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+  .step { padding-top: 0; padding-left: 4.2rem; min-height: 50px; }
+
+  #contactForm { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; text-align: center; }
 }
 
@@ -1116,6 +1550,7 @@ body.cc-offen { overflow: hidden; }
     transition-duration: 0.01ms !important;
   }
   .hero h1 { clip-path: none; }
-  .hero-sub, .hero-actions, .hero-trust { opacity: 1; }
+  .hero-sub, .hero-actions, .hero-trust, .hero-visual { opacity: 1; }
+  .hv-browser { transform: perspective(1400px) rotateY(-7deg) rotateX(2deg); }
   .reveal { opacity: 1; transform: none; }
 }

@@ -93,19 +93,38 @@ The HTML is deliberately not split into partials: that would need a build step o
 runtime JavaScript, both of which contradict the stack decision above.
 
 ## Design system
-Taken from the original design reference, which has since been deleted because it is
-fully integrated. Everything is driven by CSS custom properties at the top of
-`css/style.css`, so change colours and spacing there, not in the components.
+Design 2 (branch `design-neu`, September 2026): **light page with dark accent blocks.**
+Max found the original all-dark design too dark, too plain and too stacked. The first
+dark design is preserved as git tag `design-v1-backup`.
 
-- Background `#0A0B0F`, surfaces `#12141B`, accent electric indigo `#5B7FFF`
-- Headings Space Grotesk 700, body Inter 400/500/600
+Everything is driven by CSS custom properties at the top of `css/style.css`, so change
+colours and spacing there, not in the components.
+
+- Light ground `#F6F7FB`, white surfaces, text `#0F1220`. Accent indigo `#4B6BF5`,
+  with violet `#8B5CF6` and cyan `#22D3EE` for the gradients (`--grad`, `--grad-wide`).
+- **Dark blocks** (hero, Kontakt, footer, the 404 page) carry the class `theme-dark`,
+  which remaps the same tokens to dark values. Components never use literal colours,
+  so anything placed inside a dark block recolours itself. Add the class, nothing else.
+- Headings Space Grotesk 700, body Inter 400/500/600.
 - Fonts are **self-hosted** in `assets/fonts/` as variable woff2. Do not switch back to
   the Google Fonts CDN: the privacy policy currently states that no visitor IP reaches
   any third party, and that claim depends on this.
-- Signature animations: the glow orb blooms from a point with a slight overshoot and
-  then settles into an ambient pulse; the hero headline wipes in left to right with a
-  synchronised glow edge. Both are in `css/style.css` section 13 and `js/script.js`.
+- Header: sticky, transparent with light text over the hero, white glass once scrolled
+  (`.scrolled`, set by JS) or while the mobile menu is open (`:has`). Its height is
+  `--header-h`; the hero pulls itself up by exactly that amount so the dark block
+  reaches the top edge. **Do not put `overflow-x: hidden` on `body`**: it turns body
+  into a scroll container and the sticky header stops sticking. `html` has
+  `overflow-x: clip`, that is enough.
+- Hero is two columns: copy left, a visual right built from the portfolio screenshot
+  in a floating browser frame plus a phone frame (`.hero-visual`, decorative,
+  `aria-hidden`). Same image file as the portfolio, nothing extra is loaded.
+- Signature animations kept from design 1: the glow orb blooms and then pulses, the
+  hero headline wipes in with a glow edge. New: drifting colour blobs in the hero and
+  floating frames. All in `css/style.css` sections 5 and 14 and `js/script.js`.
 - `prefers-reduced-motion` disables all of it. Keep it that way.
+- `.steps` (Ablauf) and `.steps.steps-technik` (Leistungen) share markup but not
+  looks. The technik rule uses the doubled class on purpose so it wins over the
+  Ablauf rule further down the file.
 
 ## Page structure (single page, anchor nav, smooth scroll, no router)
 1. Hero

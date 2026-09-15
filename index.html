@@ -64,29 +64,50 @@
 
   <main>
     <!-- ===== HERO ===== -->
-    <section class="hero" id="hero">
+    <section class="hero theme-dark" id="hero">
       <div class="bg-grid" aria-hidden="true"></div>
       <div class="glow-orb" id="glowOrb" aria-hidden="true"></div>
 
       <div class="container">
-        <span class="hero-badge">
-          <span class="dot" aria-hidden="true"></span>
-          Kapazität für neue Projekte
-        </span>
+        <div class="hero-copy">
+          <span class="hero-badge">
+            <span class="dot" aria-hidden="true"></span>
+            Kapazität für neue Projekte
+          </span>
 
-        <h1>Ein digitaler Auftritt, der Vertrauen schafft.</h1>
+          <h1>Ein digitaler Auftritt, der <span class="hl">Vertrauen schafft.</span></h1>
 
-        <p class="hero-sub">
-          Individuell entwickelte Websites für Unternehmen und
-          Selbstständige. Kein Baukasten, sondern ein Auftritt, der auf Ihr
-          Angebot und Ihre Kunden zugeschnitten ist.
-        </p>
+          <p class="hero-sub">
+            Individuell entwickelte Websites für Unternehmen und
+            Selbstständige. Kein Baukasten, sondern ein Auftritt, der auf Ihr
+            Angebot und Ihre Kunden zugeschnitten ist.
+          </p>
 
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#kontakt">Erstgespräch vereinbaren</a>
-          <a class="btn btn-ghost" href="#portfolio">Referenz ansehen</a>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#kontakt">Erstgespräch vereinbaren</a>
+            <a class="btn btn-ghost" href="#portfolio">Referenz ansehen</a>
+          </div>
+
         </div>
 
+        <!-- Visual: das Bildschirmfoto der Referenz in einem Browser- und
+             einem Telefonrahmen. Rein dekorativ, deshalb leere alt-Texte;
+             die Referenz selbst wird im Abschnitt Portfolio beschrieben.
+             Dieselbe Datei wie dort, es wird also nichts Zusaetzliches
+             geladen. -->
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hv-browser">
+            <img src="assets/img/bioenergetikmq5.jpg" alt="" width="1600" height="1090" decoding="async">
+          </div>
+          <div class="hv-phone">
+            <img src="assets/img/bioenergetikmq5.jpg" alt="" width="1600" height="1090" decoding="async">
+          </div>
+          <div class="hv-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"></path></svg>
+          </div>
+        </div>
+
+        <!-- Drei Fakten, ueber die ganze Breite unter beiden Spalten -->
         <div class="hero-trust">
           <div>
             <strong>Ab 2 Woche</strong>
@@ -108,9 +129,11 @@
     <section id="ueber-mich">
       <div class="container">
         <div class="about">
-          <div class="about-text reveal">
+          <div class="about-head reveal">
             <span class="section-label">Über mich</span>
             <h2>Max Bund</h2>
+          </div>
+          <div class="about-text reveal">
             <p>
               Unternehmerisch bin ich, seit ich in der Schulzeit mein erstes
               Unternehmen im Rahmen eines Schulprojekts als CEO geführt habe.
@@ -375,7 +398,7 @@
     </section>
 
     <!-- ===== KONTAKT ===== -->
-    <section id="kontakt">
+    <section id="kontakt" class="theme-dark">
       <div class="container">
         <div class="contact reveal">
 
@@ -484,7 +507,7 @@
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="site-footer">
+  <footer class="site-footer theme-dark">
     <div class="container footer-inner">
       <p>&copy; <span id="jahr">2026</span> Webdesign Bund, Max Bund</p>
       <nav class="footer-links" aria-label="Rechtliches">
