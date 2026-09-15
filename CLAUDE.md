@@ -84,9 +84,9 @@ HTML/CSS/JS background. Don't introduce a framework or bundler unless explicitly
 ├── js/script.js        # nav, scroll reveals, contact form
 └── assets/
     ├── fonts/          # Inter + Space Grotesk, self-hosted woff2
-    └── img/            # logo and screenshots. bioenergetikmq5.png is the
-                        # portfolio screenshot, still missing. No portrait
-                        # photo: Max decided against one in Über mich.
+    └── img/            # bioenergetikmq5.jpg is the portfolio image, resized
+                        # to 1600px and stripped of EXIF. No portrait photo of
+                        # Max: he decided against one in Über mich.
 ```
 The HTML is deliberately not split into partials: that would need a build step or
 runtime JavaScript, both of which contradict the stack decision above.
@@ -110,12 +110,18 @@ fully integrated. Everything is driven by CSS custom properties at the top of
 1. Hero
 2. Über mich
 3. Portfolio (Bioenergetik mq5, https://maxbuilds-dev.github.io/bioenergetikmq5/index.html).
-   Shown as a **screenshot**, `assets/img/bioenergetikmq5.png`, not as a live
-   iframe: the embed did not load and it would have been hidden behind consent,
-   which defeats the purpose of the main proof point. The URL lives in one place
-   only, the "Projekt ansehen" link; `js/script.js` derives the browser bar label
-   from it. If the image file is missing, the script shows a placeholder instead
-   of a broken image.
+   Shown as an image, `assets/img/bioenergetikmq5.jpg`, not as a live iframe:
+   the embed did not load and it would have been hidden behind consent, which
+   defeats the purpose of the main proof point. The URL lives in one place only,
+   the "Projekt ansehen" link; `js/script.js` derives the browser bar label from
+   it. If the image file is missing, the script shows a placeholder instead of a
+   broken image.
+
+   **The image is currently the client's own hero photo of her practice room,
+   not a screenshot of the website.** Max supplied it. It sits inside a browser
+   frame, which implies it is the site. Swap it for a real screenshot when one
+   exists. The photo shows an identifiable person, so it may only stay up with
+   her consent.
 4. Leistungen
 5. Ablauf
 6. Kontakt
