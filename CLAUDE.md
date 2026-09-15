@@ -56,7 +56,15 @@ German (de-AT), formal "Sie" throughout.
   those are part of the language
 Check with: `grep -rn "—\|–" --include=*.html --include=*.css --include=*.js .`
 
-## Tech stack
+## Services Max offers (different from this repo's stack)
+Max builds the full range for clients: plain static pages as well as sites with
+a backend, **WordPress and PHP included**. He does **not** use site builders
+(Wix, Jimdo, Squarespace). He **does** use his own templates as a starting
+point, and the copy says so openly because it lowers the price. Do not
+reintroduce claims like "ohne Vorlagen" anywhere on the site, they would be
+untrue.
+
+## Tech stack of this repo
 Plain HTML/CSS/JS. No framework, no build step, no npm dependencies. This matches the
 existing GitHub Pages deployment pattern and stays maintainable without a deep
 HTML/CSS/JS background. Don't introduce a framework or bundler unless explicitly asked.
