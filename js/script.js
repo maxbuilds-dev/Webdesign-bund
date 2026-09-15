@@ -298,22 +298,9 @@
     ccSchliessen();
   }
 
-  /* --- Beschriftung und Bildschirmfoto im Portfolio ---------------------
-     Die Adresse der Kundenseite steht nur im Link "Projekt ansehen". Von
-     dort wird die Adresszeile im Browser-Rahmen beschriftet, damit beide
-     nicht auseinanderlaufen. */
-  var projektLink = document.getElementById('projektLink');
-  if (projektLink) {
-    var urlFeld = document.querySelector('.browser-url');
-    if (urlFeld) {
-      urlFeld.textContent = projektLink.href
-        .replace(/^https?:\/\//, '')
-        .replace(/\/index\.html$/, '');
-    }
-  }
-
-  /* Fehlt das Bildschirmfoto, tritt der Platzhalter an seine Stelle,
-     statt ein kaputtes Bild zu zeigen. */
+  /* --- Bildschirmfoto im Portfolio --------------------------------------
+     Fehlt die Datei, tritt der Platzhalter an seine Stelle, statt ein
+     kaputtes Bild zu zeigen. */
   var projektBild = document.getElementById('projektBild');
   if (projektBild) {
     projektBild.addEventListener('error', function () {

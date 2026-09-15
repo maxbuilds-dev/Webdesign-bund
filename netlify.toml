@@ -1,0 +1,6 @@
+# Kein Build, kein Paketmanager: Netlify veroeffentlicht das
+# Wurzelverzeichnis so, wie es im Repository liegt.
+# Die Kopfzeilen stehen in der Datei _headers.
+
+[build]
+  publish = "."

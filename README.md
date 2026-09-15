@@ -7,12 +7,14 @@ Portfolio site for the web design business. Built with Claude Code.
 ```
 webdesign-bund/
 ├── index.html          # the single page, all visible copy lives here
-├── impressum.html      # Impressum / Offenlegung, STILL HAS PLACEHOLDERS
-├── datenschutz.html    # Datenschutzerklärung, STILL HAS PLACEHOLDERS
+├── impressum.html      # Impressum / Offenlegung, real data, complete
+├── datenschutz.html    # Datenschutzerklärung, real data, complete
 ├── 404.html            # error page, must stay at root
 ├── robots.txt          # must stay at root to be read by search engines
 ├── sitemap.xml         # must stay at root
-├── CNAME               # custom domain for GitHub Pages
+├── _headers            # real HTTP headers on Netlify (CSP and friends)
+├── netlify.toml        # publish the repo root, no build step
+├── CNAME               # leftover from GitHub Pages, harmless on Netlify
 ├── .gitignore
 ├── README.md
 ├── CLAUDE.md           # project context, Claude Code reads this automatically
@@ -21,10 +23,10 @@ webdesign-bund/
 │   ├── fonts.css       # @font-face rules only
 │   └── nojs.css        # loaded via <noscript>, makes hidden sections visible
 ├── js/
-│   └── script.js       # nav, scroll reveals, mailto contact form
+│   └── script.js       # nav, scroll reveals, contact form, consent manager
 └── assets/
     ├── fonts/          # Inter + Space Grotesk, self-hosted woff2
-    └── img/            # logo, screenshots, portrait photo
+    └── img/            # logo and screenshots, no portrait photo by choice
 ```
 
 The page is not split into partials on purpose. Doing that without a build step would
@@ -56,21 +58,39 @@ building this site so they are not repeated.
 2. Claude Code will read `CLAUDE.md` automatically for context — no need to re-explain the business or the goal each session.
 3. Build/iterate section by section (hero, services, portfolio, about, contact, impressum).
 
-## Deploying (GitHub Pages, same pattern as the client site)
+## Deploying (Netlify)
 
-1. `git init`, commit, push to a new GitHub repo.
-2. In the repo: **Settings → Pages** → set source to the main branch (root or `/docs`, pick one and stay consistent).
-3. For the custom domain:
-   - Keep the `CNAME` file in this repo (already set to `webdesign-bund.at`).
-   - At World4You, add a DNS record pointing `webdesign-bund.at` to GitHub Pages (an `A` record to GitHub's IPs, or a `CNAME` record if using a subdomain like `www`). GitHub's own Pages docs have the current IP list — check before setting this, IPs occasionally change.
-   - In the repo's Pages settings, enter `webdesign-bund.at` as the custom domain and enable "Enforce HTTPS" once DNS propagates. **Do not skip the HTTPS step** — without it the site is served over plain HTTP and browsers will flag it.
+GitHub is only the place where the code lives. The live site is served by Netlify,
+which deploys automatically on every push to `main`.
+
+1. Netlify → **Add new site → Import an existing project** → connect this GitHub repo.
+2. Build command: none. Publish directory: the repo root. `netlify.toml` already says so,
+   so the defaults it offers should already be correct.
+3. Custom domain: **Site configuration → Domain management → Add a domain** →
+   `webdesign-bund.at`.
+4. At World4You, point the domain at Netlify with the records Netlify shows you
+   (an `A` record to their load balancer plus a `CNAME` for `www`, or Netlify DNS if you
+   move the nameservers). Read the values off the Netlify panel, do not copy them from
+   here, they change.
+5. Netlify issues a Let's Encrypt certificate automatically once DNS resolves. Check that
+   **HTTPS** is active and switch on **Force HTTPS** in the domain settings.
+6. Turn GitHub Pages **off** in the repo settings, otherwise two services claim the same
+   domain. The `CNAME` file in this repo is a leftover from that setup. Netlify ignores
+   it, so it can stay until Pages is switched off, then it may be deleted.
+
+`_headers` sends the Content Security Policy and the other security headers as real HTTP
+headers. That was impossible on GitHub Pages. The `<meta http-equiv>` tags in the HTML
+stay as well, so the policy also holds in a local preview. **If you change a policy in
+one place, change it in the other too**, otherwise the browser enforces the intersection
+of the two and something breaks silently.
 
 ## Security notes
 
 The site has no backend, no secrets and no third-party resources. A few things are set
 up deliberately and are easy to break by accident:
 
-- A **Content Security Policy** meta tag on every page forbids anything external. Because
+- A **Content Security Policy** forbids anything external. It is set twice: as a meta tag
+  on every page and as a real header in `_headers`. Because
   of it, inline `<style>` blocks, inline `<script>` blocks and `style="..."` attributes
   are blocked and will silently do nothing. Put CSS in `css/` and JS in `js/`.
 - The **mail address is assembled by JavaScript** on `index.html`, so it is not sitting in

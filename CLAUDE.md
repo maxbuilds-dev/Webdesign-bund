@@ -50,7 +50,7 @@ German (de-AT), formal "Sie" throughout.
 - no hyphens inside compound words either: write "Mail" not "E-Mail",
   "Mailprogramm" not "E-Mail-Programm", "Vorlagenlook" not "Vorlagen-Look"
 - the only hyphens left are unavoidable real identifiers: the address
-  office@webdesign-bund.at, the client URL maxbuilds-dev.github.io, and the
+  office@webdesign-bund.at, the client domain bioenergetik-mq5.at, and the
   official code ÖNACE 62.10-0
 - CSS property names, class names and custom properties keep their hyphens,
   those are part of the language
@@ -65,9 +65,9 @@ reintroduce claims like "ohne Vorlagen" anywhere on the site, they would be
 untrue.
 
 ## Tech stack of this repo
-Plain HTML/CSS/JS. No framework, no build step, no npm dependencies. This matches the
-existing GitHub Pages deployment pattern and stays maintainable without a deep
-HTML/CSS/JS background. Don't introduce a framework or bundler unless explicitly asked.
+Plain HTML/CSS/JS. No framework, no build step, no npm dependencies. Netlify publishes
+the repo root as it is, and the site stays maintainable without a deep HTML/CSS/JS
+background. Don't introduce a framework or bundler unless explicitly asked.
 
 ## File structure
 ```
@@ -75,10 +75,12 @@ HTML/CSS/JS background. Don't introduce a framework or bundler unless explicitly
 ├── index.html          # the single page, all visible copy lives here
 ├── impressum.html      # ECG §5 / MedienG §25, real data, complete
 ├── datenschutz.html    # DSGVO, real data, complete
-├── 404.html            # must stay at root, GitHub Pages only reads it there
+├── 404.html            # must stay at root
 ├── robots.txt          # must stay at root
 ├── sitemap.xml         # must stay at root
-├── CNAME               # custom domain, do not delete
+├── _headers            # real HTTP headers on Netlify, CSP included
+├── netlify.toml        # publish the repo root, no build command
+├── CNAME               # leftover from GitHub Pages, ignored by Netlify
 ├── css/style.css       # design tokens at the top, then section by section
 ├── css/fonts.css       # @font-face only
 ├── js/script.js        # nav, scroll reveals, contact form
@@ -109,19 +111,20 @@ fully integrated. Everything is driven by CSS custom properties at the top of
 ## Page structure (single page, anchor nav, smooth scroll, no router)
 1. Hero
 2. Über mich
-3. Portfolio (Bioenergetik mq5, https://maxbuilds-dev.github.io/bioenergetikmq5/index.html).
+3. Portfolio (Bioenergetik mq5, https://bioenergetik-mq5.at).
    Shown as an image, `assets/img/bioenergetikmq5.jpg`, not as a live iframe:
    the embed did not load and it would have been hidden behind consent, which
    defeats the purpose of the main proof point. The URL lives in one place only,
-   the "Projekt ansehen" link; `js/script.js` derives the browser bar label from
-   it. If the image file is missing, the script shows a placeholder instead of a
-   broken image.
+   the "Projekt ansehen" link. If the image file is missing, `js/script.js`
+   shows a placeholder instead of a broken image.
 
-   **The image is currently the client's own hero photo of her practice room,
-   not a screenshot of the website.** Max supplied it. It sits inside a browser
-   frame, which implies it is the site. Swap it for a real screenshot when one
-   exists. The photo shows an identifiable person, so it may only stay up with
-   her consent.
+   The image is a real screenshot of the published start page, taken by Max on
+   an iPad. The device bars were cropped away (content rows 142 to 2011 of the
+   2752x2064 original), it was resized to 1600x1090 and EXIF was stripped. The
+   frame around it deliberately has no address bar any more, so nothing claims
+   a URL the image cannot back up. The screenshot contains the client's hero
+   photo, which shows an identifiable person, so it may only stay up with her
+   consent.
 4. Leistungen
 5. Ablauf
 6. Kontakt
@@ -153,11 +156,14 @@ section (Stufe 2) and `mailto:` does not provide that.
 ## Security decisions (do not undo without asking)
 - **No secrets, ever.** Nothing in this repo needs a key. If a form service is ever
   added, only a public key belongs in the client, never a private one.
-- **Content Security Policy** is set as a `<meta http-equiv>` on all four pages:
+- **Content Security Policy** is set twice: as a `<meta http-equiv>` on all four pages
+  and as a real HTTP header in `_headers`, which Netlify sends. The meta tag stays so
+  the policy also holds in a local preview. Both must say the same thing: the browser
+  enforces the intersection of the two, so a mismatch breaks the page silently.
   `default-src 'none'` with `'self'` for script, style and font. index.html also
   allows `connect-src` and `form-action` for `https://api.web3forms.com`, the only
-  exceptions. Do not widen them. GitHub Pages cannot
-  send real HTTP headers, so the meta tag is the only option here. Consequence:
+  exceptions. Do not widen them. `_headers` additionally sets `frame-ancestors 'none'`,
+  which a meta tag cannot do. Consequence:
   **no inline `<style>` blocks, no inline `<script>`, no `style="..."` attributes.**
   Put new CSS in `css/style.css` and new JS in `js/script.js`, otherwise it is blocked
   silently. `img-src` allows `data:` only for the inline SVG favicon.
@@ -182,8 +188,8 @@ section (Stufe 2) and `mailto:` does not provide that.
 - **`css/nojs.css`** is loaded inside `<noscript>`. Without it the `.reveal` elements
   stay at `opacity: 0` and most of the page is blank for visitors without JavaScript.
   If you add new `.reveal` elements, this file already covers them.
-- **Enforce HTTPS** has to be switched on in the repository settings under Pages. That
-  is a GitHub setting, not something in this repo.
+- **Force HTTPS** has to be switched on in the Netlify domain settings. That is a
+  Netlify setting, not something in this repo.
 
 ## Legal pages — status
 Both pages carry Max's real business data. No placeholders and no `.todo-box` left.
@@ -207,8 +213,10 @@ This is not legal advice; if anything about the requirements looks uncertain, sa
 rather than asserting it.
 
 ## Deployment
-GitHub Pages, same pattern as the Elke Bund KG site. Custom domain via the CNAME file
-plus DNS records at World4You, see README.md.
+**Netlify.** GitHub is only the repository where the code is written; Netlify watches
+`main` and deploys on every push. No build command, the repo root is published as it is
+(`netlify.toml`). Custom domain plus DNS at World4You, see README.md. GitHub Pages is
+no longer the host, so do not add advice that assumes it.
 
 ## Working style
 Direct and iterative. Build section by section, show progress rather than a big single
