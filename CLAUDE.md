@@ -218,7 +218,16 @@ rather than asserting it.
 
 GitHub Pages has been switched off for this repo and the `CNAME` file it required has
 been deleted. Do not recreate either, and do not add advice that assumes GitHub Pages.
-Netlify issues the certificate; forcing HTTPS is a setting in the Netlify panel.
+
+**Verified live on 15 Sep 2026** (securityheaders.com, grade A+): `server: Netlify`,
+and the `_headers` rules are applied. The Content Security Policy arrives as a real
+header, once, not duplicated, so header and meta tag agree.
+
+**Force HTTPS is on**, and Netlify therefore sends
+`strict-transport-security: max-age=31536000` by itself. That line is not in `_headers`
+and should not be added there. Consequence: for one year after a first visit, browsers
+refuse to load the site over plain HTTP. Never test with `http://`, it will fail by
+design, and that is not a fault of the site.
 
 ## Working style
 Direct and iterative. Build section by section, show progress rather than a big single
