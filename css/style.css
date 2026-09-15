@@ -1007,13 +1007,16 @@ body.cc-offen { overflow: hidden; }
   line-height: 1.5;
 }
 
-.embed-rahmen {
+/* Bildschirmfoto der Kundenseite. Fuellt den Rahmen und schneidet unten ab,
+   damit das Seitenverhaeltnis stimmt, egal wie hoch das Bild ist. */
+.projekt-bild {
   width: 100%;
   height: 100%;
-  border: 0;
+  object-fit: cover;
+  object-position: top center;
   display: block;
-  background: var(--bg-soft);
 }
+.projekt-bild[hidden] { display: none; }
 
 /* Schaltflaeche in der Fusszeile, sieht aus wie die Links daneben */
 .footer-btn {

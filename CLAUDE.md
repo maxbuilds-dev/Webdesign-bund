@@ -84,8 +84,9 @@ HTML/CSS/JS background. Don't introduce a framework or bundler unless explicitly
 ├── js/script.js        # nav, scroll reveals, contact form
 └── assets/
     ├── fonts/          # Inter + Space Grotesk, self-hosted woff2
-    └── img/            # logo and screenshots. No portrait photo: Max decided
-                        # against a picture in the Über mich section.
+    └── img/            # logo and screenshots. bioenergetikmq5.png is the
+                        # portfolio screenshot, still missing. No portrait
+                        # photo: Max decided against one in Über mich.
 ```
 The HTML is deliberately not split into partials: that would need a build step or
 runtime JavaScript, both of which contradict the stack decision above.
@@ -108,7 +109,13 @@ fully integrated. Everything is driven by CSS custom properties at the top of
 ## Page structure (single page, anchor nav, smooth scroll, no router)
 1. Hero
 2. Über mich
-3. Portfolio (Bioenergetik mq5, https://maxbuilds-dev.github.io/bioenergetikmq5/index.html)
+3. Portfolio (Bioenergetik mq5, https://maxbuilds-dev.github.io/bioenergetikmq5/index.html).
+   Shown as a **screenshot**, `assets/img/bioenergetikmq5.png`, not as a live
+   iframe: the embed did not load and it would have been hidden behind consent,
+   which defeats the purpose of the main proof point. The URL lives in one place
+   only, the "Projekt ansehen" link; `js/script.js` derives the browser bar label
+   from it. If the image file is missing, the script shows a placeholder instead
+   of a broken image.
 4. Leistungen
 5. Ablauf
 6. Kontakt
@@ -129,8 +136,10 @@ this site and there is still no backend of our own.
   the submission when it is set. `js/script.js` checks it as well.
 - CSP on index.html therefore allows `connect-src https://api.web3forms.com` and
   `form-action https://api.web3forms.com`. Do not widen further.
-- The privacy policy names the service and still has a `[PLATZHALTER]` for the
-  operator's legal entity. Fill it from the provider's imprint.
+- The privacy policy names the operator as "Web3Creative, auch als Web3Forms LLC
+  auftretend" and states openly that no full address is published by the provider.
+  That is what Max could find; it is a known gap, not an oversight. If a proper
+  address ever surfaces, put it in.
 
 The switch happened because the site advertises reliable delivery in the Leistungen
 section (Stufe 2) and `mailto:` does not provide that.
@@ -140,8 +149,8 @@ section (Stufe 2) and `mailto:` does not provide that.
   added, only a public key belongs in the client, never a private one.
 - **Content Security Policy** is set as a `<meta http-equiv>` on all four pages:
   `default-src 'none'` with `'self'` for script, style and font. index.html also
-  allows `frame-src https://maxbuilds-dev.github.io`, the single narrow exception,
-  for the consent gated portfolio preview. Do not widen it. GitHub Pages cannot
+  allows `connect-src` and `form-action` for `https://api.web3forms.com`, the only
+  exceptions. Do not widen them. GitHub Pages cannot
   send real HTTP headers, so the meta tag is the only option here. Consequence:
   **no inline `<style>` blocks, no inline `<script>`, no `style="..."` attributes.**
   Put new CSS in `css/style.css` and new JS in `js/script.js`, otherwise it is blocked
@@ -157,12 +166,13 @@ section (Stufe 2) and `mailto:` does not provide that.
   JavaScript there would be legally risky. This means a determined scraper can still
   find it there. The obfuscation only reduces volume from the most visited page.
 - **Consent manager** in `js/script.js` section 8. Categories are a data structure
-  (`CC_KATEGORIEN`) so client projects can add Statistik or more embeds without
-  touching the logic. Rules that must not be softened: all buttons identical in
-  size and colour, refusal stored so it is honoured, withdrawal via the footer
-  button, Escape counts as refusal, and **nothing external loads before consent**
-  (the portfolio iframe is created at runtime, it is not in the HTML). Bump
-  `CC_VERSION` when the category list changes so visitors are asked again.
+  (`CC_KATEGORIEN`). The site currently has **only the `notwendig` category**,
+  because nothing external loads on page view any more. `CC_VERSION` is at 2.
+  Rules that must not be softened: all buttons identical in size and colour,
+  refusal stored so it is honoured, withdrawal via the footer button, Escape
+  counts as refusal, and **nothing external loads before consent**. If an embed
+  is ever added, create the iframe at runtime in `ccAnwenden`, never in the HTML,
+  and bump `CC_VERSION` so old consents are asked again.
 - **`css/nojs.css`** is loaded inside `<noscript>`. Without it the `.reveal` elements
   stay at `opacity: 0` and most of the page is blank for visitors without JavaScript.
   If you add new `.reveal` elements, this file already covers them.

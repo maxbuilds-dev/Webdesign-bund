@@ -10,7 +10,7 @@
        Die Seite hat bewusst keine externen Abhaengigkeiten, deshalb ist 'self'
        ueberall ausreichend. data: nur fuer das Favicon, das als SVG direkt im
        HTML steht. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; frame-src https://maxbuilds-dev.github.io; connect-src https://api.web3forms.com; base-uri 'none'; form-action https://api.web3forms.com">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src https://api.web3forms.com; base-uri 'none'; form-action https://api.web3forms.com">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <title>Webdesign Bund: individuelle Websites für Unternehmen und Selbstständige</title>
@@ -168,10 +168,8 @@
               Smartphone ebenso trägt wie am Desktop.
             </p>
             <!-- EINZIGE STELLE FUER DIE ADRESSE DER KUNDENSEITE.
-                 js/script.js liest sie hier aus und erzeugt daraus die
-                 Livevorschau und die Beschriftungen im Browser-Rahmen.
-                 Zweite Stelle: frame-src in der Sicherheitsrichtlinie ganz
-                 oben, dort muss die Adresse buchstaeblich stehen. -->
+                 js/script.js liest sie hier aus und beschriftet damit die
+                 Adresszeile im Browser-Rahmen daneben. -->
             <a class="btn btn-ghost" id="projektLink"
                href="https://maxbuilds-dev.github.io/bioenergetikmq5/index.html"
                target="_blank" rel="noopener">
@@ -185,20 +183,21 @@
               <span class="browser-url">maxbuilds-dev.github.io/bioenergetikmq5</span>
             </div>
 
-            <!-- Solange externe Inhalte nicht freigegeben sind, steht hier nur
-                 dieser Platzhalter. Es wird nichts von einem fremden Server
-                 geladen, kein Bild, kein Skript, keine Verbindung. Erst die
-                 Freigabe setzt den iframe ein, siehe js/script.js. -->
+            <!-- Bildschirmfoto der Kundenseite. Liegt auf demselben Server,
+                 es wird also nichts von aussen geladen und keine Zustimmung
+                 gebraucht. Fehlt die Datei, blendet js/script.js den
+                 Platzhalter darunter ein. -->
             <div class="browser-body" id="portfolioRahmen">
-              <div class="embed-platzhalter" id="embedPlatzhalter">
+              <img class="projekt-bild" id="projektBild"
+                   src="assets/img/bioenergetikmq5.png"
+                   alt="Bildschirmfoto der Website Bioenergetik mq5"
+                   width="1440" height="990" loading="lazy" decoding="async">
+              <div class="embed-platzhalter" id="embedPlatzhalter" hidden>
                 <span>Bioenergetik mq5</span>
-                <small id="embedHinweis">
-                  Die Livevorschau wird von einem fremden Server geladen.
-                  Sie bleibt blockiert, bis Sie externe Inhalte freigeben.
+                <small>
+                  Praxis für Humanenergetik. Das Bildschirmfoto fehlt noch,
+                  die Seite selbst erreichen Sie über den Link daneben.
                 </small>
-                <button type="button" class="cc-btn cc-btn-klein" id="embedErlauben">
-                  Vorschau laden
-                </button>
               </div>
             </div>
           </div>
@@ -522,12 +521,6 @@
           Werbung, Statistik oder Tracking gesetzt und keine Daten an Dritte
           übertragen.
         </p>
-        <p class="cc-text">
-          Optional können Sie die Livevorschau im Portfolio freigeben. Sie
-          wird von einem fremden Server geladen und bleibt bis zu Ihrer
-          Zustimmung vollständig blockiert.
-        </p>
-
         <div class="cc-actions">
           <button type="button" class="cc-btn" id="ccEinstellungen">Einstellungen</button>
           <button type="button" class="cc-btn" id="ccAblehnen">Alle ablehnen</button>

@@ -227,9 +227,9 @@
      Statistik oder eingebetteten Videos wird hier ein Eintrag ergaenzt, der
      Rest funktioniert unveraendert weiter.
 
-     Grundsatz: nichts wird geladen, bevor zugestimmt wurde. Der iframe im
-     Portfolio entsteht erst nach der Freigabe, vorher steht dort nur ein
-     Platzhalter und es geht keine einzige Verbindung nach aussen.        */
+     Grundsatz: nichts Externes wird geladen, bevor zugestimmt wurde.
+     Zurzeit hat die Seite nichts Externes, deshalb bleibt nur die
+     notwendige Kategorie uebrig.                                        */
 
   /* --- Cookies lesen und schreiben -------------------------------------- */
   function cookieLesen(name) {
@@ -247,7 +247,7 @@
   }
 
   var CC_NAME = 'zustimmung';
-  var CC_VERSION = 1;   /* aendert sich die Liste unten, hochzaehlen.
+  var CC_VERSION = 2;   /* aendert sich die Liste unten, hochzaehlen.
                            Dann wird erneut gefragt, statt eine veraltete
                            Zustimmung weiterzuverwenden. */
 
@@ -265,26 +265,6 @@
           text: 'Enthält das Datum Ihrer Entscheidung und welche Kategorien ' +
                 'Sie freigegeben haben. Keine Kennung, keine Auswertung, ' +
                 'keine Weitergabe.'
-        }
-      ]
-    },
-    {
-      id: 'extern',
-      titel: 'Externe Inhalte',
-      pflicht: false,
-      zweck: 'Erlaubt die Livevorschau im Portfolio. Sie wird direkt von ' +
-             (function () {
-               var l = document.getElementById('projektLink');
-               return l ? l.hostname : 'einem fremden Server';
-             }()) +
-             ' geladen. Ohne Freigabe wird diese Verbindung nicht aufgebaut.',
-      eintraege: [
-        {
-          name: 'keine Cookies',
-          dauer: 'entfällt',
-          text: 'Die Vorschau selbst setzt keine Cookies. Beim Laden erfährt ' +
-                'der fremde Server jedoch die Adresse Ihres Internetanschlusses, ' +
-                'weil jede Verbindung technisch bedingt eine Adresse benötigt.'
         }
       ]
     }
@@ -318,52 +298,39 @@
     ccSchliessen();
   }
 
-  /* --- Wirkung der Entscheidung ---------------------------------------- */
-  /* Die Adresse der Kundenseite steht nur an einer Stelle im HTML, naemlich
-     im Link "Projekt ansehen". Von dort wird sie hier ausgelesen. So koennen
-     Link, Vorschau und Beschriftung nicht mehr auseinanderlaufen.
-     Ausnahme: frame-src in der Sicherheitsrichtlinie. Dort verlangt der
-     Browser die Adresse buchstaeblich, sie laesst sich nicht ableiten. */
+  /* --- Beschriftung und Bildschirmfoto im Portfolio ---------------------
+     Die Adresse der Kundenseite steht nur im Link "Projekt ansehen". Von
+     dort wird die Adresszeile im Browser-Rahmen beschriftet, damit beide
+     nicht auseinanderlaufen. */
   var projektLink = document.getElementById('projektLink');
-  var EMBED_URL = projektLink ? projektLink.href : '';
-
-  /* Beschriftungen aus derselben Adresse ableiten */
-  if (EMBED_URL) {
-    var ohneProtokoll = EMBED_URL.replace(/^https?:\/\//, '').replace(/\/index\.html$/, '');
-    var host = ohneProtokoll.split('/')[0];
-
+  if (projektLink) {
     var urlFeld = document.querySelector('.browser-url');
-    if (urlFeld) urlFeld.textContent = ohneProtokoll;
-
-    var hinweis = document.getElementById('embedHinweis');
-    if (hinweis) {
-      hinweis.textContent = 'Die Livevorschau wird von ' + host + ' geladen. ' +
-        'Sie bleibt blockiert, bis Sie externe Inhalte freigeben.';
+    if (urlFeld) {
+      urlFeld.textContent = projektLink.href
+        .replace(/^https?:\/\//, '')
+        .replace(/\/index\.html$/, '');
     }
   }
 
-  function ccAnwenden(daten) {
-    var rahmen = document.getElementById('portfolioRahmen');
-    if (!rahmen) return;
+  /* Fehlt das Bildschirmfoto, tritt der Platzhalter an seine Stelle,
+     statt ein kaputtes Bild zu zeigen. */
+  var projektBild = document.getElementById('projektBild');
+  if (projektBild) {
+    projektBild.addEventListener('error', function () {
+      projektBild.hidden = true;
+      var ersatz = document.getElementById('embedPlatzhalter');
+      if (ersatz) ersatz.hidden = false;
+    });
+  }
 
-    if (daten && daten.extern) {
-      if (rahmen.querySelector('iframe')) return;
-      var platzhalter = document.getElementById('embedPlatzhalter');
-      if (platzhalter) platzhalter.hidden = true;
-      var rahmenFenster = document.createElement('iframe');
-      rahmenFenster.src = EMBED_URL;
-      rahmenFenster.title = 'Livevorschau der Website Bioenergetik mq5';
-      rahmenFenster.loading = 'lazy';
-      rahmenFenster.referrerPolicy = 'no-referrer';
-      rahmenFenster.className = 'embed-rahmen';
-      rahmen.appendChild(rahmenFenster);
-    } else {
-      /* Freigabe zurueckgenommen: iframe entfernen, Platzhalter zurueck */
-      var vorhanden = rahmen.querySelector('iframe');
-      if (vorhanden) vorhanden.remove();
-      var ph = document.getElementById('embedPlatzhalter');
-      if (ph) ph.hidden = false;
-    }
+  /* --- Wirkung der Entscheidung ----------------------------------------
+     Zurzeit gibt es nichts Externes auf dieser Seite. Das Bildschirmfoto
+     liegt auf demselben Server, das Kontaktformular sendet erst beim
+     Absenden. Kommt spaeter eine Karte oder ein Video dazu, wird der
+     iframe hier erzeugt, niemals im HTML, damit vor der Zustimmung
+     nachweislich keine Verbindung aufgebaut wird.                        */
+  function ccAnwenden(daten) {
+    /* absichtlich leer */
   }
 
   /* --- Einstellungen aufbauen ------------------------------------------- */
@@ -496,18 +463,6 @@
 
     var oeffner = document.getElementById('ccOeffnen');
     if (oeffner) oeffner.addEventListener('click', function () { ccOeffnen(true); });
-
-    /* Klick auf "Vorschau laden" gibt genau diese eine Kategorie frei */
-    var embedKnopf = document.getElementById('embedErlauben');
-    if (embedKnopf) {
-      embedKnopf.addEventListener('click', function () {
-        var bisher = ccLesen() || {};
-        var auswahl = {};
-        CC_KATEGORIEN.forEach(function (k) { auswahl[k.id] = !!bisher[k.id]; });
-        auswahl.extern = true;
-        ccSpeichern(auswahl);
-      });
-    }
 
     /* Escape zaehlt als Ablehnung, nicht als stille Zustimmung */
     document.addEventListener('keydown', function (e) {
