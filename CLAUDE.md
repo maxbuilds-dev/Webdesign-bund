@@ -115,9 +115,25 @@ fully integrated. Everything is driven by CSS custom properties at the top of
 Order confirmed by Max. The nav in the header must mirror it.
 
 ## Contact form
-There is no backend and there will not be one. The form builds a mailto link and opens
-the visitor's own mail program. Nothing is stored. A hidden honeypot field catches
-simple bots.
+Sends to **Web3Forms**, which forwards the submission by mail. Nothing is stored on
+this site and there is still no backend of our own.
+
+- `action` and `method` sit in the HTML on purpose: without JavaScript the form
+  submits normally and the visitor lands on the service's confirmation page. With
+  JavaScript the submit is intercepted, sent via `fetch`, and the reply appears in
+  place. Do not remove the attributes.
+- The `access_key` in the markup is **public by design**, Web3Forms states so itself.
+  It only permits submissions to this one form. It is not a secret and does not
+  violate the no-secrets rule.
+- Honeypot field is named `botcheck` because Web3Forms expects that name and discards
+  the submission when it is set. `js/script.js` checks it as well.
+- CSP on index.html therefore allows `connect-src https://api.web3forms.com` and
+  `form-action https://api.web3forms.com`. Do not widen further.
+- The privacy policy names the service and still has a `[PLATZHALTER]` for the
+  operator's legal entity. Fill it from the provider's imprint.
+
+The switch happened because the site advertises reliable delivery in the Leistungen
+section (Stufe 2) and `mailto:` does not provide that.
 
 ## Security decisions (do not undo without asking)
 - **No secrets, ever.** Nothing in this repo needs a key. If a form service is ever

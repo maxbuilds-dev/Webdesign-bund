@@ -121,13 +121,14 @@
     });
   }
 
-  /* 6. KONTAKTFORMULAR ---------------------------------------------------- */
-  /* Kein Server, kein Backend: aus den Eingaben wird ein mailto Link gebaut
-     und das Mailprogramm des Besuchers geöffnet. Es werden keine Daten
-     auf der Website gespeichert oder an Dritte gesendet. */
-  /* Die Adresse wird zur Laufzeit zusammengesetzt und steht deshalb
-     nirgends komplett im Quelltext. Das haelt einfache Spam-Sammler ab,
-     die nur nach dem Muster name@domain suchen. */
+  /* 6. KONTAKTFORMULAR ---------------------------------------------------
+     Gesendet wird an Web3Forms. Der Dienst nimmt die Anfrage entgegen und
+     stellt sie per Mail zu. Auf dieser Website wird nichts gespeichert.
+
+     action und method stehen im HTML. Faellt JavaScript aus, wird das
+     Formular ganz normal abgeschickt und der Besucher landet auf der
+     Bestaetigungsseite des Dienstes. Laeuft JavaScript, wird hier
+     abgefangen und die Rueckmeldung erscheint an Ort und Stelle.      */
   var EMPFAENGER = 'office' + String.fromCharCode(64) + 'webdesign-bund.at';
   var form = document.getElementById('contactForm');
   var note = document.getElementById('formNote');
@@ -137,15 +138,21 @@
     return el ? el.value.trim() : '';
   }
 
+  function melden(text, warnung) {
+    if (!note) return;
+    note.textContent = text;
+    note.style.color = warnung ? '#FFC864' : '';
+  }
+
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      // Bot-Falle: wenn das unsichtbare Feld ausgefüllt ist, passiert nichts
-      if (feld('website') !== '') return;
+      /* Bot-Falle: gesetzt bedeutet, es war kein Mensch */
+      var falle = document.getElementById('botcheck');
+      if (falle && falle.checked) return;
 
-      /* Alle Felder sind Pflicht. Fehlt eines, wird es benannt, damit der
-         Besucher nicht suchen muss. */
+      /* Alle Felder sind Pflicht. Fehlt eines, wird es benannt. */
       var felder = [
         { id: 'name',      titel: 'Name' },
         { id: 'betrieb',   titel: 'Unternehmen' },
@@ -154,43 +161,46 @@
         { id: 'anliegen',  titel: 'Anliegen' },
         { id: 'nachricht', titel: 'Nachricht' }
       ];
-
       var fehlend = felder.filter(function (f) { return feld(f.id) === ''; });
 
       if (fehlend.length) {
-        if (note) {
-          var titel = fehlend.map(function (f) { return f.titel; });
-          note.textContent = fehlend.length === 1
-            ? 'Bitte füllen Sie das Feld ' + titel[0] + ' aus.'
-            : 'Bitte füllen Sie diese Felder aus: ' + titel.join(', ') + '.';
-          note.style.color = '#FFC864';
-        }
+        var titel = fehlend.map(function (f) { return f.titel; });
+        melden(fehlend.length === 1
+          ? 'Bitte füllen Sie das Feld ' + titel[0] + ' aus.'
+          : 'Bitte füllen Sie diese Felder aus: ' + titel.join(', ') + '.', true);
         var erstes = document.getElementById(fehlend[0].id);
         if (erstes) erstes.focus();
         return;
       }
 
-      var betreff = 'Anfrage über webdesign-bund.at: ' + feld('anliegen');
-      var text = [
-        'Name: ' + feld('name'),
-        'Unternehmen: ' + feld('betrieb'),
-        'Mail: ' + feld('email'),
-        'Telefon: ' + feld('telefon'),
-        'Anliegen: ' + feld('anliegen'),
-        '',
-        'Nachricht:',
-        feld('nachricht')
-      ].join('\n');
+      /* Betreff um das Anliegen ergaenzen, damit im Postfach sofort
+         erkennbar ist, worum es geht */
+      var betreff = document.getElementById('mailBetreff');
+      if (betreff) betreff.value = 'Anfrage über webdesign-bund.at: ' + feld('anliegen');
 
-      window.location.href = 'mailto:' + EMPFAENGER +
-        '?subject=' + encodeURIComponent(betreff) +
-        '&body=' + encodeURIComponent(text);
+      var knopf = form.querySelector('button[type="submit"]');
+      if (knopf) { knopf.disabled = true; knopf.textContent = 'Wird gesendet'; }
+      melden('Ihre Anfrage wird übermittelt.');
 
-      if (note) {
-        note.textContent = 'Ihr Mailprogramm wurde geöffnet. Sollte das nicht ' +
-          'funktionieren, erreichen Sie mich direkt unter ' + EMPFAENGER + '.';
-        note.style.color = '';
-      }
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form)
+      }).then(function (antwort) {
+        return antwort.json();
+      }).then(function (ergebnis) {
+        if (ergebnis && ergebnis.success) {
+          form.reset();
+          melden('Vielen Dank, Ihre Anfrage ist angekommen. ' +
+                 'Ich melde mich in der Regel innerhalb eines Werktags.');
+        } else {
+          throw new Error('abgelehnt');
+        }
+      }).catch(function () {
+        melden('Die Übermittlung hat nicht funktioniert. Bitte schreiben Sie ' +
+               'mir direkt an ' + EMPFAENGER + ' oder rufen Sie an.', true);
+      }).then(function () {
+        if (knopf) { knopf.disabled = false; knopf.textContent = 'Anfrage senden'; }
+      });
     });
   }
 
@@ -262,7 +272,7 @@
       id: 'extern',
       titel: 'Externe Inhalte',
       pflicht: false,
-      zweck: 'Erlaubt die Live-Vorschau im Portfolio. Sie wird direkt von ' +
+      zweck: 'Erlaubt die Livevorschau im Portfolio. Sie wird direkt von ' +
              (function () {
                var l = document.getElementById('projektLink');
                return l ? l.hostname : 'einem fremden Server';
@@ -327,7 +337,7 @@
 
     var hinweis = document.getElementById('embedHinweis');
     if (hinweis) {
-      hinweis.textContent = 'Die Live-Vorschau wird von ' + host + ' geladen. ' +
+      hinweis.textContent = 'Die Livevorschau wird von ' + host + ' geladen. ' +
         'Sie bleibt blockiert, bis Sie externe Inhalte freigeben.';
     }
   }
@@ -342,7 +352,7 @@
       if (platzhalter) platzhalter.hidden = true;
       var rahmenFenster = document.createElement('iframe');
       rahmenFenster.src = EMBED_URL;
-      rahmenFenster.title = 'Live-Vorschau der Website Bioenergetik mq5';
+      rahmenFenster.title = 'Livevorschau der Website Bioenergetik mq5';
       rahmenFenster.loading = 'lazy';
       rahmenFenster.referrerPolicy = 'no-referrer';
       rahmenFenster.className = 'embed-rahmen';
