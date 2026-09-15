@@ -80,7 +80,6 @@ background. Don't introduce a framework or bundler unless explicitly asked.
 ├── sitemap.xml         # must stay at root
 ├── _headers            # real HTTP headers on Netlify, CSP included
 ├── netlify.toml        # publish the repo root, no build command
-├── CNAME               # leftover from GitHub Pages, ignored by Netlify
 ├── css/style.css       # design tokens at the top, then section by section
 ├── css/fonts.css       # @font-face only
 ├── js/script.js        # nav, scroll reveals, contact form
@@ -215,8 +214,11 @@ rather than asserting it.
 ## Deployment
 **Netlify.** GitHub is only the repository where the code is written; Netlify watches
 `main` and deploys on every push. No build command, the repo root is published as it is
-(`netlify.toml`). Custom domain plus DNS at World4You, see README.md. GitHub Pages is
-no longer the host, so do not add advice that assumes it.
+(`netlify.toml`). Custom domain plus DNS at World4You, see README.md.
+
+GitHub Pages has been switched off for this repo and the `CNAME` file it required has
+been deleted. Do not recreate either, and do not add advice that assumes GitHub Pages.
+Netlify issues the certificate; forcing HTTPS is a setting in the Netlify panel.
 
 ## Working style
 Direct and iterative. Build section by section, show progress rather than a big single

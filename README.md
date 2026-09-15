@@ -14,7 +14,6 @@ webdesign-bund/
 ├── sitemap.xml         # must stay at root
 ├── _headers            # real HTTP headers on Netlify (CSP and friends)
 ├── netlify.toml        # publish the repo root, no build step
-├── CNAME               # leftover from GitHub Pages, harmless on Netlify
 ├── .gitignore
 ├── README.md
 ├── CLAUDE.md           # project context, Claude Code reads this automatically
@@ -74,9 +73,9 @@ which deploys automatically on every push to `main`.
    here, they change.
 5. Netlify issues a Let's Encrypt certificate automatically once DNS resolves. Check that
    **HTTPS** is active and switch on **Force HTTPS** in the domain settings.
-6. Turn GitHub Pages **off** in the repo settings, otherwise two services claim the same
-   domain. The `CNAME` file in this repo is a leftover from that setup. Netlify ignores
-   it, so it can stay until Pages is switched off, then it may be deleted.
+6. GitHub Pages is switched off and the `CNAME` file it needed has been deleted. Do not
+   bring either back: two services claiming the same domain is what breaks the
+   certificate.
 
 `_headers` sends the Content Security Policy and the other security headers as real HTTP
 headers. That was impossible on GitHub Pages. The `<meta http-equiv>` tags in the HTML
