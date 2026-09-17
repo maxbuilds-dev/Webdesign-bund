@@ -103,14 +103,21 @@ branch deletions and tag pushes, Max can delete it on GitHub.
 Everything is driven by CSS custom properties at the top of `css/style.css`, so change
 colours and spacing there, not in the components.
 
-- Light ground `#F6F7FB`, white surfaces, text `#0F1220`. **One accent only**, indigo
-  `#3F5FE8` (`--accent`, hover `--accent-hover`). No gradients, no glow, no blur, no
-  glass. Max explicitly said the first light version "looked like AI"; the tells he
-  named (and that we removed on 17 Sep 2026) were: indigo-violet gradients, gradient
-  pills and icon tiles, drifting colour blobs, a floating check chip, 3D-tilted
-  mockups, a dotted grid, gradient top bars on cards, and above all **the coloured
-  left stripe on a tinted callout box** under the options. Do not bring any of these
-  back. Radii are 6 to 12px, shadows are faint, lines are 1px.
+- **Warm palette.** Paper white `#F6F4EF`, white surfaces, warm near-black text
+  `#17150F`. **One accent only: terracotta `#B9481F`** (`--accent`, hover
+  `--accent-hover`; on dark blocks `#E5844F`). **No blue, no indigo, no violet
+  anywhere**, Max called that "the purple problem": blue-violet is the colour every
+  AI template defaults to. The favicon and `theme-color` meta follow the palette.
+  No gradients, no glow, no blur, no glass. The other tells Max named, removed on
+  17 Sep 2026: gradient pills and icon tiles, drifting colour blobs, a floating check
+  chip, 3D-tilted mockups, a dotted grid, gradient top bars on cards, icon boxes, big
+  rounded corners on the dark blocks, and above all **the coloured left stripe on a
+  tinted callout box** under the options. Do not bring any of these back. Radii are
+  4 to 10px, block edges are straight, shadows are faint, lines are 1px.
+  Research behind it (fetching the sites themselves is blocked by the proxy, only
+  search summaries were readable): light backgrounds dominate current studio sites,
+  off-white plus black with one warm accent is the recurring pairing, typography does
+  the work, not effects.
 - **Dark blocks** (hero, Kontakt, footer, the 404 page) carry the class `theme-dark`,
   which remaps the same tokens to dark values. Components never use literal colours,
   so anything placed inside a dark block recolours itself. Add the class, nothing else.
@@ -133,6 +140,7 @@ colours and spacing there, not in the components.
   hero headline wipes in with a glow edge, sections reveal on scroll. Nothing else moves.
 - `prefers-reduced-motion` disables all of it. Keep it that way.
 - Section labels are small uppercase text with a short accent line, not pills.
+  Service icons stand alone in accent colour, no box behind them.
 - Ablauf steps: 1px line on top, number as a large accent numeral, no circles.
 - The three technical variants are labelled **Option A, B, C** (Max's wording, was
   "Stufe 1 bis 3"). The label is generated in CSS with `counter(step, upper-alpha)`;
@@ -141,7 +149,8 @@ colours and spacing there, not in the components.
 - `.steps` (Ablauf) and `.steps.steps-technik` (Leistungen) share markup but not
   looks. The technik rule uses the doubled class on purpose so it wins over the
   Ablauf rule further down the file.
-- All paragraphs in Über mich use `--text`, not `--text-muted`, on Max's request.
+- All paragraphs in Über mich are identical in colour (`--text`) and size, on Max's
+  request. No lead paragraph.
 
 ## Page structure (single page, anchor nav, smooth scroll, no router)
 1. Hero

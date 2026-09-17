@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Webdesign Bund, Stylesheet (Design 2: hell mit dunklen Akzentflaechen,
-   ruhig und editorial: eine Akzentfarbe, keine Verlaeufe, keine Nebel)
+   Webdesign Bund, Stylesheet (Design 2: warmes Papierweiss mit dunklen
+   Akzentflaechen, eine Akzentfarbe Terrakotta, keine Verlaeufe, keine Nebel)
    Aufbau:
    1. Design-Tokens (Farben, Schrift, Abstaende)
    2. Reset & Grundlagen
@@ -25,39 +25,40 @@
    dunkel: sie ueberschreiben die Farbtoken lokal, siehe .theme-dark.
    Komponenten kennen nur die Token, nie konkrete Farben. */
 :root {
-  /* helle Grundflaeche */
-  --bg:           #F6F7FB;
-  --bg-soft:      #EEF1F9;
+  /* helle Grundflaeche: warmes Papierweiss statt kuehlem Blaugrau */
+  --bg:           #F6F4EF;
+  --bg-soft:      #EFECE5;
   --surface:      #FFFFFF;
-  --surface-hi:   #F3F5FB;
-  --border:       rgba(15, 18, 32, 0.08);
-  --border-hi:    rgba(15, 18, 32, 0.15);
+  --surface-hi:   #F9F7F3;
+  --border:       rgba(24, 20, 14, 0.10);
+  --border-hi:    rgba(24, 20, 14, 0.18);
 
-  --text:         #0F1220;
-  --text-muted:   #4B5169;
-  --text-dim:     #6B7189;
+  --text:         #17150F;
+  --text-muted:   #4E4A42;
+  --text-dim:     #77726A;
 
-  /* Akzente: Indigo als Hauptfarbe, Violett und Cyan fuer Verlaeufe */
-  --accent:       #3F5FE8;
-  --accent-hover: #2F4BC7;
-  --accent-soft:  rgba(63, 95, 232, 0.09);
-  --accent-line:  rgba(63, 95, 232, 0.4);
+  /* Eine Akzentfarbe: Terrakotta. Bewusst kein Blau und kein Violett,
+     das ist die Farbe, an der man KI-Vorlagen erkennt. */
+  --accent:       #B9481F;
+  --accent-hover: #9A3A18;
+  --accent-soft:  rgba(185, 72, 31, 0.10);
+  --accent-line:  rgba(185, 72, 31, 0.45);
 
-  /* dunkle Bloecke */
-  --dark-bg:          #0A0B10;
-  --dark-bg-soft:     #0F1118;
-  --dark-surface:     #14161F;
-  --dark-surface-hi:  #1A1D28;
-  --dark-border:      rgba(255, 255, 255, 0.09);
-  --dark-border-hi:   rgba(255, 255, 255, 0.16);
-  --dark-text:        #F4F5F9;
-  --dark-text-muted:  #A3A8B8;
-  --dark-text-dim:    #767B8F;
+  /* dunkle Bloecke, ebenfalls warm */
+  --dark-bg:          #131110;
+  --dark-bg-soft:     #191614;
+  --dark-surface:     #1E1B18;
+  --dark-surface-hi:  #262220;
+  --dark-border:      rgba(255, 255, 255, 0.10);
+  --dark-border-hi:   rgba(255, 255, 255, 0.18);
+  --dark-text:        #F5F2EC;
+  --dark-text-muted:  #B3ADA3;
+  --dark-text-dim:    #857F75;
 
   /* Schatten */
-  --shadow-sm:    0 1px 2px rgba(15, 18, 32, 0.05);
-  --shadow-md:    0 4px 16px rgba(15, 18, 32, 0.07);
-  --shadow-lg:    0 16px 48px rgba(15, 18, 32, 0.16);
+  --shadow-sm:    0 1px 2px rgba(24, 20, 14, 0.05);
+  --shadow-md:    0 4px 16px rgba(24, 20, 14, 0.07);
+  --shadow-lg:    0 16px 48px rgba(24, 20, 14, 0.16);
 
   /* Schrift */
   --font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
@@ -69,8 +70,8 @@
   --section-pad:  clamp(4.5rem, 10vw, 7.5rem);
 
   /* Radius & Uebergaenge */
-  --radius:       8px;
-  --radius-lg:    12px;
+  --radius:       6px;
+  --radius-lg:    10px;
   --ease:         cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Hoehe der Navigationsleiste samt Unterkante, siehe .nav und .hero */
@@ -89,10 +90,10 @@
   --text:         var(--dark-text);
   --text-muted:   var(--dark-text-muted);
   --text-dim:     var(--dark-text-dim);
-  --accent:       #7B93FF;
-  --accent-hover: #93A7FF;
-  --accent-soft:  rgba(123, 147, 255, 0.14);
-  --accent-line:  rgba(123, 147, 255, 0.5);
+  --accent:       #E5844F;
+  --accent-hover: #F09A6B;
+  --accent-soft:  rgba(229, 132, 79, 0.14);
+  --accent-line:  rgba(229, 132, 79, 0.5);
   --shadow-sm:    0 2px 6px rgba(0, 0, 0, 0.3);
   --shadow-md:    0 8px 28px rgba(0, 0, 0, 0.4);
   --shadow-lg:    0 24px 70px rgba(0, 0, 0, 0.55);
@@ -203,7 +204,7 @@ section { padding-block: var(--section-pad); position: relative; }
   justify-content: center;
   gap: 0.5rem;
   padding: 0.85rem 1.7rem;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 0.95rem;
   font-weight: 600;
   font-family: var(--font-body);
@@ -221,7 +222,7 @@ section { padding-block: var(--section-pad); position: relative; }
   color: #FFFFFF;
 }
 .btn-primary:hover { background: var(--accent-hover); }
-.theme-dark .btn-primary { color: #0A0B10; }
+.theme-dark .btn-primary { color: #131110; }
 
 .btn-ghost {
   background: transparent;
@@ -253,7 +254,7 @@ section { padding-block: var(--section-pad); position: relative; }
   width: min(640px, 90vw);
   height: min(640px, 90vw);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(91, 127, 255, 0.38) 0%, rgba(91, 127, 255, 0) 70%);
+  background: radial-gradient(circle, rgba(229, 132, 79, 0.30) 0%, rgba(229, 132, 79, 0) 70%);
   filter: blur(46px);
   pointer-events: none;
   opacity: 0;
@@ -345,7 +346,7 @@ section { padding-block: var(--section-pad); position: relative; }
   opacity: 1;
   color: #FFFFFF;
   background: var(--accent);
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 0.55rem 1.1rem;
 }
 .nav-list .nav-cta::after { display: none; }
@@ -397,7 +398,6 @@ section { padding-block: var(--section-pad); position: relative; }
   overflow: hidden;
   margin-top: calc(-1 * var(--header-h));
   padding-block: clamp(8rem, 16vw, 10.5rem) clamp(4rem, 9vw, 6.5rem);
-  border-radius: 0 0 clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px);
   isolation: isolate;
 }
 .hero .container {
@@ -447,7 +447,7 @@ section { padding-block: var(--section-pad); position: relative; }
   left: 0;
   width: 3px;
   background: linear-gradient(180deg, transparent, var(--accent), transparent);
-  box-shadow: 0 0 16px 2px rgba(91, 127, 255, 0.8);
+  box-shadow: 0 0 16px 2px rgba(229, 132, 79, 0.8);
   animation: glintMove 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.25s forwards;
 }
 .hero-sub {
@@ -533,7 +533,7 @@ section { padding-block: var(--section-pad); position: relative; }
   aspect-ratio: 9 / 18.5;
   border-radius: 20px;
   padding: 6px;
-  background: #1C1F2B;
+  background: #2A2623;
 }
 .hv-phone img {
   border-radius: 16px;
@@ -548,7 +548,7 @@ section { padding-block: var(--section-pad); position: relative; }
   width: 34%;
   height: 8px;
   border-radius: 999px;
-  background: #1C1F2B;
+  background: #2A2623;
   transform: translateX(-50%);
   z-index: 1;
 }
@@ -574,13 +574,9 @@ section { padding-block: var(--section-pad); position: relative; }
   background: var(--accent);
 }
 
-/* Alle Absaetze in derselben Farbe, der erste etwas groesser */
-.about-text p { color: var(--text); }
+/* Alle Absaetze gleich: Farbe und Groesse */
+.about-text p { color: var(--text); font-size: 1.02rem; }
 .about-text p + p { margin-top: 1.1rem; }
-.about-text p:first-child {
-  font-size: 1.12rem;
-  line-height: 1.55;
-}
 
 /* 7. PORTFOLIO
    ------------------------------------------------------------------------ */
@@ -704,17 +700,13 @@ section { padding-block: var(--section-pad); position: relative; }
   border-color: var(--border-hi);
 }
 
+/* Symbol ohne Kasten, nur in Akzentfarbe */
 .card-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
-  background: var(--accent-soft);
-  display: grid;
-  place-items: center;
-  margin-bottom: 1.3rem;
+  display: block;
+  margin-bottom: 1.2rem;
   color: var(--accent);
 }
-.card-icon svg { width: 22px; height: 22px; }
+.card-icon svg { width: 28px; height: 28px; }
 
 .card h3 { margin-bottom: 0.65rem; }
 .card p { font-size: 0.95rem; }
@@ -848,11 +840,7 @@ section { padding-block: var(--section-pad); position: relative; }
 
 /* 10. KONTAKT (dunkel)
    ------------------------------------------------------------------------ */
-#kontakt {
-  border-radius: clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px) 0 0;
-  overflow: hidden;
-  padding-bottom: clamp(3rem, 7vw, 5rem);
-}
+#kontakt { padding-bottom: clamp(3rem, 7vw, 5rem); }
 .contact {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1021,7 +1009,6 @@ section { padding-block: var(--section-pad); position: relative; }
   display: grid;
   place-items: center;
   margin-top: 0;
-  border-radius: 0;
   text-align: center;
 }
 .page-404 .container { display: block; max-width: 800px; }
