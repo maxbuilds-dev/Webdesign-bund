@@ -104,8 +104,9 @@ Everything is driven by CSS custom properties at the top of `css/style.css`, so 
 colours and spacing there, not in the components.
 
 - **Warm palette.** Paper white `#F6F4EF`, white surfaces, warm near-black text
-  `#17150F`. **One accent only: terracotta `#B9481F`** (`--accent`, hover
-  `--accent-hover`; on dark blocks `#E5844F`). **No blue, no indigo, no violet
+  `#17150F`. **One accent only: deep green `#1F6B4A`** (`--accent`, hover
+  `--accent-hover`; on dark blocks `#6CC397`). Max chose green over the terracotta
+  that was live for a few hours on 17 Sep 2026. **No blue, no indigo, no violet
   anywhere**, Max called that "the purple problem": blue-violet is the colour every
   AI template defaults to. The favicon and `theme-color` meta follow the palette.
   No gradients, no glow, no blur, no glass. The other tells Max named, removed on
