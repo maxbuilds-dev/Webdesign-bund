@@ -103,31 +103,45 @@ branch deletions and tag pushes, Max can delete it on GitHub.
 Everything is driven by CSS custom properties at the top of `css/style.css`, so change
 colours and spacing there, not in the components.
 
-- Light ground `#F6F7FB`, white surfaces, text `#0F1220`. Accent indigo `#4B6BF5`,
-  with violet `#8B5CF6` and cyan `#22D3EE` for the gradients (`--grad`, `--grad-wide`).
+- Light ground `#F6F7FB`, white surfaces, text `#0F1220`. **One accent only**, indigo
+  `#3F5FE8` (`--accent`, hover `--accent-hover`). No gradients, no glow, no blur, no
+  glass. Max explicitly said the first light version "looked like AI"; the tells he
+  named (and that we removed on 17 Sep 2026) were: indigo-violet gradients, gradient
+  pills and icon tiles, drifting colour blobs, a floating check chip, 3D-tilted
+  mockups, a dotted grid, gradient top bars on cards, and above all **the coloured
+  left stripe on a tinted callout box** under the options. Do not bring any of these
+  back. Radii are 6 to 12px, shadows are faint, lines are 1px.
 - **Dark blocks** (hero, Kontakt, footer, the 404 page) carry the class `theme-dark`,
   which remaps the same tokens to dark values. Components never use literal colours,
   so anything placed inside a dark block recolours itself. Add the class, nothing else.
+  Max likes the rhythm dark start, light middle, dark end. Keep it.
 - Headings Space Grotesk 700, body Inter 400/500/600.
 - Fonts are **self-hosted** in `assets/fonts/` as variable woff2. Do not switch back to
   the Google Fonts CDN: the privacy policy currently states that no visitor IP reaches
   any third party, and that claim depends on this.
-- Header: sticky, transparent with light text over the hero, white glass once scrolled
+- Header: sticky, transparent with light text over the hero, white once scrolled
   (`.scrolled`, set by JS) or while the mobile menu is open (`:has`). Its height is
   `--header-h`; the hero pulls itself up by exactly that amount so the dark block
   reaches the top edge. **Do not put `overflow-x: hidden` on `body`**: it turns body
   into a scroll container and the sticky header stops sticking. `html` has
   `overflow-x: clip`, that is enough.
 - Hero is two columns: copy left, a visual right built from the portfolio screenshot
-  in a floating browser frame plus a phone frame (`.hero-visual`, decorative,
-  `aria-hidden`). Same image file as the portfolio, nothing extra is loaded.
+  in a straight browser frame plus a phone frame (`.hero-visual`, decorative,
+  `aria-hidden`). Same image file as the portfolio, nothing extra is loaded. No tilt,
+  no floating.
 - Signature animations kept from design 1: the glow orb blooms and then pulses, the
-  hero headline wipes in with a glow edge. New: drifting colour blobs in the hero and
-  floating frames. All in `css/style.css` sections 5 and 14 and `js/script.js`.
+  hero headline wipes in with a glow edge, sections reveal on scroll. Nothing else moves.
 - `prefers-reduced-motion` disables all of it. Keep it that way.
+- Section labels are small uppercase text with a short accent line, not pills.
+- Ablauf steps: 1px line on top, number as a large accent numeral, no circles.
+- The three technical variants are labelled **Option A, B, C** (Max's wording, was
+  "Stufe 1 bis 3"). The label is generated in CSS with `counter(step, upper-alpha)`;
+  the two body-text references say "Option A" as well. The closing sentence about
+  site builders is a plain paragraph, deliberately not a box.
 - `.steps` (Ablauf) and `.steps.steps-technik` (Leistungen) share markup but not
   looks. The technik rule uses the doubled class on purpose so it wins over the
   Ablauf rule further down the file.
+- All paragraphs in Über mich use `--text`, not `--text-muted`, on Max's request.
 
 ## Page structure (single page, anchor nav, smooth scroll, no router)
 1. Hero
@@ -172,7 +186,7 @@ this site and there is still no backend of our own.
   address ever surfaces, put it in.
 
 The switch happened because the site advertises reliable delivery in the Leistungen
-section (Stufe 2) and `mailto:` does not provide that.
+section (Option B) and `mailto:` does not provide that.
 
 ## Security decisions (do not undo without asking)
 - **No secrets, ever.** Nothing in this repo needs a key. If a form service is ever
