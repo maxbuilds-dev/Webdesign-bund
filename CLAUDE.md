@@ -95,8 +95,10 @@ runtime JavaScript, both of which contradict the stack decision above.
 ## Design system
 Design 2, live on `main` since 17 Sep 2026: **light page with dark accent blocks.**
 Max found the original all-dark design too dark, too plain and too stacked, approved
-this one from screenshots. The first dark design is preserved as git tag
-`design-v1-backup`; the branch `design-neu` was merged and deleted.
+this one from screenshots. The first dark design is preserved on the branch
+`backup/design-v1` (commit d1aa586). Do not delete that branch. The working branch
+`design-neu` is merged; it only still exists because the session's push proxy refuses
+branch deletions and tag pushes, Max can delete it on GitHub.
 
 Everything is driven by CSS custom properties at the top of `css/style.css`, so change
 colours and spacing there, not in the components.
