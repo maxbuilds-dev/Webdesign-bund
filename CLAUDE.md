@@ -104,9 +104,11 @@ Everything is driven by CSS custom properties at the top of `css/style.css`, so 
 colours and spacing there, not in the components.
 
 - **Warm palette.** Paper white `#F6F4EF`, white surfaces, warm near-black text
-  `#17150F`. **One accent only: deep green `#1F6B4A`** (`--accent`, hover
-  `--accent-hover`; on dark blocks `#6CC397`). Max chose green over the terracotta
-  that was live for a few hours on 17 Sep 2026. **No blue, no indigo, no violet
+  `#17150F`. **One accent only: forest green `#14532D`** (`--accent`, hover
+  `--accent-hover`; on dark blocks `#7FD0A4`). Max chose green over the terracotta
+  that was live for a few hours on 17 Sep 2026, then asked for it "deeper, a real
+  forest green" and "throughout", so the **dark blocks are green-black too**
+  (`--dark-bg #0E1C15`), not neutral black. **No blue, no indigo, no violet
   anywhere**, Max called that "the purple problem": blue-violet is the colour every
   AI template defaults to. The favicon and `theme-color` meta follow the palette.
   No gradients, no glow, no blur, no glass. The other tells Max named, removed on
@@ -133,10 +135,16 @@ colours and spacing there, not in the components.
   reaches the top edge. **Do not put `overflow-x: hidden` on `body`**: it turns body
   into a scroll container and the sticky header stops sticking. `html` has
   `overflow-x: clip`, that is enough.
-- Hero is two columns: copy left, a visual right built from the portfolio screenshot
-  in a straight browser frame plus a phone frame (`.hero-visual`, decorative,
-  `aria-hidden`). Same image file as the portfolio, nothing extra is loaded. No tilt,
-  no floating.
+- **Hero is text only** (Max's decision, 17 Sep 2026): label, headline, paragraph,
+  two buttons, then the three facts as a row. No image up there. The background
+  pattern is wide diagonal lines (`.bg-grid`, `repeating-linear-gradient` at
+  -34deg, 120px apart, radially masked). Max asked for "something diagonal, different,
+  bigger"; the exact angle and spacing are open for adjustment.
+- The portfolio card shows the screenshot as a composition: straight browser frame
+  plus an overlapping phone frame (`.projekt-visual`, `.pv-browser`, `.pv-phone`).
+  The browser frame holds `#projektBild` and the placeholder fallback; the phone
+  is decorative (`aria-hidden`, same file, `object-position` on the client's logo
+  and headline). No tilt, no floating.
 - Signature animations kept from design 1: the glow orb blooms and then pulses, the
   hero headline wipes in with a glow edge, sections reveal on scroll. Nothing else moves.
 - `prefers-reduced-motion` disables all of it. Keep it that way.

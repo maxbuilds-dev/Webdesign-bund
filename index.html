@@ -23,9 +23,9 @@
   <meta property="og:url" content="https://webdesign-bund.at/">
   <meta property="og:title" content="Webdesign Bund: individuelle Websites für Unternehmen">
   <meta property="og:description" content="Individuell entwickelte Websites für Unternehmen und Selbstständige. Konzeption, Gestaltung und Umsetzung aus einer Hand.">
-  <meta name="theme-color" content="#131110">
+  <meta name="theme-color" content="#0E1C15">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='10' fill='%231F6B4A'/></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='10' fill='%2314532D'/></svg>">
 
   <!-- Schriften lokal, keine Verbindung zu Google -->
   <link rel="preload" href="assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -88,20 +88,6 @@
             <a class="btn btn-ghost" href="#portfolio">Referenz ansehen</a>
           </div>
 
-        </div>
-
-        <!-- Visual: das Bildschirmfoto der Referenz in einem Browser- und
-             einem Telefonrahmen. Rein dekorativ, deshalb leere alt-Texte;
-             die Referenz selbst wird im Abschnitt Portfolio beschrieben.
-             Dieselbe Datei wie dort, es wird also nichts Zusaetzliches
-             geladen. -->
-        <div class="hero-visual" aria-hidden="true">
-          <div class="hv-browser">
-            <img src="assets/img/bioenergetikmq5.jpg" alt="" width="1600" height="1090" decoding="async">
-          </div>
-          <div class="hv-phone">
-            <img src="assets/img/bioenergetikmq5.jpg" alt="" width="1600" height="1090" decoding="async">
-          </div>
         </div>
 
         <!-- Drei Fakten, ueber die ganze Breite unter beiden Spalten -->
@@ -195,12 +181,13 @@
             </a>
           </div>
 
-          <div class="browser">
-            <!-- Bildschirmfoto der Kundenseite. Liegt auf demselben Server,
-                 es wird also nichts von aussen geladen und keine Zustimmung
-                 gebraucht. Fehlt die Datei, blendet js/script.js den
-                 Platzhalter darunter ein. -->
-            <div class="browser-body" id="portfolioRahmen">
+          <!-- Bildschirmfoto der Kundenseite in einem Browser- und einem
+               Telefonrahmen. Liegt auf demselben Server, es wird also nichts
+               von aussen geladen und keine Zustimmung gebraucht. Fehlt die
+               Datei, blendet js/script.js den Platzhalter ein. Das Telefon
+               zeigt denselben Ausschnitt und ist rein dekorativ. -->
+          <div class="projekt-visual">
+            <div class="pv-browser" id="portfolioRahmen">
               <img class="projekt-bild" id="projektBild"
                    src="assets/img/bioenergetikmq5.jpg"
                    alt="Startseite von Bioenergetik mq5, Bildschirmfoto der veröffentlichten Seite"
@@ -212,6 +199,9 @@
                   die Seite selbst erreichen Sie über den Link daneben.
                 </small>
               </div>
+            </div>
+            <div class="pv-phone" aria-hidden="true">
+              <img src="assets/img/bioenergetikmq5.jpg" alt="" width="1600" height="1090" loading="lazy" decoding="async">
             </div>
           </div>
         </article>
