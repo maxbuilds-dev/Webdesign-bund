@@ -9,7 +9,7 @@
        ein Skript von aussen nachladen noch Daten irgendwohin senden.
        Die Seite hat bewusst keine externen Abhaengigkeiten, deshalb ist 'self'
        ueberall ausreichend. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src https://api.web3forms.com; base-uri 'none'; form-action https://api.web3forms.com">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <title>Webdesign Bund: individuelle Websites für Unternehmen und Selbstständige</title>
@@ -312,19 +312,18 @@
             </div>
           </div>
 
-          <!-- Formular ohne Server: baut eine fertige Mail im Mailprogramm.
-               Siehe js/script.js. Ohne JavaScript bleibt der Maillink oben. -->
-          <!-- Das Formular sendet an Web3Forms. action und method stehen
-               bewusst im HTML: ohne JavaScript wird ganz normal abgeschickt
-               und der Besucher landet auf der Bestaetigungsseite des
-               Dienstes. Mit JavaScript bleibt er hier und bekommt die
-               Rueckmeldung an Ort und Stelle. -->
-          <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
-            <!-- Oeffentlicher Schluessel, von Web3Forms ausdruecklich fuer den
-                 Einsatz im Browser vorgesehen. Kein Geheimnis, er erlaubt nur
-                 das Absenden an genau dieses Formular. -->
-            <input type="hidden" name="access_key" value="84727de7-d856-438e-a052-4e6a0ec146ee">
-            <input type="hidden" name="from_name" value="webdesign-bund.at">
+          <!-- Netlify Forms. Netlify erkennt das Formular beim Veroeffentlichen
+               am Attribut data-netlify und nimmt die Eingaben entgegen, ohne
+               dass die Seite einen eigenen Server braucht. Das versteckte
+               Feld form-name muss den Namen des Formulars tragen, sonst
+               ordnet Netlify die Sendung nicht zu.
+               action und method stehen bewusst im HTML: ohne JavaScript wird
+               ganz normal abgeschickt und der Besucher landet auf danke.html.
+               Mit JavaScript bleibt er hier und bekommt die Rueckmeldung an
+               Ort und Stelle (js/script.js, Abschnitt 6). -->
+          <form id="contactForm" name="kontakt" action="/danke.html" method="POST"
+                data-netlify="true" netlify-honeypot="botcheck" novalidate>
+            <input type="hidden" name="form-name" value="kontakt">
             <input type="hidden" name="subject" id="mailBetreff" value="Anfrage über webdesign-bund.at">
             <div class="form-row">
               <label for="name">Name *</label>
@@ -362,9 +361,9 @@
               <textarea id="nachricht" name="nachricht" required placeholder="Kurze Beschreibung Ihres Vorhabens und des gewünschten Zeitrahmens."></textarea>
             </div>
 
-            <!-- Bot-Falle. Der Name botcheck ist von Web3Forms vorgegeben,
-                 der Dienst verwirft eine Anfrage, wenn das Feld gesetzt ist.
-                 js/script.js prueft zusaetzlich selbst. -->
+            <!-- Bot-Falle. Ueber netlify-honeypot="botcheck" am Formular
+                 verwirft Netlify jede Sendung, in der dieses Feld gesetzt
+                 ist. js/script.js prueft zusaetzlich selbst. -->
             <div class="hp" aria-hidden="true">
               <label for="botcheck">Dieses Feld leer lassen</label>
               <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
@@ -373,9 +372,8 @@
             <button type="submit" class="btn btn-primary">Anfrage senden</button>
 
             <p class="form-note" id="formNote">
-              * Pflichtfeld. Ihre Anfrage wird direkt zugestellt. Für die Übermittlung
-              nutze ich den Dienst Web3Forms, auf dieser Website selbst wird
-              nichts gespeichert.
+              * Pflichtfeld. Ihre Anfrage wird über Netlify, den Betreiber
+              dieser Website, an mich zugestellt.
               <a href="datenschutz.html">Datenschutz</a>
             </p>
           </form>

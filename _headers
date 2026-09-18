@@ -16,20 +16,24 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
 
-# Startseite. Sendet das Kontaktformular an Web3Forms, deshalb connect-src
-# und form-action. frame-ancestors gibt es nur als Kopfzeile, im meta-Tag
-# wird die Anweisung ignoriert.
+# Startseite. Das Kontaktformular sendet an Netlify Forms, also an die
+# eigene Adresse, deshalb connect-src und form-action 'self'.
+# frame-ancestors gibt es nur als Kopfzeile, im meta-Tag wird die
+# Anweisung ignoriert.
 /
-  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src https://api.web3forms.com; base-uri 'none'; form-action https://api.web3forms.com; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
 
 /index.html
-  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src https://api.web3forms.com; base-uri 'none'; form-action https://api.web3forms.com; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
 
 # Rechtstexte und Fehlerseite: kein Formular, kein Skriptziel nach aussen.
 /impressum.html
   Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
 
 /datenschutz.html
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+
+/danke.html
   Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
 
 /404.html

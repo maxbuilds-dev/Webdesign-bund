@@ -6,7 +6,7 @@
    3. Mobiles Menü öffnen/schließen
    4. Aktiven Menüpunkt hervorheben
    5. Elemente beim Scrollen einblenden
-   6. Kontaktformular, baut eine fertige Mail im Mailprogramm
+   6. Kontaktformular, sendet an Netlify Forms
    7. Mailadressen in den Links zusammensetzen
    8. Zustimmungsmanager fuer Cookies und externe Inhalte
    9. Jahreszahl im Footer
@@ -122,8 +122,8 @@
   }
 
   /* 6. KONTAKTFORMULAR ---------------------------------------------------
-     Gesendet wird an Web3Forms. Der Dienst nimmt die Anfrage entgegen und
-     stellt sie per Mail zu. Auf dieser Website wird nichts gespeichert.
+     Gesendet wird an Netlify Forms, also an den Server, der die Seite
+     ausliefert. Netlify speichert die Sendung und stellt sie per Mail zu.
 
      action und method stehen im HTML. Faellt JavaScript aus, wird das
      Formular ganz normal abgeschickt und der Besucher landet auf der
@@ -181,13 +181,16 @@
       if (knopf) { knopf.disabled = true; knopf.textContent = 'Wird gesendet'; }
       melden('Ihre Anfrage wird übermittelt.');
 
-      fetch(form.action, {
+      /* Netlify erwartet die Felder als klassische Formulardaten
+         (application/x-www-form-urlencoded) an eine Adresse der eigenen
+         Seite. Der Erfolg zeigt sich am HTTP-Status, nicht an einem
+         JSON-Ergebnis. */
+      fetch('/', {
         method: 'POST',
-        body: new FormData(form)
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
       }).then(function (antwort) {
-        return antwort.json();
-      }).then(function (ergebnis) {
-        if (ergebnis && ergebnis.success) {
+        if (antwort.ok) {
           form.reset();
           melden('Vielen Dank, Ihre Anfrage ist angekommen. ' +
                  'Ich melde mich in der Regel innerhalb eines Werktags.');

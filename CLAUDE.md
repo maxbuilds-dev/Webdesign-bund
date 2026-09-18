@@ -80,6 +80,7 @@ background. Don't introduce a framework or bundler unless explicitly asked.
 ├── sitemap.xml         # must stay at root
 ├── _headers            # real HTTP headers on Netlify, CSP included
 ├── netlify.toml        # publish the repo root, no build command
+├── danke.html          # confirmation page for the no-JavaScript form submit
 ├── favicon.ico         # fallback for browsers that ask for /favicon.ico
 ├── css/style.css       # design tokens at the top, then section by section
 ├── css/fonts.css       # @font-face only
@@ -156,13 +157,14 @@ colours and spacing there, not in the components.
   2026: "minimalistischer"). Only Kontakt keeps its intro paragraph.
 - **Leistungen is one grid of six text-only cards** (title plus two short sentences,
   no icons, no bullet lists), modelled on the tile grids Max sent as reference
-  (alexanderneumann.at, matthiasdrissen.com). The section sits on a light green tint
-  `#E6EDE7`, card titles are in accent green, each card carries a large faint numeral
+  (alexanderneumann.at, matthiasdrissen.com). Card titles are in accent green, each card carries a large faint numeral
   top right from a CSS counter (`.card::before`). Cards 4 to 6 carry the label
   **Option A, B, C** (`.card-label`, Max's wording) for the technical variants; their
   titles are Max's own and stay. The card copy was shortened by Claude on Max's
   request; the former "Technische Umsetzung" intro and the closing sentence about site
-  builders were dropped for brevity. Max can edit any of it.
+  builders were dropped for brevity. Max can edit any of it. Leistungen sits on the
+  normal paper ground; **Über mich carries the light green tint `#E6EDE7`** (swapped on
+  Max's request, 18 Sep 2026).
 - **Ablauf was removed** on 18 Sep 2026 (Max's decision). Do not bring it back
   without asking.
 - Favicon: real files, not a data URI. `assets/img/favicon.svg` (SVG), `favicon-32.png`,
@@ -197,42 +199,44 @@ the Kontakt button.
 The nav in the header must mirror it.
 
 ## Contact form
-Sends to **Web3Forms**, which forwards the submission by mail. Nothing is stored on
-this site and there is still no backend of our own.
+Sends to **Netlify Forms** since 18 Sep 2026 (before: Web3Forms, before that `mailto:`).
+Netlify detects the form at deploy time by the `data-netlify="true"` attribute, stores
+each submission in the site's Forms panel and mails it on.
 
-- `action` and `method` sit in the HTML on purpose: without JavaScript the form
-  submits normally and the visitor lands on the service's confirmation page. With
-  JavaScript the submit is intercepted, sent via `fetch`, and the reply appears in
-  place. Do not remove the attributes.
-- The `access_key` in the markup is **public by design**, Web3Forms states so itself.
-  It only permits submissions to this one form. It is not a secret and does not
-  violate the no-secrets rule.
-- Honeypot field is named `botcheck` because Web3Forms expects that name and discards
-  the submission when it is set. `js/script.js` checks it as well.
+- The form is `name="kontakt"` and carries a hidden `form-name` field with the same
+  value. Netlify matches submissions by that field; without it they are dropped.
+- `action="/danke.html"` and `method` sit in the HTML on purpose: without JavaScript
+  the form submits normally and the visitor lands on `danke.html`. With JavaScript
+  `js/script.js` section 6 intercepts, POSTs `application/x-www-form-urlencoded` to
+  `/` via `fetch`, treats any 2xx as success and shows the reply in place.
+- Honeypot: `netlify-honeypot="botcheck"` on the form, the checkbox named `botcheck`.
+  Netlify discards submissions where it is set; the script checks it as well.
+- The hidden `subject` field is filled with the Anliegen before sending. Netlify may
+  use a field of that name as the notification subject; unverified, harmless if not.
 - **Required: Name, Mail, Anliegen, Nachricht**, marked with `*` in the label and the
-  note "* Pflichtfeld". **Unternehmen and Telefon are optional** (Max, 18 Sep 2026;
-  before that all six were required). The `required` attribute and the field list in
-  `js/script.js` section 6 must agree.
-- CSP on index.html therefore allows `connect-src https://api.web3forms.com` and
-  `form-action https://api.web3forms.com`. Do not widen further.
-- The privacy policy names the operator as "Web3Creative, auch als Web3Forms LLC
-  auftretend" and states openly that no full address is published by the provider.
-  That is what Max could find; it is a known gap, not an oversight. If a proper
-  address ever surfaces, put it in.
-
-The switch happened because the site advertises reliable delivery in the Leistungen
-section (Option B) and `mailto:` does not provide that.
+  note "* Pflichtfeld". **Unternehmen and Telefon are optional** (Max, 18 Sep 2026).
+  The `required` attribute and the field list in `js/script.js` section 6 must agree.
+- CSP on index.html is `connect-src 'self'` and `form-action 'self'`, nothing external
+  any more. Same in `_headers`.
+- **Two things only Max can do in the Netlify panel:** enable form detection
+  (Site configuration, Forms, "Enable form detection"; off by default on newer sites)
+  and add a notification mail to office@webdesign-bund.at (Forms, Form
+  notifications). Until detection is on, submissions return 404. Free plan: 100
+  submissions a month.
+- Privacy consequence: unlike Web3Forms, **Netlify stores the submissions** until
+  deleted. `datenschutz.html` says so and says Max deletes them once handled. Keep
+  that promise or change the text.
 
 ## Security decisions (do not undo without asking)
 - **No secrets, ever.** Nothing in this repo needs a key. If a form service is ever
   added, only a public key belongs in the client, never a private one.
-- **Content Security Policy** is set twice: as a `<meta http-equiv>` on all four pages
+- **Content Security Policy** is set twice: as a `<meta http-equiv>` on all five pages
   and as a real HTTP header in `_headers`, which Netlify sends. The meta tag stays so
   the policy also holds in a local preview. Both must say the same thing: the browser
   enforces the intersection of the two, so a mismatch breaks the page silently.
   `default-src 'none'` with `'self'` for script, style and font. index.html also
-  allows `connect-src` and `form-action` for `https://api.web3forms.com`, the only
-  exceptions. Do not widen them. `_headers` additionally sets `frame-ancestors 'none'`,
+  has `connect-src 'self'` and `form-action 'self'` for the Netlify form. Nothing
+  external is allowed anywhere. Do not widen it. `_headers` additionally sets `frame-ancestors 'none'`,
   which a meta tag cannot do. Consequence:
   **no inline `<style>` blocks, no inline `<script>`, no `style="..."` attributes.**
   Put new CSS in `css/style.css` and new JS in `js/script.js`, otherwise it is blocked

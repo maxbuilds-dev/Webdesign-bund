@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Content Security Policy: die Seite darf ausschliesslich Dateien von sich
+       selbst laden. Sollte jemals fremder Code ins HTML gelangen, kann er weder
+       ein Skript von aussen nachladen noch Daten irgendwohin senden.
+       Die Seite hat bewusst keine externen Abhaengigkeiten, deshalb ist 'self'
+       ueberall ausreichend. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Anfrage gesendet: Webdesign Bund</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0E1C15">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <!-- Schriften lokal, keine Verbindung zu Google -->
+  <link rel="preload" href="assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Ohne JavaScript blieben die Einblend-Elemente unsichtbar.
+       Diese Datei macht sie sofort sichtbar. -->
+  <noscript><link rel="stylesheet" href="css/nojs.css"></noscript>
+</head>
+<body>
+  <!-- Bestaetigungsseite fuer Besucher ohne JavaScript. Mit JavaScript
+       erscheint die Rueckmeldung direkt im Formular. -->
+  <section class="hero page-404 theme-dark">
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="glow-orb" id="glowOrb" aria-hidden="true"></div>
+    <div class="container">
+      <span class="section-label">Anfrage gesendet</span>
+      <h1>Vielen Dank.</h1>
+      <p class="hero-sub">
+        Ihre Anfrage ist angekommen. Ich melde mich in der Regel innerhalb
+        eines Werktags.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/">Zur Startseite</a>
+      </div>
+    </div>
+  </section>
+  <script src="js/script.js"></script>
+</body>
+</html>

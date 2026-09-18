@@ -490,6 +490,10 @@ section { padding-block: var(--section-pad); position: relative; }
 
 /* 6. UEBER MICH
    ------------------------------------------------------------------------
+   Liegt auf der leicht gruen getoenten Flaeche (getauscht mit Leistungen
+   auf Wunsch von Max). */
+#ueber-mich { background: #E6EDE7; }
+/* ------------------------------------------------------------------------
    Zweispaltig: links Kennzeichnung und Name bleiben beim Scrollen stehen,
    rechts der Text. Der erste Absatz ist groesser gesetzt. */
 .about {
@@ -641,9 +645,9 @@ section { padding-block: var(--section-pad); position: relative; }
 
 /* 8. LEISTUNGEN
    ------------------------------------------------------------------------
-   Sechs Karten, nur Text. Die Flaeche ist leicht gruen getoent, die
+   Sechs Karten, nur Text, auf der normalen hellen Flaeche. Die
    Ueberschriften und die grosse Ziffer rechts oben sind in Akzentfarbe. */
-#leistungen { background: #E6EDE7; }
+#leistungen { background: var(--bg); }
 
 .card-grid {
   display: grid;
