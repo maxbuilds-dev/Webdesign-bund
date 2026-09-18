@@ -876,7 +876,8 @@ section { padding-block: var(--section-pad); position: relative; }
   text-align: center;
 }
 .page-404 .container { display: block; max-width: 800px; }
-.page-404 .section-label { justify-content: center; }
+/* Kennzeichnung als eigene Zeile, sonst steht sie neben der Ueberschrift */
+.page-404 .section-label { display: flex; justify-content: center; }
 .page-404 h1 { animation: none; clip-path: none; }
 .page-404 h1::after { display: none; }
 .page-404 .hero-sub { margin-inline: auto; }
