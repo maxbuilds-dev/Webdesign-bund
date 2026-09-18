@@ -8,16 +8,17 @@
        selbst laden. Sollte jemals fremder Code ins HTML gelangen, kann er weder
        ein Skript von aussen nachladen noch Daten irgendwohin senden.
        Die Seite hat bewusst keine externen Abhaengigkeiten, deshalb ist 'self'
-       ueberall ausreichend. data: nur fuer das Favicon, das als SVG direkt im
-       HTML steht. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+       ueberall ausreichend. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Impressum: Webdesign Bund</title>
   <meta name="description" content="Impressum und Offenlegung gemäß § 5 ECG und § 25 Mediengesetz.">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#0E1C15">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='10' fill='%2314532D'/></svg>">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <!-- Schriften lokal, keine Verbindung zu Google -->
   <link rel="preload" href="assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>

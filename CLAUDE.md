@@ -80,6 +80,7 @@ background. Don't introduce a framework or bundler unless explicitly asked.
 ├── sitemap.xml         # must stay at root
 ├── _headers            # real HTTP headers on Netlify, CSP included
 ├── netlify.toml        # publish the repo root, no build command
+├── favicon.ico         # fallback for browsers that ask for /favicon.ico
 ├── css/style.css       # design tokens at the top, then section by section
 ├── css/fonts.css       # @font-face only
 ├── js/script.js        # nav, scroll reveals, contact form
@@ -88,6 +89,8 @@ background. Don't introduce a framework or bundler unless explicitly asked.
     └── img/            # bioenergetikmq5.jpg is the portfolio image, resized
                         # to 1600px and stripped of EXIF. No portrait photo of
                         # Max: he decided against one in Über mich.
+                        # favicon.svg, favicon-32.png, apple-touch-icon.png:
+                        # green dot, generated files (see Design system).
 ```
 The HTML is deliberately not split into partials: that would need a build step or
 runtime JavaScript, both of which contradict the stack decision above.
@@ -149,22 +152,34 @@ colours and spacing there, not in the components.
   hero headline wipes in with a glow edge, sections reveal on scroll. Nothing else moves.
 - `prefers-reduced-motion` disables all of it. Keep it that way.
 - Section labels are small uppercase text with a short accent line, not pills.
-  Service icons stand alone in accent colour, no box behind them.
-- Ablauf steps: 1px line on top, number as a large accent numeral, no circles.
-- The three technical variants are labelled **Option A, B, C** (Max's wording, was
-  "Stufe 1 bis 3"). The label is generated in CSS with `counter(step, upper-alpha)`;
-  the two body-text references say "Option A" as well. The closing sentence about
-  site builders is a plain paragraph, deliberately not a box.
-- `.steps` (Ablauf) and `.steps.steps-technik` (Leistungen) share markup but not
-  looks. The technik rule uses the doubled class on purpose so it wins over the
-  Ablauf rule further down the file.
+  **Section headings have no subtext** under Leistungen and Portfolio (Max, 18 Sep
+  2026: "minimalistischer"). Only Kontakt keeps its intro paragraph.
+- **Leistungen is one grid of six text-only cards** (title plus two short sentences,
+  no icons, no bullet lists), modelled on the tile grids Max sent as reference
+  (alexanderneumann.at, matthiasdrissen.com). The section sits on a light green tint
+  `#E6EDE7`, card titles are in accent green, each card carries a large faint numeral
+  top right from a CSS counter (`.card::before`). Cards 4 to 6 carry the label
+  **Option A, B, C** (`.card-label`, Max's wording) for the technical variants; their
+  titles are Max's own and stay. The card copy was shortened by Claude on Max's
+  request; the former "Technische Umsetzung" intro and the closing sentence about site
+  builders were dropped for brevity. Max can edit any of it.
+- **Ablauf was removed** on 18 Sep 2026 (Max's decision). Do not bring it back
+  without asking.
+- Favicon: real files, not a data URI. `assets/img/favicon.svg` (SVG), `favicon-32.png`,
+  `apple-touch-icon.png` (180px, opaque paper background, iOS dislikes transparency)
+  and `/favicon.ico` as fallback. Switched because Safari on Max's iPad kept showing
+  the cached blue dot from the data URI. Consequence: `img-src` in the CSP is now
+  plain `'self'`, no `data:`, in all four meta tags and in `_headers`.
 - All paragraphs in Über mich are identical in colour (`--text`) and size, on Max's
   request. No lead paragraph.
 
 ## Page structure (single page, anchor nav, smooth scroll, no router)
+Order changed by Max on 18 Sep 2026. Nav: Home, Leistungen, Über mich, Portfolio, plus
+the Kontakt button.
 1. Hero
-2. Über mich
-3. Portfolio (Bioenergetik mq5, https://bioenergetik-mq5.at).
+2. Leistungen
+3. Über mich
+4. Portfolio (Bioenergetik mq5, https://bioenergetik-mq5.at).
    Shown as an image, `assets/img/bioenergetikmq5.jpg`, not as a live iframe:
    the embed did not load and it would have been hidden behind consent, which
    defeats the purpose of the main proof point. The URL lives in one place only,
@@ -178,10 +193,8 @@ colours and spacing there, not in the components.
    a URL the image cannot back up. The screenshot contains the client's hero
    photo, which shows an identifiable person, so it may only stay up with her
    consent.
-4. Leistungen
-5. Ablauf
-6. Kontakt
-Order confirmed by Max. The nav in the header must mirror it.
+5. Kontakt
+The nav in the header must mirror it.
 
 ## Contact form
 Sends to **Web3Forms**, which forwards the submission by mail. Nothing is stored on
@@ -196,6 +209,10 @@ this site and there is still no backend of our own.
   violate the no-secrets rule.
 - Honeypot field is named `botcheck` because Web3Forms expects that name and discards
   the submission when it is set. `js/script.js` checks it as well.
+- **Required: Name, Mail, Anliegen, Nachricht**, marked with `*` in the label and the
+  note "* Pflichtfeld". **Unternehmen and Telefon are optional** (Max, 18 Sep 2026;
+  before that all six were required). The `required` attribute and the field list in
+  `js/script.js` section 6 must agree.
 - CSP on index.html therefore allows `connect-src https://api.web3forms.com` and
   `form-action https://api.web3forms.com`. Do not widen further.
 - The privacy policy names the operator as "Web3Creative, auch als Web3Forms LLC
@@ -219,7 +236,7 @@ section (Option B) and `mailto:` does not provide that.
   which a meta tag cannot do. Consequence:
   **no inline `<style>` blocks, no inline `<script>`, no `style="..."` attributes.**
   Put new CSS in `css/style.css` and new JS in `js/script.js`, otherwise it is blocked
-  silently. `img-src` allows `data:` only for the inline SVG favicon.
+  silently. `img-src` is plain `'self'`, the favicon is a file now.
 - **No external resources at all**, so Subresource Integrity is not applicable: there is
   nothing third-party to pin. Keep it that way. If a library ever becomes unavoidable,
   self-host it in `assets/` rather than pulling it from a CDN.

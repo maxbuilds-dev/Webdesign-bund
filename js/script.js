@@ -152,12 +152,11 @@
       var falle = document.getElementById('botcheck');
       if (falle && falle.checked) return;
 
-      /* Alle Felder sind Pflicht. Fehlt eines, wird es benannt. */
+      /* Pflichtfelder. Unternehmen und Telefon sind freiwillig.
+         Fehlt ein Pflichtfeld, wird es benannt. */
       var felder = [
         { id: 'name',      titel: 'Name' },
-        { id: 'betrieb',   titel: 'Unternehmen' },
         { id: 'email',     titel: 'Mail' },
-        { id: 'telefon',   titel: 'Telefon' },
         { id: 'anliegen',  titel: 'Anliegen' },
         { id: 'nachricht', titel: 'Nachricht' }
       ];
