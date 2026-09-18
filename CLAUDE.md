@@ -157,14 +157,14 @@ colours and spacing there, not in the components.
   2026: "minimalistischer"). Only Kontakt keeps its intro paragraph.
 - **Leistungen is one grid of six text-only cards** (title plus two short sentences,
   no icons, no bullet lists), modelled on the tile grids Max sent as reference
-  (alexanderneumann.at, matthiasdrissen.com). Card titles are in accent green, each card carries a large faint numeral
-  top right from a CSS counter (`.card::before`). Cards 4 to 6 carry the label
-  **Option A, B, C** (`.card-label`, Max's wording) for the technical variants; their
-  titles are Max's own and stay. The card copy was shortened by Claude on Max's
-  request; the former "Technische Umsetzung" intro and the closing sentence about site
-  builders were dropped for brevity. Max can edit any of it. Leistungen sits on the
-  normal paper ground; **Über mich carries the light green tint `#E6EDE7`** (swapped on
-  Max's request, 18 Sep 2026).
+  (alexanderneumann.at, matthiasdrissen.com). The six, set by Max on 18 Sep 2026:
+  Webdesign, Redesign, WordPress, Onlineshops (WordPress and WooCommerce), Hosting und
+  Domains, Wartung und Betreuung. Card titles are in accent green, each card carries a
+  large faint numeral top right from a CSS counter (`.card::before`). The copy is
+  Claude's, short on purpose; Max can edit it. The earlier "Option A, B, C" technical
+  variants were folded into these six and no longer appear on the page. Leistungen
+  sits on the normal paper ground; **Über mich carries the light green tint
+  `#E6EDE7`** (swapped on Max's request, 18 Sep 2026).
 - **Ablauf was removed** on 18 Sep 2026 (Max's decision). Do not bring it back
   without asking.
 - Favicon: real files, not a data URI. `assets/img/favicon.svg` (SVG), `favicon-32.png`,

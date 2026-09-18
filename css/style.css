@@ -685,15 +685,6 @@ section { padding-block: var(--section-pad); position: relative; }
   pointer-events: none;
 }
 
-.card-label {
-  display: block;
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.7rem;
-}
 .card h3 {
   color: var(--accent);
   font-size: 1.18rem;
