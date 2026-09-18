@@ -224,8 +224,11 @@ each submission in the site's Forms panel and mails it on.
   notifications). Until detection is on, submissions return 404. Free plan: 100
   submissions a month.
 - Privacy consequence: unlike Web3Forms, **Netlify stores the submissions** until
-  deleted. `datenschutz.html` says so and says Max deletes them once handled. Keep
-  that promise or change the text.
+  deleted. `datenschutz.html` says so, with the standard retention wording (deleted
+  once no longer needed and no legal retention duty applies), the same line the
+  Kontaktaufnahme section uses. Max chose that over a promise to delete promptly.
+  Storage limitation still applies, so submissions should not pile up in the Forms
+  panel indefinitely.
 
 ## Security decisions (do not undo without asking)
 - **No secrets, ever.** Nothing in this repo needs a key. If a form service is ever
