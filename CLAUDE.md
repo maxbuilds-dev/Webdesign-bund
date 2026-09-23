@@ -147,8 +147,10 @@ colours and spacing there, not in the components.
 - The portfolio card shows the screenshot as a composition: straight browser frame
   plus an overlapping phone frame (`.projekt-visual`, `.pv-browser`, `.pv-phone`).
   The browser frame holds `#projektBild` and the placeholder fallback; the phone
-  is decorative (`aria-hidden`, same file, `object-position` on the client's logo
-  and headline). No tilt, no floating.
+  is decorative (`aria-hidden`) and shows `assets/img/bioenergetikmq5-mobil.jpg`, a
+  real mobile screenshot of the client site supplied by Max on 23 Sep 2026 (1206x2256
+  original, resized to 900 wide, EXIF stripped, no device bars to crop). No tilt, no
+  floating.
 - Signature animations kept from design 1: the glow orb blooms and then pulses, the
   hero headline wipes in with a glow edge, sections reveal on scroll. Nothing else moves.
 - `prefers-reduced-motion` disables all of it. Keep it that way.

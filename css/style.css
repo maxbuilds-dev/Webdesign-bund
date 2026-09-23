@@ -584,13 +584,14 @@ section { padding-block: var(--section-pad); position: relative; }
 }
 .pv-browser img { object-position: top; }
 
-/* Telefon: schmaler Rahmen, zeigt links oben denselben Ausschnitt,
-   also Logo und Ueberschrift der Referenz */
+/* Telefon: schmaler Rahmen mit dem Bildschirmfoto der Handyansicht */
 .pv-phone {
   left: 0;
   bottom: 0;
-  width: 27%;
-  aspect-ratio: 9 / 18.5;
+  width: 28%;
+  /* Seitenverhaeltnis des Handyfotos (1206 x 2256), damit nichts
+     beschnitten wird */
+  aspect-ratio: 1206 / 2256;
   border-radius: 20px;
   padding: 6px;
   background: #2A2623;
@@ -598,7 +599,7 @@ section { padding-block: var(--section-pad); position: relative; }
 }
 .pv-phone img {
   border-radius: 16px;
-  object-position: 9% 0;
+  object-position: 50% 0;
 }
 /* Kerbe oben */
 .pv-phone::before {
