@@ -592,23 +592,23 @@ section { padding-block: var(--section-pad); position: relative; }
   /* Seitenverhaeltnis des Handyfotos (1206 x 2256), damit nichts
      beschnitten wird */
   aspect-ratio: 1206 / 2256;
-  border-radius: 20px;
-  padding: 6px;
+  border-radius: 16px;
+  padding: 3px;
   background: #2A2623;
   border-color: #2A2623;
 }
 .pv-phone img {
-  border-radius: 16px;
+  border-radius: 13px;
   object-position: 50% 0;
 }
 /* Kerbe oben */
 .pv-phone::before {
   content: '';
   position: absolute;
-  top: 12px;
+  top: 8px;
   left: 50%;
-  width: 34%;
-  height: 8px;
+  width: 22%;
+  height: 5px;
   border-radius: 999px;
   background: #2A2623;
   transform: translateX(-50%);
