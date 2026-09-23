@@ -195,11 +195,16 @@
           melden('Vielen Dank, Ihre Anfrage ist angekommen. ' +
                  'Ich melde mich in der Regel innerhalb eines Werktags.');
         } else {
-          throw new Error('abgelehnt');
+          throw new Error(String(antwort.status));
         }
-      }).catch(function () {
-        melden('Die Übermittlung hat nicht funktioniert. Bitte schreiben Sie ' +
-               'mir direkt an ' + EMPFAENGER + ' oder rufen Sie an.', true);
+      }).catch(function (fehler) {
+        /* Der Code in Klammern hilft bei der Fehlersuche: 404 heisst, dass
+           Netlify das Formular nicht kennt (Formularerkennung aus oder kein
+           neuer Deploy danach). Ohne Zahl kam gar keine Antwort. */
+        var code = /^[0-9]+$/.test(fehler.message) ? fehler.message : 'keine Verbindung';
+        melden('Die Übermittlung hat nicht funktioniert (' + code + '). ' +
+               'Bitte schreiben Sie mir direkt an ' + EMPFAENGER +
+               ' oder rufen Sie an.', true);
       }).then(function () {
         if (knopf) { knopf.disabled = false; knopf.textContent = 'Anfrage senden'; }
       });
