@@ -1,0 +1,31 @@
+# Webdesign Bund
+
+> Webdesign Bund ist das Einzelunternehmen von Max Bund in Österreich. Es entwickelt individuelle Websites, WordPress Websites und Onlineshops für kleine Unternehmen und Selbstständige aller Branchen in ganz Österreich.
+
+Webdesign Bund arbeitet ohne Baukasten. Konzeption, Gestaltung, Umsetzung, Veröffentlichung und laufende Betreuung liegen in einer Hand. Leistungsumfang und Fixpreis werden vor Projektbeginn schriftlich vereinbart. Das Erstgespräch ist kostenlos und unverbindlich. Eine Website ist ab 2 Wochen veröffentlicht.
+
+## Leistungen
+
+- Webdesign: vollständiger Webauftritt mit Struktur, Gestaltung und Text, individuell entwickelt.
+- Redesign: Überarbeitung bestehender Websites, die veraltet wirken oder am Smartphone nicht funktionieren.
+- WordPress: Websites mit Verwaltungsbereich, über den Kunden Inhalte selbst bearbeiten.
+- Onlineshops: mit WordPress und WooCommerce, Produktdarstellung, Warenkorb und Bezahlvorgang.
+- Hosting und Domains: Veröffentlichung, Domain, Verschlüsselung, Mailkonten.
+- Wartung und Betreuung: Aktualisierungen, Sicherheitsupdates, Erweiterungen.
+
+## Referenz
+
+- [Bioenergetik mq5](https://bioenergetik-mq5.at): vollständiges Redesign für eine Praxis für Humanenergetik, Konzeption, Struktur, Text und Veröffentlichung.
+
+## Kontakt
+
+- Inhaber: Max Bund
+- Sitz: Deutschlandsberg, Steiermark, Österreich; tätig in ganz Österreich
+- Telefon: +43 664 3988466
+- Mail: office@webdesign-bund.at
+- [Anfrageformular](https://webdesign-bund.at/#kontakt)
+
+## Seiten
+
+- [Startseite](https://webdesign-bund.at/): Leistungen, Über mich, Referenz, Kontakt
+- [Impressum](https://webdesign-bund.at/impressum.html): Unternehmensangaben nach § 5 ECG

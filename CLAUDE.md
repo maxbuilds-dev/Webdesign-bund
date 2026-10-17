@@ -81,6 +81,7 @@ background. Don't introduce a framework or bundler unless explicitly asked.
 ├── _headers            # real HTTP headers on Netlify, CSP included
 ├── netlify.toml        # publish the repo root, no build command
 ├── danke.html          # confirmation page for the no-JavaScript form submit
+├── llms.txt            # plain summary for AI assistants, see SEO and GEO
 ├── favicon.ico         # fallback for browsers that ask for /favicon.ico
 ├── css/style.css       # design tokens at the top, then section by section
 ├── css/fonts.css       # @font-face only
@@ -92,6 +93,8 @@ background. Don't introduce a framework or bundler unless explicitly asked.
                         # Max: he decided against one in Über mich.
                         # favicon.svg, favicon-32.png, apple-touch-icon.png:
                         # green dot, generated files (see Design system).
+                        # og-bild.jpg: 1200x630 share image, rendered from
+                        # HTML with the site fonts (see SEO and GEO).
 ```
 The HTML is deliberately not split into partials: that would need a build step or
 runtime JavaScript, both of which contradict the stack decision above.
@@ -244,6 +247,9 @@ each submission in the site's Forms panel and mails it on.
   external is allowed anywhere. Do not widen it. `_headers` additionally sets `frame-ancestors 'none'`,
   which a meta tag cannot do. Consequence:
   **no inline `<style>` blocks, no inline `<script>`, no `style="..."` attributes.**
+  The one exception is the `<script type="application/ld+json">` block in index.html:
+  it is a data block, never executed, so CSP does not apply to it (verified, no
+  violation reported).
   Put new CSS in `css/style.css` and new JS in `js/script.js`, otherwise it is blocked
   silently. `img-src` is plain `'self'`, the favicon is a file now.
 - **No external resources at all**, so Subresource Integrity is not applicable: there is
@@ -269,6 +275,44 @@ each submission in the site's Forms panel and mails it on.
   If you add new `.reveal` elements, this file already covers them.
 - **Force HTTPS** has to be switched on in the Netlify domain settings. That is a
   Netlify setting, not something in this repo.
+
+## SEO and GEO (added 17 Oct 2026)
+GEO here means being found and recommended by AI assistants (ChatGPT, Claude,
+Perplexity, Google AI Overviews), not just ranked by Google.
+
+In the repo:
+- Title "Webdesign Bund: Websites, WordPress und Onlineshops in Österreich", meta
+  description with the six services and "in ganz Österreich", `robots` meta with
+  `max-image-preview:large`, `lang="de-AT"`.
+- Open Graph and Twitter tags with `assets/img/og-bild.jpg`. Regenerate it if the
+  hero headline changes.
+- **JSON-LD** in index.html: `ProfessionalService` (name, phone, full address,
+  areaServed Österreich, the six services as an `OfferCatalog`), `Person` Max Bund,
+  `WebSite`, and the Bioenergetik reference as `CreativeWork`. **No email** in it, on
+  purpose: the address stays obfuscated on index.html. Keep it in sync with the
+  visible Leistungen and the Impressum.
+- Hero subline gained "in ganz Österreich" (Claude's addition, consistent with the
+  Austria-wide audience decision). Location words like "Steiermark" or
+  "Deutschlandsberg" appear only in machine-readable places (JSON-LD, llms.txt,
+  Impressum), never in visible copy, per the Audience rule.
+- `robots.txt` allows everything, including AI crawlers. The old `Disallow` lines
+  for Impressum and Datenschutz were removed: they stopped crawlers from ever seeing
+  the `noindex`. **Impressum is now indexable** (it establishes who the business is,
+  which both Google and AI systems use); Datenschutz, danke and 404 stay `noindex`.
+- `sitemap.xml` lists the start page and the Impressum with `lastmod`. Update the
+  date on bigger content changes.
+- `llms.txt` at the root: a factual summary for AI assistants (who, services,
+  terms, reference, contact). It is a proposed convention; no major AI provider has
+  confirmed using it, so it is cheap insurance, not a guarantee. It contains the
+  mail address (low-traffic file, the Impressum has it in plain text anyway).
+  `_headers` serves it with `charset=utf-8` so umlauts survive.
+
+Outside the repo, only Max can do these, and they matter more than anything above:
+Google Search Console (verify domain, submit sitemap), Bing Webmaster Tools (ChatGPT
+search draws on the Bing index), a Google Business Profile as a service-area
+business with the address hidden, consistent entries in directories (Herold, WKO
+Firmen A bis Z), Google reviews from clients, and a credit link in the footer of
+bioenergetik-mq5.at. Once profiles exist, add their URLs as `sameAs` in the JSON-LD.
 
 ## Legal pages — status
 Both pages carry Max's real business data. No placeholders and no `.todo-box` left.

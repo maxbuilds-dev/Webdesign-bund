@@ -33,6 +33,11 @@
 /datenschutz.html
   Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
 
+# llms.txt: Zusammenfassung fuer KI-Assistenten, mit Zeichensatz, damit
+# Umlaute ueberall richtig ankommen
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
 /danke.html
   Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
 

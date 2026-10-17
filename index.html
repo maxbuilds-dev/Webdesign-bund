@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de-AT">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,21 +12,196 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
-  <title>Webdesign Bund: individuelle Websites für Unternehmen und Selbstständige</title>
-  <meta name="description" content="Individuell entwickelte Websites für Unternehmen und Selbstständige in Österreich. Von der schlanken Seite bis zur Lösung mit Verwaltungsbereich, ohne Baukasten.">
+  <title>Webdesign Bund: Websites, WordPress und Onlineshops in Österreich</title>
+  <meta name="description" content="Websites, WordPress und Onlineshops für Unternehmen und Selbstständige in ganz Österreich. Individuell entwickelt, Fixpreis vor Projektbeginn, Erstgespräch kostenlos.">
+  <meta name="author" content="Max Bund">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://webdesign-bund.at/">
 
-  <!-- Vorschau beim Teilen (WhatsApp, Facebook, LinkedIn) -->
+  <!-- Vorschau beim Teilen (WhatsApp, Facebook, LinkedIn) und in
+       Suchergebnissen. Das Bild liegt unter assets/img/og-bild.jpg. -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_AT">
+  <meta property="og:site_name" content="Webdesign Bund">
   <meta property="og:url" content="https://webdesign-bund.at/">
-  <meta property="og:title" content="Webdesign Bund: individuelle Websites für Unternehmen">
+  <meta property="og:title" content="Webdesign Bund: Websites, WordPress und Onlineshops in Österreich">
   <meta property="og:description" content="Individuell entwickelte Websites für Unternehmen und Selbstständige. Konzeption, Gestaltung und Umsetzung aus einer Hand.">
+  <meta property="og:image" content="https://webdesign-bund.at/assets/img/og-bild.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Webdesign Bund: Ein digitaler Auftritt, der Vertrauen schafft.">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0E1C15">
 
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+  <!-- Strukturierte Daten fuer Suchmaschinen und KI-Assistenten (schema.org,
+       JSON-LD). Das ist ein reiner Datenblock, kein ausfuehrbares Skript,
+       deshalb greift die Content Security Policy hier nicht. Die Mailadresse
+       steht bewusst nicht drin, sie bleibt auf dieser Seite verschleiert.
+       Aendern sich Leistungen, Telefon oder Adresse, hier mitaendern. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://webdesign-bund.at/#unternehmen",
+        "name": "Webdesign Bund",
+        "url": "https://webdesign-bund.at/",
+        "image": "https://webdesign-bund.at/assets/img/og-bild.jpg",
+        "logo": "https://webdesign-bund.at/assets/img/apple-touch-icon.png",
+        "description": "Webdesign Bund entwickelt individuelle Websites, WordPress Websites und Onlineshops für kleine Unternehmen und Selbstständige in ganz Österreich. Fixpreis vor Projektbeginn, kostenloses Erstgespräch, Konzeption, Gestaltung, Umsetzung und Betreuung aus einer Hand.",
+        "telephone": "+43 664 3988466",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Alfred-Coßmann-Weg 8a",
+          "postalCode": "8530",
+          "addressLocality": "Deutschlandsberg",
+          "addressRegion": "Steiermark",
+          "addressCountry": "AT"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Österreich"
+        },
+        "knowsLanguage": "de",
+        "founder": {
+          "@id": "https://webdesign-bund.at/#max-bund"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Leistungen",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Webdesign",
+                "description": "Ein vollständiger Webauftritt, von der Struktur über die Gestaltung bis zum Text. Individuell entwickelt, kein Baukasten.",
+                "provider": {
+                  "@id": "https://webdesign-bund.at/#unternehmen"
+                },
+                "areaServed": {
+                  "@type": "Country",
+                  "name": "Österreich"
+                }
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Redesign",
+                "description": "Überarbeitung bestehender Websites, die veraltet wirken oder am Smartphone nicht mehr funktionieren. Vorhandene Inhalte werden übernommen.",
+                "provider": {
+                  "@id": "https://webdesign-bund.at/#unternehmen"
+                },
+                "areaServed": {
+                  "@type": "Country",
+                  "name": "Österreich"
+                }
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "WordPress",
+                "description": "Websites mit Verwaltungsbereich, über den Sie Inhalte selbst bearbeiten.",
+                "provider": {
+                  "@id": "https://webdesign-bund.at/#unternehmen"
+                },
+                "areaServed": {
+                  "@type": "Country",
+                  "name": "Österreich"
+                }
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Onlineshops",
+                "description": "Umsetzung von Onlineshops mit WordPress und WooCommerce: Produktdarstellung, Warenkorb und Bezahlvorgang.",
+                "provider": {
+                  "@id": "https://webdesign-bund.at/#unternehmen"
+                },
+                "areaServed": {
+                  "@type": "Country",
+                  "name": "Österreich"
+                }
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Hosting und Domains",
+                "description": "Veröffentlichung, Domain und Verschlüsselung sowie die Einrichtung von Mailkonten und Weiterleitungen.",
+                "provider": {
+                  "@id": "https://webdesign-bund.at/#unternehmen"
+                },
+                "areaServed": {
+                  "@type": "Country",
+                  "name": "Österreich"
+                }
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Wartung und Betreuung",
+                "description": "Aktualisierungen, Sicherheitsupdates und Erweiterungen nach der Veröffentlichung.",
+                "provider": {
+                  "@id": "https://webdesign-bund.at/#unternehmen"
+                },
+                "areaServed": {
+                  "@type": "Country",
+                  "name": "Österreich"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://webdesign-bund.at/#max-bund",
+        "name": "Max Bund",
+        "jobTitle": "Webdesigner",
+        "worksFor": {
+          "@id": "https://webdesign-bund.at/#unternehmen"
+        },
+        "url": "https://webdesign-bund.at/#ueber-mich"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://webdesign-bund.at/#website",
+        "url": "https://webdesign-bund.at/",
+        "name": "Webdesign Bund",
+        "inLanguage": "de-AT",
+        "publisher": {
+          "@id": "https://webdesign-bund.at/#unternehmen"
+        }
+      },
+      {
+        "@type": "CreativeWork",
+        "@id": "https://webdesign-bund.at/#referenz-bioenergetik",
+        "name": "Bioenergetik mq5",
+        "url": "https://bioenergetik-mq5.at",
+        "description": "Vollständiges Redesign der Website einer Praxis für Humanenergetik.",
+        "creator": {
+          "@id": "https://webdesign-bund.at/#unternehmen"
+        },
+        "dateCreated": "2026"
+      }
+    ]
+  }
+  </script>
 
   <!-- Schriften lokal, keine Verbindung zu Google -->
   <link rel="preload" href="assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -80,7 +255,7 @@
 
           <p class="hero-sub">
             Individuell entwickelte Websites für Unternehmen und
-            Selbstständige. Kein Baukasten, sondern ein Auftritt, der auf Ihr
+            Selbstständige in ganz Österreich. Kein Baukasten, sondern ein Auftritt, der auf Ihr
             Angebot und Ihre Kunden zugeschnitten ist.
           </p>
 

@@ -1,6 +1,8 @@
+# Alle Suchmaschinen und KI-Dienste duerfen die Seite lesen.
+# Datenschutz, Danke- und Fehlerseite tragen selbst ein noindex, deshalb
+# werden sie hier nicht gesperrt: eine Sperre wuerde verhindern, dass
+# Suchmaschinen das noindex ueberhaupt sehen.
 User-agent: *
 Allow: /
-Disallow: /impressum.html
-Disallow: /datenschutz.html
 
 Sitemap: https://webdesign-bund.at/sitemap.xml
