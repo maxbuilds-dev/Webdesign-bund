@@ -95,6 +95,8 @@ background. Don't introduce a framework or bundler unless explicitly asked.
                         # green dot, generated files (see Design system).
                         # og-bild.jpg: 1200x630 share image, rendered from
                         # HTML with the site fonts (see SEO and GEO).
+                        # bekoela-konfigurator.jpg: second reference, see
+                        # Page structure.
 ```
 The HTML is deliberately not split into partials: that would need a build step or
 runtime JavaScript, both of which contradict the stack decision above.
@@ -181,8 +183,8 @@ colours and spacing there, not in the components.
   request. No lead paragraph.
 
 ## Page structure (single page, anchor nav, smooth scroll, no router)
-Order changed by Max on 18 Sep 2026. Nav: Home, Leistungen, Über mich, Portfolio, plus
-the Kontakt button.
+Order changed by Max on 18 Sep 2026, Fragen added 18 Oct 2026. Nav: Home, Leistungen,
+Über mich, Portfolio, Fragen, plus the Kontakt button.
 1. Hero
 2. Leistungen
 3. Über mich
@@ -200,7 +202,25 @@ the Kontakt button.
    a URL the image cannot back up. The screenshot contains the client's hero
    photo, which shows an identifiable person, so it may only stay up with her
    consent.
-5. Kontakt
+   **Second reference since 18 Oct 2026: the bekoela configurator**
+   (https://bekoela.com), a product configurator for made-to-measure beds that Max
+   built. Card is mirrored (image left, text right, `.project-umgekehrt`) in a plain
+   frame without phone (`.projekt-rahmen`), there is only a desktop screenshot.
+   `assets/img/bekoela-konfigurator.jpg` is cropped from Max's iPad screenshot to the
+   configurator panel only: the page header was dropped because the WordPress admin
+   bar ("Duplicate Post", "Willkommen, Max Bund") overlapped it, and the mouse
+   pointer over "Wählen Sie Ihr Modell" was painted out. Resized to 1600x1034, EXIF
+   stripped. The card text was written by Claude from what the screenshot shows
+   (steps Modell, Bett, Material, Größe, Matratze; view with dimensions; live total
+   price); Max should check it. Heading is now plural, "Ausgewählte Arbeiten".
+5. Fragen (`#fragen`, light green tint like Über mich). Seven questions as native
+   `<details>`/`<summary>`, no JavaScript. Added 18 Oct 2026 for GEO on Max's go.
+   Genuine labelled questions, not rhetorical ones, so the Tone rule is not broken.
+   Answers only state what the site states elsewhere; **no prices**, Max has given
+   none. The same text sits in the JSON-LD as `FAQPage` and in `llms.txt`; change all
+   three together. (Google shows FAQ rich results only for government and health
+   sites since 2023; the markup is for AI systems and does no harm.)
+6. Kontakt
 The nav in the header must mirror it.
 
 ## Contact form
@@ -288,7 +308,7 @@ In the repo:
   hero headline changes.
 - **JSON-LD** in index.html: `ProfessionalService` (name, phone, full address,
   areaServed Österreich, the six services as an `OfferCatalog`), `Person` Max Bund,
-  `WebSite`, and the Bioenergetik reference as `CreativeWork`. **No email** in it, on
+  `WebSite`, both references as `CreativeWork`, and the Fragen as `FAQPage`. **No email** in it, on
   purpose: the address stays obfuscated on index.html. Keep it in sync with the
   visible Leistungen and the Impressum.
 - Hero subline gained "in ganz Österreich" (Claude's addition, consistent with the

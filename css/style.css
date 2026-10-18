@@ -556,6 +556,21 @@ section { padding-block: var(--section-pad); position: relative; }
 .project p { margin-top: 0.9rem; font-size: 0.98rem; }
 .project .btn { margin-top: 1.6rem; }
 
+/* Mehrere Referenzen untereinander; die zweite steht spiegelverkehrt */
+.project + .project { margin-top: clamp(1.5rem, 4vw, 2.5rem); }
+.project-umgekehrt { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.project-umgekehrt .projekt-rahmen { order: -1; }
+
+/* Einfacher Rahmen um ein Bildschirmfoto, ohne Telefon */
+.projekt-rahmen {
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border-hi);
+  box-shadow: var(--shadow-lg);
+  background: var(--bg-soft);
+}
+.projekt-rahmen img { display: block; width: 100%; height: auto; }
+
 /* Bildschirmfoto in einem Browser- und einem Telefonrahmen, gerade
    gesetzt, ohne Kippung und ohne Schweben */
 .projekt-visual {
@@ -693,6 +708,52 @@ section { padding-block: var(--section-pad); position: relative; }
   padding-right: 3rem;
 }
 .card p { font-size: 0.95rem; }
+
+/* 9. FRAGEN
+   ------------------------------------------------------------------------
+   Aufklappbare Fragen ohne JavaScript (details/summary). Zeilen mit
+   duenner Linie, Plus wird beim Oeffnen zum Minus. Leicht gruen getoent
+   wie Ueber mich, damit sich die hellen Abschnitte abwechseln. */
+#fragen { background: #E6EDE7; }
+
+.faq {
+  max-width: 820px;
+  border-top: 1px solid rgba(20, 83, 45, 0.25);
+}
+.faq-eintrag { border-bottom: 1px solid rgba(20, 83, 45, 0.25); }
+.faq-eintrag summary {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  padding: 1.25rem 2.75rem 1.25rem 0;
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--text);
+  transition: color 0.2s var(--ease);
+}
+.faq-eintrag summary::-webkit-details-marker { display: none; }
+.faq-eintrag summary:hover { color: var(--accent); }
+/* Plus aus zwei Linien, die senkrechte verschwindet beim Oeffnen */
+.faq-eintrag summary::before,
+.faq-eintrag summary::after {
+  content: '';
+  position: absolute;
+  right: 0.4rem;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: var(--accent);
+  transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+}
+.faq-eintrag summary::after { transform: rotate(90deg); }
+.faq-eintrag[open] summary::after { transform: rotate(0deg); opacity: 0; }
+.faq-eintrag summary:focus-visible { outline-offset: 4px; }
+.faq-eintrag p {
+  padding: 0 2.75rem 1.4rem 0;
+  max-width: 70ch;
+  color: var(--text);
+}
 
 /* 10. KONTAKT (dunkel)
    ------------------------------------------------------------------------ */
@@ -1131,6 +1192,7 @@ body.cc-offen { overflow: hidden; }
   .project,
   .contact { grid-template-columns: 1fr; }
   .project .projekt-visual { order: -1; max-width: 560px; }
+  .project-umgekehrt { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 720px) {

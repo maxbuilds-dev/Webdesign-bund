@@ -198,6 +198,80 @@
           "@id": "https://webdesign-bund.at/#unternehmen"
         },
         "dateCreated": "2026"
+      },
+      {
+        "@type": "CreativeWork",
+        "@id": "https://webdesign-bund.at/#referenz-bekoela",
+        "name": "bekoela Konfigurator",
+        "url": "https://bekoela.com",
+        "description": "Produktkonfigurator für Betten nach Maß: Auswahl in mehreren Schritten, Ansicht mit Maßen, Gesamtpreis aktualisiert sich mit jeder Auswahl.",
+        "creator": {
+          "@id": "https://webdesign-bund.at/#unternehmen"
+        },
+        "dateCreated": "2026"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://webdesign-bund.at/#fragen",
+        "inLanguage": "de-AT",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Was kostet eine Website?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Der Preis richtet sich nach Umfang und Technik. Nach dem kostenlosen Erstgespräch erhalten Sie ein schriftliches Angebot mit Fixpreis. Die Umsetzung beginnt erst nach Ihrer Freigabe, nachträgliche Kosten entstehen nur für Leistungen, die Sie zusätzlich beauftragen."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Wie lange dauert es bis zur Veröffentlichung?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Eine schlanke Website ist ab zwei Wochen veröffentlicht. WordPress Websites und Onlineshops benötigen je nach Umfang länger. Der Zeitrahmen wird im Angebot festgehalten."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Brauche ich WordPress?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nur, wenn Sie Inhalte regelmäßig selbst bearbeiten möchten, etwa für Neuigkeiten, einen Blog oder einen Onlineshop. Ändern sich Inhalte selten, ist eine statische Website die bessere Wahl: sehr schnelle Ladezeiten, kein Wartungsaufwand und keine laufenden Systemkosten."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Warum kein Baukasten wie Wix oder Jimdo?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Bei einem Baukasten ist Ihre Seite auf das begrenzt, was der Anbieter vorsieht, und die Daten liegen dauerhaft bei einem fremden System. Eine individuell entwickelte Website gehört Ihnen und lässt sich ohne diese Grenzen erweitern."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Übernehmen Sie auch Domain, Hosting und Mailkonten?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ja. Veröffentlichung, Domain und Verschlüsselung übernehme ich, ebenso die Einrichtung von Mailkonten und Weiterleitungen."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Was passiert nach der Veröffentlichung?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Auf Wunsch betreue ich die Website weiter: Aktualisierungen, Sicherheitsupdates, Erweiterungen und technische Fragen. Bei einem Verwaltungsbereich erhalten Sie Zugänge und eine kurze Anleitung."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Arbeiten Sie nur mit Unternehmen aus der Region?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nein. Ich arbeite für Unternehmen und Selbstständige aller Branchen in ganz Österreich. Die Abstimmung erfolgt per Telefon oder Mail."
+            }
+          }
+        ]
       }
     ]
   }
@@ -233,6 +307,7 @@
         <li><a href="#leistungen">Leistungen</a></li>
         <li><a href="#ueber-mich">Über mich</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#fragen">Fragen</a></li>
         <li><a class="nav-cta" href="#kontakt">Kontakt</a></li>
       </ul>
     </div>
@@ -394,7 +469,7 @@
       <div class="container">
         <div class="section-head reveal">
           <span class="section-label">Portfolio</span>
-          <h2>Ausgewählte Arbeit</h2>
+          <h2>Ausgewählte Arbeiten</h2>
         </div>
 
         <article class="project reveal">
@@ -445,6 +520,83 @@
             </div>
           </div>
         </article>
+
+        <!-- Zweite Referenz: Produktkonfigurator. Bild links, Text rechts,
+             damit die beiden Karten nicht gleich aussehen. Ein einfacher
+             Rahmen ohne Telefon, es gibt von diesem Projekt nur die
+             Desktopansicht. -->
+        <article class="project project-umgekehrt reveal">
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="tag">Konfigurator</span>
+              <span class="tag">Möbel</span>
+              <span class="tag">2026</span>
+            </div>
+            <h3>bekoela Konfigurator</h3>
+            <p>
+              Produktkonfigurator für Betten nach Maß. Modell, Bett, Material,
+              Größe und Matratze werden Schritt für Schritt gewählt, die
+              Ansicht zeigt das Bett mit seinen Maßen, und der Gesamtpreis
+              aktualisiert sich mit jeder Auswahl.
+            </p>
+            <a class="btn btn-ghost"
+               href="https://bekoela.com"
+               target="_blank" rel="noopener">
+              Projekt ansehen &rarr;
+            </a>
+          </div>
+
+          <div class="projekt-rahmen">
+            <img class="projekt-bild"
+                 src="assets/img/bekoela-konfigurator.jpg"
+                 alt="Konfigurator von bekoela: Bett Aurelia in 180 mal 200 Zentimetern mit Maßangaben, daneben die Modellauswahl und der Gesamtpreis"
+                 width="1600" height="1034" loading="lazy" decoding="async">
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== FRAGEN =====
+         Haeufige Fragen. Als details/summary gebaut, oeffnet und schliesst
+         ohne JavaScript. Derselbe Inhalt steht als FAQPage in den
+         strukturierten Daten im Kopf, beides gemeinsam aendern. -->
+    <section id="fragen">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-label">Fragen</span>
+          <h2>Häufige Fragen</h2>
+        </div>
+
+        <div class="faq reveal">
+          <details class="faq-eintrag">
+            <summary>Was kostet eine Website?</summary>
+            <p>Der Preis richtet sich nach Umfang und Technik. Nach dem kostenlosen Erstgespräch erhalten Sie ein schriftliches Angebot mit Fixpreis. Die Umsetzung beginnt erst nach Ihrer Freigabe, nachträgliche Kosten entstehen nur für Leistungen, die Sie zusätzlich beauftragen.</p>
+          </details>
+          <details class="faq-eintrag">
+            <summary>Wie lange dauert es bis zur Veröffentlichung?</summary>
+            <p>Eine schlanke Website ist ab zwei Wochen veröffentlicht. WordPress Websites und Onlineshops benötigen je nach Umfang länger. Der Zeitrahmen wird im Angebot festgehalten.</p>
+          </details>
+          <details class="faq-eintrag">
+            <summary>Brauche ich WordPress?</summary>
+            <p>Nur, wenn Sie Inhalte regelmäßig selbst bearbeiten möchten, etwa für Neuigkeiten, einen Blog oder einen Onlineshop. Ändern sich Inhalte selten, ist eine statische Website die bessere Wahl: sehr schnelle Ladezeiten, kein Wartungsaufwand und keine laufenden Systemkosten.</p>
+          </details>
+          <details class="faq-eintrag">
+            <summary>Warum kein Baukasten wie Wix oder Jimdo?</summary>
+            <p>Bei einem Baukasten ist Ihre Seite auf das begrenzt, was der Anbieter vorsieht, und die Daten liegen dauerhaft bei einem fremden System. Eine individuell entwickelte Website gehört Ihnen und lässt sich ohne diese Grenzen erweitern.</p>
+          </details>
+          <details class="faq-eintrag">
+            <summary>Übernehmen Sie auch Domain, Hosting und Mailkonten?</summary>
+            <p>Ja. Veröffentlichung, Domain und Verschlüsselung übernehme ich, ebenso die Einrichtung von Mailkonten und Weiterleitungen.</p>
+          </details>
+          <details class="faq-eintrag">
+            <summary>Was passiert nach der Veröffentlichung?</summary>
+            <p>Auf Wunsch betreue ich die Website weiter: Aktualisierungen, Sicherheitsupdates, Erweiterungen und technische Fragen. Bei einem Verwaltungsbereich erhalten Sie Zugänge und eine kurze Anleitung.</p>
+          </details>
+          <details class="faq-eintrag">
+            <summary>Arbeiten Sie nur mit Unternehmen aus der Region?</summary>
+            <p>Nein. Ich arbeite für Unternehmen und Selbstständige aller Branchen in ganz Österreich. Die Abstimmung erfolgt per Telefon oder Mail.</p>
+          </details>
+        </div>
       </div>
     </section>
 

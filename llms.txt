@@ -13,9 +13,40 @@ Webdesign Bund arbeitet ohne Baukasten. Konzeption, Gestaltung, Umsetzung, Verö
 - Hosting und Domains: Veröffentlichung, Domain, Verschlüsselung, Mailkonten.
 - Wartung und Betreuung: Aktualisierungen, Sicherheitsupdates, Erweiterungen.
 
-## Referenz
+## Referenzen
 
 - [Bioenergetik mq5](https://bioenergetik-mq5.at): vollständiges Redesign für eine Praxis für Humanenergetik, Konzeption, Struktur, Text und Veröffentlichung.
+- [bekoela Konfigurator](https://bekoela.com): Produktkonfigurator für Betten nach Maß, Auswahl in mehreren Schritten mit Ansicht, Maßen und laufendem Gesamtpreis.
+
+## Häufige Fragen
+
+### Was kostet eine Website?
+
+Der Preis richtet sich nach Umfang und Technik. Nach dem kostenlosen Erstgespräch erhalten Sie ein schriftliches Angebot mit Fixpreis. Die Umsetzung beginnt erst nach Ihrer Freigabe, nachträgliche Kosten entstehen nur für Leistungen, die Sie zusätzlich beauftragen.
+
+### Wie lange dauert es bis zur Veröffentlichung?
+
+Eine schlanke Website ist ab zwei Wochen veröffentlicht. WordPress Websites und Onlineshops benötigen je nach Umfang länger. Der Zeitrahmen wird im Angebot festgehalten.
+
+### Brauche ich WordPress?
+
+Nur, wenn Sie Inhalte regelmäßig selbst bearbeiten möchten, etwa für Neuigkeiten, einen Blog oder einen Onlineshop. Ändern sich Inhalte selten, ist eine statische Website die bessere Wahl: sehr schnelle Ladezeiten, kein Wartungsaufwand und keine laufenden Systemkosten.
+
+### Warum kein Baukasten wie Wix oder Jimdo?
+
+Bei einem Baukasten ist Ihre Seite auf das begrenzt, was der Anbieter vorsieht, und die Daten liegen dauerhaft bei einem fremden System. Eine individuell entwickelte Website gehört Ihnen und lässt sich ohne diese Grenzen erweitern.
+
+### Übernehmen Sie auch Domain, Hosting und Mailkonten?
+
+Ja. Veröffentlichung, Domain und Verschlüsselung übernehme ich, ebenso die Einrichtung von Mailkonten und Weiterleitungen.
+
+### Was passiert nach der Veröffentlichung?
+
+Auf Wunsch betreue ich die Website weiter: Aktualisierungen, Sicherheitsupdates, Erweiterungen und technische Fragen. Bei einem Verwaltungsbereich erhalten Sie Zugänge und eine kurze Anleitung.
+
+### Arbeiten Sie nur mit Unternehmen aus der Region?
+
+Nein. Ich arbeite für Unternehmen und Selbstständige aller Branchen in ganz Österreich. Die Abstimmung erfolgt per Telefon oder Mail.
 
 ## Kontakt
 
@@ -27,5 +58,5 @@ Webdesign Bund arbeitet ohne Baukasten. Konzeption, Gestaltung, Umsetzung, Verö
 
 ## Seiten
 
-- [Startseite](https://webdesign-bund.at/): Leistungen, Über mich, Referenz, Kontakt
+- [Startseite](https://webdesign-bund.at/): Leistungen, Über mich, Referenzen, Häufige Fragen, Kontakt
 - [Impressum](https://webdesign-bund.at/impressum.html): Unternehmensangaben nach § 5 ECG
