@@ -31,11 +31,11 @@
         observer.unobserve(entry.target);
       });
     }, { threshold: 0.35 });
-    /* Beobachtet wird der Streifen drumherum: das zugeschnittene Bild
+    /* Beobachtet wird das Projektfeld drumherum: das zugeschnittene Bild
        selbst hat keine sichtbare Flaeche und meldete sich sonst nie. */
     Array.prototype.forEach.call(verschluesse, function (el) {
       el.classList.add('zu');
-      verschlussBeobachter.observe(el.closest('.streifen') || el.parentNode);
+      verschlussBeobachter.observe(el.closest('.projekt') || el.parentNode);
     });
   }
 

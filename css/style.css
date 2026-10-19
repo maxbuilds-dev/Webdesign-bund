@@ -1,15 +1,17 @@
 /* ==========================================================================
-   Webdesign Bund, Stylesheet (Design 4: das Brett)
-   Die ganze Seite ist tiefes Flaschengruen. Sie besteht aus Kacheln, die
-   mit sehr schmalen, kaum sichtbaren Fugen ineinander uebergehen. Jede
-   Kachel ist eine gefuellte Flaeche in einer Gruenstufe, ein
-   Bildschirmfoto oder die eine Handlung in hellem Salbeigruen.
+   Webdesign Bund, Stylesheet (Design 4: Felder in tiefem Gruen)
+   Die ganze Seite ist tiefes, fast schwarzes Gruen. Darauf liegen wenige
+   grosse, weich gerundete Felder in Flaschengruen und dunklen Gruenstufen.
+   Sie haben verschiedene Breiten, lehnen sich abwechselnd an den linken
+   oder rechten Rand und greifen ineinander: die Handlung ragt in das
+   Hero Feld, das Formular ueber das Kontaktfeld hinaus. Vieles steht frei
+   auf dem Grund, nicht jedes Ding hat seine eigene Kachel.
    Keine Linien, keine Schatten auf ruhenden Flaechen, keine Verlaeufe.
 
    Aufbau:
    1. Design-Tokens (Farben, Schrift, Abstaende)
    2. Reset und Grundlagen
-   3. Brett und Kacheln, Schaltflaechen, Links
+   3. Felder, Schaltflaechen, Links
    4. Navigation
    5. Hero
    6. Leistungen
@@ -26,17 +28,17 @@
 
 /* 1. DESIGN-TOKENS
    ------------------------------------------------------------------------
-   Tiefe, fast schwarze Gruenstufen, die nah beieinander liegen, damit die
-   Kacheln ineinander uebergehen statt hart abzugrenzen. Dazu Flaschengruen
-   fuer grosse Flaechen und ein gedecktes, helles Salbeigruen als einziger
+   Tiefe Gruenstufen, die nah beieinander liegen, dazu Flaschengruen fuer
+   grosse Flaechen und ein gedecktes, helles Salbeigruen als einziger
    Akzent (Max, 19 Okt 2026: "wirklich schoene Luxus Gruentoene").
    Komponenten kennen nur die Token, nie konkrete Farben. */
 :root {
-  --bg:         #050D09;   /* Grund und Fugen, das dunkelste Gruen */
-  --kachel:     #08150F;   /* normale Kachel, kaum heller als der Grund */
-  --kachel-2:   #0B1B14;   /* zweite Stufe: abwechselnde Kacheln */
-  --kachel-3:   #10241A;   /* dritte Stufe: Hover, Felder im Formular */
-  --wald:       #0E3322;   /* Flaschengruen: grosse Farbflaechen */
+  --bg:         #050D09;   /* Grund, das dunkelste Gruen */
+  --kachel:     #08150F;   /* dunkle Flaeche, kaum heller als der Grund */
+  --kachel-2:   #0B1B14;   /* zweite Stufe: dunkle Felder */
+  --kachel-3:   #10241A;   /* dritte Stufe: Hover, Formularfelder */
+  --wald:       #0E3322;   /* Flaschengruen: grosse Felder */
+  --wald-2:     #12402B;   /* Ton in Ton auf Flaschengruen: Oesterreich */
   --salbei:     #A9CBB3;   /* Akzent: die Handlung, offene Frage, Fokus */
   --salbei-hi:  #C2DCC9;
   --auf-salbei: #06140D;   /* Schrift auf Salbeigruen */
@@ -55,14 +57,17 @@
   --step-head:    clamp(1.875rem, 1.1rem + 2.9vw, 3.75rem);      /* 30 bis 60 */
   --step-display: clamp(4rem, 0.5rem + 10.6vw, 13rem);           /* der Name */
 
-  /* Das Brett: feine Fugen, schmale Raender, weiche Rundung */
-  --fuge:      4px;
-  --rand:      6px;
-  --innen:     clamp(1.25rem, 2.4vw, 2.5rem);  /* Innenabstand der Kacheln */
-  --radius:    14px;
-  --header-h:  66px;   /* 6px Rand plus 60px Kachelreihe */
+  /* Raender und Abstaende */
+  --rand:        clamp(0.5rem, 1.2vw, 1.25rem);   /* Aussenrand der Felder */
+  --inhalt:      clamp(1.25rem, 5vw, 5.5rem);     /* Text auf dem Grund */
+  --innen:       clamp(1.5rem, 3.6vw, 3.75rem);   /* Innenabstand der Felder */
+  --abstand:     clamp(5.25rem, 9vw, 8.5rem);     /* zwischen den Sektionen */
+  --einzug:      clamp(1.5rem, 12vw, 14rem);      /* Versatz der Felder */
+  --feld-radius: clamp(1.5rem, 2.6vw, 2.25rem);
+  --radius:      14px;
+  --header-h:    72px;
 
-  --ease:      cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease:        cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 /* Fruehere Designs hatten helle und dunkle Bloecke. Jetzt ist alles
@@ -78,7 +83,7 @@
 html {
   overflow-x: clip;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + var(--fuge));
+  scroll-padding-top: calc(var(--header-h) + 1rem);
   -webkit-text-size-adjust: 100%;
   background: var(--bg);
 }
@@ -88,7 +93,7 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   font-size: var(--step-body);
-  line-height: 1.5;
+  line-height: 1.55;
   /* kein overflow-x: hidden hier: das machte body zum Scrollcontainer und
      die klebende Navigationsleiste blieb nicht mehr oben. html hat
      overflow-x: clip, das reicht gegen seitliches Scrollen. */
@@ -124,7 +129,7 @@ p { color: var(--text); }
 
 :focus-visible {
   outline: 2px solid var(--salbei);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 /* Link fuer Tastatur-Nutzer, springt direkt zum Inhalt */
@@ -140,46 +145,27 @@ p { color: var(--text); }
 }
 .skip-link:focus { left: 0; }
 
-/* 3. BRETT UND KACHELN, SCHALTFLAECHEN, LINKS
-   ------------------------------------------------------------------------
-   Ein Brett ist ein Raster aus zwoelf Spalten mit 8px Fugen. Jede Sektion
-   ist ein Brett und schliesst mit einer Fuge an die naechste an, so dass
-   die ganze Seite ein zusammenhaengendes Brett ist. */
-.brett {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--fuge);
-  padding: var(--fuge) var(--rand) 0;
-}
+/* 3. FELDER, SCHALTFLAECHEN, LINKS
+   ------------------------------------------------------------------------ */
+section { position: relative; }
+main > section + section { margin-top: var(--abstand); }
 
-.kachel {
-  background: var(--kachel);
-  border-radius: var(--radius);
-  padding: var(--innen);
-  min-width: 0;
-}
-.kachel-2     { background: var(--kachel-2); }
-.kachel-wald  { background: var(--wald); }
-.kachel-salbei { background: var(--salbei); }
-.kachel-salbei,
-.kachel-salbei p { color: var(--auf-salbei); }
-
-/* Schaltflaeche: Salbeigruen, eine Farbe */
+/* Schaltflaeche: Salbeigruen, voll gerundet */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 3.25rem;
-  padding: 0.9rem 1.6rem;
+  padding: 0.9rem 1.8rem;
   font-family: var(--font-body);
   font-size: var(--step-body);
   font-weight: 600;
   border: none;
-  border-radius: var(--radius);
+  border-radius: 999px;
   cursor: pointer;
   transition: background-color 0.25s var(--ease), transform 0.15s var(--ease);
 }
-.btn:active { transform: scale(0.99); }
+.btn:active { transform: scale(0.98); }
 .btn-primary { background: var(--salbei); color: var(--auf-salbei); }
 .btn-primary:hover { background: var(--salbei-hi); }
 
@@ -197,8 +183,7 @@ p { color: var(--text); }
 
 /* 4. NAVIGATION
    ------------------------------------------------------------------------
-   Die oberste Kachelreihe: Logo, Links, Kontakt. Klebt oben, mit dem Grund
-   dahinter, damit die Fugen sichtbar bleiben. */
+   Eine schlichte Leiste auf dem Grund: Logo, Links, Kontakt. Klebt oben. */
 .site-header {
   position: sticky;
   top: 0;
@@ -207,14 +192,12 @@ p { color: var(--text); }
 }
 
 .nav {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: var(--fuge);
-  padding: var(--fuge) var(--rand) 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
   height: var(--header-h);
+  padding-inline: var(--inhalt);
 }
-
-.nav .kachel { padding-block: 0; padding-inline: 1.25rem; }
 
 .logo {
   display: inline-flex;
@@ -223,9 +206,6 @@ p { color: var(--text); }
   font-weight: 600;
   font-size: 1rem;
   white-space: nowrap;
-  background: var(--wald);
-  border-radius: var(--radius);
-  padding-inline: 1.25rem;
 }
 .logo-dot {
   width: 10px;
@@ -237,11 +217,10 @@ p { color: var(--text); }
 .nav-list {
   list-style: none;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   gap: clamp(1rem, 2.4vw, 2.5rem);
-  padding-right: 0 !important;
+  flex: 1;
 }
-.nav-list li { display: flex; align-items: center; }
 
 .nav-list a {
   white-space: nowrap;
@@ -253,21 +232,15 @@ p { color: var(--text); }
 .nav-list a:hover,
 .nav-list a.active { color: var(--text); }
 
-/* Kontakt als eigene Kachel am rechten Ende. Der Rand in Grundfarbe
-   zeichnet die Fuge zur Linkkachel. */
-.nav-cta-item {
-  margin-left: auto;
-  border-left: var(--fuge) solid var(--bg);
-}
+.nav-cta-item { margin-left: auto; }
 .nav-list .nav-cta {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  height: 100%;
-  padding-inline: 1.5rem;
+  padding: 0.6rem 1.35rem;
+  border-radius: 999px;
   background: var(--salbei);
   color: var(--auf-salbei);
   font-weight: 600;
-  border-radius: 0 var(--radius) var(--radius) 0;
   transition: background-color 0.2s var(--ease);
 }
 .nav-list .nav-cta:hover { background: var(--salbei-hi); color: var(--auf-salbei); }
@@ -275,12 +248,14 @@ p { color: var(--text); }
 /* Menue auf dem Telefon */
 .nav-toggle {
   display: none;
+  margin-left: auto;
+  background: none;
   border: none;
   cursor: pointer;
   position: relative;
   color: var(--text);
-  width: 60px;
-  justify-self: end;
+  width: 44px;
+  height: 44px;
 }
 .nav-toggle span,
 .nav-toggle span::before,
@@ -303,86 +278,99 @@ p { color: var(--text); }
 
 /* 5. HERO
    ------------------------------------------------------------------------
-   Fuenf Kacheln fuellen den ersten Bildschirm genau: oben der Name auf
-   Waldgruen und die Aussage, unten die Fakten, Oesterreich und die
-   Handlung in Salbeigruen. */
-.hero-brett {
-  min-height: calc(100svh - var(--header-h));
-  grid-template-rows: minmax(0, 1.2fr) minmax(0, 1fr);
+   Ein grosses Feld in Flaschengruen: oben der Name, unten rechts die
+   Aussage. Oesterreich liegt Ton in Ton darin und laeuft ueber den Rand
+   hinaus. Unter dem Feld stehen die Fakten frei auf dem Grund, die
+   Handlung in Salbeigruen greift von unten in das Feld hinein. */
+.hero { padding-inline: var(--rand); }
+
+.hero-feld {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto 1fr;
+  column-gap: var(--innen);
+  min-height: calc(100svh - var(--header-h) - clamp(11rem, 26vh, 15rem));
+  padding: var(--innen);
+  padding-bottom: calc(var(--innen) + 3rem);
+  background: var(--wald);
+  border-radius: var(--feld-radius);
 }
 
-.kachel-name {
-  grid-column: 1 / 7;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
+.hero-karte {
+  position: absolute;
+  right: -7%;
+  bottom: -22%;
+  width: 64%;
+  fill: var(--wald-2);
+  pointer-events: none;
 }
+
 .name-gross {
+  position: relative;
+  grid-column: 1 / -1;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: min(var(--step-display), 19svh, calc((50vw - 8px - 2 * var(--innen)) / 5.05));
+  font-size: min(var(--step-display), 17svh);
   line-height: 0.88;
   letter-spacing: -0.05em;
   color: var(--salbei);
 }
 
-.kachel-aussage {
-  grid-column: 7 / 13;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.hero-aussage {
+  position: relative;
+  grid-column: 7 / -1;
+  align-self: end;
+  padding-top: 2rem;
 }
 @media (min-width: 1101px) {
-  .kachel-aussage h1 { font-size: min(var(--step-head), 3.6vw); }
+  .hero-aussage h1 { font-size: min(var(--step-head), 3.4vw); }
 }
-.kachel-aussage .hero-sub {
+.hero-aussage .hero-sub {
   margin-top: 1.25rem;
-  color: var(--text-muted);
   max-width: 34rem;
+  color: var(--text);
+  opacity: 0.86;
 }
-.kachel-aussage .text-link { margin-top: auto; padding-top: 1.5rem; }
+.hero-aussage .text-link { margin-top: 1.5rem; }
 
-.kachel-fakten {
-  grid-column: 1 / 6;
+.hero-unten {
   display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  gap: 1.1rem 2.5rem;
-  align-content: end;
-  align-items: baseline;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--innen);
+  align-items: center;
+  padding-inline: var(--innen);
 }
-.kachel-fakten > div { display: contents; }
-.kachel-fakten dt {
+
+.hero-fakten {
+  grid-column: 1 / 7;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--innen);
+  padding-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+.hero-fakten dt {
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: var(--step-head);
-  line-height: 1;
-  letter-spacing: -0.03em;
+  font-size: var(--step-lead);
+  line-height: 1.1;
   white-space: nowrap;
 }
-.kachel-fakten dd {
+.hero-fakten dd {
+  margin-top: 0.4rem;
   font-size: var(--step-small);
   color: var(--text-muted);
 }
 
-.kachel-karte {
-  grid-column: 6 / 10;
-  background: var(--kachel-2);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.kachel-karte svg {
-  width: 100%;
-  max-height: 72%;
-  fill: var(--wald);
-  flex: 1;
-  min-height: 0;
-}
 .status {
+  grid-column: 7 / 10;
+  grid-row: 1;
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  padding-top: clamp(1.75rem, 3vw, 2.5rem);
   font-size: var(--step-small);
   color: var(--text-muted);
 }
@@ -393,136 +381,119 @@ p { color: var(--text); }
   background: var(--salbei);
 }
 
-/* Die Handlung: eine ganze Kachel in Salbeigruen */
-.kachel-aktion {
-  grid-column: 10 / 13;
+/* Die Handlung ragt von unten in das gruene Feld hinein */
+.hero-aktion {
+  grid-column: 10 / -1;
+  grid-row: 1;
+  position: relative;
+  z-index: 1;
+  margin-top: -3.5rem;
+  min-height: 9.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: var(--feld-radius);
   background: var(--salbei);
   color: var(--auf-salbei);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   font-family: var(--font-display);
-  font-weight: 400;
   font-size: var(--step-lead);
   line-height: 1.15;
-  transition: background-color 0.25s var(--ease);
+  transition: background-color 0.25s var(--ease), transform 0.25s var(--ease);
 }
-.kachel-aktion .pfeil {
-  align-self: flex-end;
-  font-family: var(--font-body);
-  font-size: var(--step-head);
-  line-height: 1;
+.hero-aktion .pfeil {
+  flex: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-bottom: 0.2rem;
   transition: transform 0.3s var(--ease);
 }
-.kachel-aktion:hover { background: var(--salbei-hi); }
-.kachel-aktion:hover .pfeil { transform: translateX(6px); }
-.kachel-aktion:active { transform: scale(0.995); }
+.hero-aktion:hover { background: var(--salbei-hi); }
+.hero-aktion:hover .pfeil { transform: translateX(6px); }
+.hero-aktion:active { transform: scale(0.99); }
 
 /* 6. LEISTUNGEN
    ------------------------------------------------------------------------
-   Oben die Ueberschrift auf Waldgruen ueber die ganze Breite, die zweite
-   Zeile rechtsbuendig. Darunter sechs Kacheln im Schachbrett aus zwei
-   Tonstufen. */
-.leistungen-kopf {
-  grid-column: 1 / 13;
-  padding-block: clamp(3.5rem, 6vw, 5rem);
-}
-.leistungen-kopf h2 span { display: block; }
-.leistungen-kopf h2 span:nth-child(2) { text-align: right; }
+   Ueberschrift frei auf dem Grund, die zweite Zeile versetzt. Darunter ein
+   dunkles Feld, das von einem Einzug bis an den rechten Rand laeuft. */
+.leistungen-titel { padding-inline: var(--inhalt); }
+.leistungen-titel span { display: block; }
+.leistungen-titel span:nth-child(2) { padding-left: clamp(2rem, 22vw, 24rem); }
 
-.leistungen-reihen {
-  grid-column: 1 / 13;
+.leistungen-feld {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  margin-left: var(--einzug);
+  padding: var(--innen);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--fuge);
+  gap: clamp(2.5rem, 4.5vw, 4rem) var(--innen);
+  background: var(--kachel-2);
+  border-radius: var(--feld-radius) 0 0 var(--feld-radius);
 }
-.leistung {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-  min-height: 15rem;
-  padding: var(--innen);
-  border-radius: var(--radius);
-  background: var(--kachel);
+
+.leistung h3 {
+  font-size: var(--step-lead);
+  color: var(--salbei);
+  margin-bottom: 0.75rem;
 }
-.leistung h3 { color: var(--salbei); }
-/* Nicht sechs gleiche Kacheln: die erste steht hoch ueber zwei Reihen auf
-   Waldgruen, die letzte liegt breit ueber die ganze Reihe, dazwischen vier
-   kleine in zwei abwechselnden Tonstufen. */
-.leistung:nth-child(even) { background: var(--kachel-2); }
-.leistung:first-child {
-  grid-row: span 2;
-  background: var(--wald);
-  justify-content: flex-end;
-}
-.leistung:first-child h3 { font-family: var(--font-display); font-weight: 300; font-size: var(--step-head); color: var(--text); }
-.leistung:last-child {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-  gap: var(--innen);
-  min-height: 0;
-}
+.leistung p { max-width: 30em; }
 
 /* 7. UEBER MICH
-   ------------------------------------------------------------------------ */
-.about-text {
-  grid-column: 1 / 8;
-  display: grid;
-  align-content: start;
-  gap: 1.25rem;
+   ------------------------------------------------------------------------
+   Ein Feld in Flaschengruen, das vom linken Rand kommt. Oben der Name,
+   darunter die vier Absaetze in zwei Spalten. */
+.about-feld {
+  margin-right: var(--einzug);
+  padding: var(--innen) var(--innen) var(--innen) var(--inhalt);
+  background: var(--wald);
+  border-radius: 0 var(--feld-radius) var(--feld-radius) 0;
 }
-.about-text h2 { margin-bottom: 1rem; }
-/* Alle Absaetze gleich: Farbe und Groesse */
-.about-text p { max-width: 40em; }
+.about-feld h2 { margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
 
-.about-satz {
-  grid-column: 8 / 13;
-  display: flex;
-  align-items: flex-end;
+/* Alle Absaetze gleich: Farbe und Groesse */
+.about-text {
+  columns: 2;
+  column-gap: var(--innen);
 }
-.about-satz p {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--step-lead);
-  line-height: 1.25;
-  max-width: 24em;
+.about-text p {
+  break-inside: avoid;
+  margin-bottom: 1.25rem;
 }
 
 /* 8. PORTFOLIO
    ------------------------------------------------------------------------
-   Oben eine Kachel mit der Ueberschrift, darunter je Arbeit ein
-   Streifen: Infokachel, dann die Bilder in gleicher Hoehe, seitlich
-   wischbar. */
-.portfolio-leiste {
-  grid-column: 1 / 13;
-  padding-block: clamp(2.5rem, 6vw, 5rem);
-}
+   Je Arbeit ein dunkles Feld, abwechselnd an den rechten und den linken
+   Rand gelehnt. Die Bilderreihe laeuft im ersten Feld bis an den Rand.
+   Jedes Bild steht im selben 3:2 Rahmen auf einem Passepartout, hohe
+   Handyansichten ganz und mittig. */
+.portfolio-titel { padding-inline: var(--inhalt); }
 
-.portfolio-streifen {
-  grid-column: 1 / 13;
+.projekt {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  margin-left: calc(var(--einzug) * 0.5);
+  padding: var(--innen) 0 var(--innen) var(--innen);
   display: grid;
-  gap: var(--fuge);
-  min-width: 0;
+  grid-template-columns: minmax(16rem, 28rem) minmax(0, 1fr);
+  gap: var(--innen);
+  align-items: center;
+  background: var(--kachel-2);
+  border-radius: var(--feld-radius) 0 0 var(--feld-radius);
 }
+.projekt + .projekt { margin-top: 1rem; }
 
-/* Die Hoehe eines Streifens bestimmt die Infokachel. Die Bilderreihe
-   meldet dank contain: size keine eigene Groesse und passt sich an. */
-.streifen {
-  display: grid;
-  grid-template-columns: clamp(20rem, 36vw, 34rem) minmax(0, 1fr);
-  gap: var(--fuge);
-  min-height: clamp(15rem, 21vw, 20rem);
-  min-width: 0;
+.projekt-links {
+  margin-left: 0;
+  margin-right: calc(var(--einzug) * 0.5);
+  padding: var(--innen) var(--innen) var(--innen) var(--inhalt);
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 28rem);
+  border-radius: 0 var(--feld-radius) var(--feld-radius) 0;
 }
+.projekt-links .projekt-info { order: 2; }
 
-.streifen-info {
-  display: flex;
-  flex-direction: column;
-}
-.streifen-info h3 { margin-bottom: 0.9rem; }
-.streifen-info p:not(.project-meta) { font-size: 1rem; line-height: 1.55; }
-.streifen-info .text-link { margin-top: auto; padding-top: 1.25rem; }
+.projekt-info h3 { margin-bottom: 0.9rem; }
+.projekt-info p:not(.project-meta) { font-size: 1rem; line-height: 1.6; }
+.projekt-info .text-link { margin-top: 1.25rem; }
 
 .project-meta {
   display: flex;
@@ -535,8 +506,8 @@ p { color: var(--text); }
 
 .streifen-bilder {
   display: flex;
-  gap: var(--fuge);
-  contain: size;
+  gap: 0.75rem;
+  height: clamp(13rem, 19vw, 18rem);
   min-width: 0;
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -545,9 +516,8 @@ p { color: var(--text); }
   scrollbar-color: var(--kachel-3) transparent;
   border-radius: var(--radius);
 }
-/* Jedes Bild bekommt denselben Rahmen im Seitenverhaeltnis 3:2, mit
-   einem Passepartout in der Kachelfarbe. Hohe Handyansichten stehen darin
-   ganz, mittig, statt den Streifen zu sprengen. */
+.projekt:not(.projekt-links) .streifen-bilder { border-radius: var(--radius) 0 0 var(--radius); }
+
 .streifen-bild {
   flex: none;
   height: 100%;
@@ -556,13 +526,13 @@ p { color: var(--text); }
   scroll-snap-align: start;
   border-radius: var(--radius);
   overflow: hidden;
-  background: var(--kachel-2);
+  background: var(--kachel);
 }
 .streifen-bild img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: calc(var(--radius) - 6px);
+  border-radius: 8px;
   transition: transform 0.6s var(--ease);
 }
 .streifen-bild:hover img { transform: scale(1.03); }
@@ -570,12 +540,11 @@ p { color: var(--text); }
 /* Platzhalter, falls das Bildschirmfoto fehlt */
 .embed-platzhalter {
   height: 100%;
-  aspect-ratio: 16 / 11;
   display: grid;
   place-content: center;
   gap: 0.5rem;
   text-align: center;
-  padding: 2rem;
+  padding: 1rem;
 }
 .embed-platzhalter[hidden] { display: none; }
 .embed-platzhalter span { font-family: var(--font-display); font-size: var(--step-lead); }
@@ -583,99 +552,118 @@ p { color: var(--text); }
 
 /* 9. FRAGEN
    ------------------------------------------------------------------------
-   Links die Ueberschrift auf Waldgruen, rechts gefuellte Kacheln. Eine
-   offene Frage wird Salbeigruen. */
-.fragen-kopf { grid-column: 1 / 6; }
-.fragen-kopf h2 { position: sticky; top: calc(var(--header-h) + var(--innen)); }
-
-.faq {
-  grid-column: 6 / 13;
+   Links die Ueberschrift, die stehen bleibt, rechts die Fragen als offene
+   Liste. Eine geoeffnete Frage bekommt eine weiche Flaeche. */
+.fragen {
   display: grid;
-  gap: var(--fuge);
-  align-content: start;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: var(--innen);
+  padding-inline: var(--inhalt);
+}
+.fragen-titel {
+  position: sticky;
+  top: calc(var(--header-h) + 1.5rem);
+  align-self: start;
 }
 
+.faq { display: grid; gap: 0.25rem; }
+
 .faq-eintrag {
-  padding: 0;
-  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+  border-radius: var(--radius);
+  transition: background-color 0.3s var(--ease);
 }
 .faq-eintrag summary {
   list-style: none;
   cursor: pointer;
   position: relative;
-  min-height: 4.5rem;
-  display: flex;
-  align-items: center;
-  padding: 1.25rem 4rem 1.25rem var(--innen);
+  padding: 1.35rem 4rem 1.35rem 1.5rem;
   font-size: var(--step-lead);
-  font-weight: 500;
-  line-height: 1.25;
+  font-weight: 400;
+  line-height: 1.3;
   border-radius: var(--radius);
-  transition: background-color 0.2s var(--ease);
+  transition: color 0.2s var(--ease), background-color 0.2s var(--ease);
 }
 .faq-eintrag summary::-webkit-details-marker { display: none; }
-.faq-eintrag:not([open]) summary:hover { background: var(--kachel-2); }
+.faq-eintrag:not([open]) summary:hover { background: var(--kachel); }
 
 /* Plus aus zwei Balken; der senkrechte dreht sich zum Minus */
 .faq-eintrag summary::before,
 .faq-eintrag summary::after {
   content: '';
   position: absolute;
-  right: var(--innen);
+  right: 1.5rem;
   top: 50%;
   width: 16px;
-  height: 3px;
-  margin-top: -1.5px;
-  background: currentColor;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--salbei);
   border-radius: 2px;
   transition: transform 0.3s var(--ease);
 }
 .faq-eintrag summary::after { transform: rotate(90deg); }
 .faq-eintrag[open] summary::after { transform: rotate(0deg); }
 
-.faq-eintrag[open] { background: var(--salbei); }
-.faq-eintrag[open],
-.faq-eintrag[open] summary,
-.faq-eintrag[open] p { color: var(--auf-salbei); }
+.faq-eintrag[open] { background: var(--kachel-2); }
+.faq-eintrag[open] summary { color: var(--salbei); }
 
 .faq-eintrag p {
-  padding: 0 var(--innen) var(--innen);
-  max-width: 52ch;
+  padding: 0 1.5rem 1.5rem;
+  max-width: 56ch;
 }
 
 /* 10. KONTAKT
-   ------------------------------------------------------------------------ */
+   ------------------------------------------------------------------------
+   Ein grosses Feld in Flaschengruen. Das Formular liegt auf einer
+   dunkleren Flaeche, die unten ueber das Feld hinausragt. */
+#kontakt { padding-inline: var(--rand); }
+
+.kontakt-feld {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--innen);
+  align-items: start;
+  padding: var(--innen);
+  padding-bottom: 0;
+  background: var(--wald);
+  border-radius: var(--feld-radius);
+}
+
 .contact-intro {
-  grid-column: 1 / 6;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 1.5rem;
+  padding-bottom: var(--innen);
 }
 .contact-intro p { max-width: 30em; }
 
-.kontakt-weg {
-  grid-column: 1 / 6;
-  display: flex;
-  align-items: center;
-  min-height: 5.5rem;
+.kontakt-wege {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+  margin-top: 1rem;
   font-family: var(--font-display);
   font-size: var(--step-lead);
-  font-weight: 400;
-  overflow-wrap: anywhere;
-  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
 }
-.kontakt-weg:hover { background: var(--kachel-3); color: var(--salbei); }
+.kontakt-wege a {
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: color 0.2s var(--ease), text-decoration-thickness 0.2s var(--ease);
+}
+.kontakt-wege a:hover { color: var(--salbei); text-decoration-thickness: 2px; }
 
 .kontakt-formular {
-  grid-column: 6 / 13;
-  grid-row: 1 / 4;
+  margin-bottom: calc(-1 * clamp(2rem, 5vw, 4rem));
+  padding: var(--innen);
+  background: var(--kachel);
+  border-radius: var(--feld-radius);
 }
 
 /* Formular: gefuellte Felder ohne Linien, zwei Spalten fuer die kurzen */
 #contactForm {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0 var(--fuge);
+  gap: 0 0.75rem;
 }
 #contactForm .form-row:nth-of-type(5),
 #contactForm .form-row:nth-of-type(6),
@@ -689,9 +677,9 @@ p { color: var(--text); }
 .form-row textarea,
 .form-row select {
   width: 100%;
-  background: var(--kachel-2);
+  background: var(--kachel-3);
   border: none;
-  border-radius: var(--radius);
+  border-radius: 10px;
   padding: 0.95rem 1rem;
   color: var(--text);
   font-family: var(--font-body);
@@ -701,13 +689,12 @@ p { color: var(--text); }
 .form-row textarea { resize: vertical; min-height: 150px; }
 .form-row input:hover,
 .form-row textarea:hover,
-.form-row select:hover { background: var(--kachel-3); }
+.form-row select:hover { background: #142D21; }
 .form-row input:focus,
 .form-row textarea:focus,
 .form-row select:focus {
   outline: 2px solid var(--salbei);
   outline-offset: 0;
-  background: var(--kachel-3);
 }
 .form-row input::placeholder,
 .form-row textarea::placeholder { color: var(--text-muted); opacity: 0.8; }
@@ -733,33 +720,37 @@ p { color: var(--text); }
 
 /* 11. FOOTER
    ------------------------------------------------------------------------
-   Die letzte Reihe des Bretts. Der Name kehrt ueber die ganze Breite
-   zurueck. */
-.site-footer { padding-bottom: calc(var(--fuge) + var(--cc-platz, 0px)); }
+   Der Name kehrt ueber die ganze Breite zurueck, darunter eine Zeile mit
+   den Rechtslinks. Oben Platz fuer das Formular, das hineinragt. */
+.site-footer {
+  padding: calc(clamp(2rem, 5vw, 4rem) + var(--abstand) * 0.6 + 2.5rem) var(--inhalt) calc(2rem + var(--cc-platz, 0px));
+}
 
-.footer-name-kachel { grid-column: 1 / 13; overflow: hidden; }
 .footer-name {
   font-family: var(--font-display);
   font-weight: 500;
-  /* so gross, dass der Name die Kachel genau fuellt */
-  font-size: calc((100vw - 2 * var(--rand) - 2 * var(--innen)) / 7.45);
+  /* so gross, dass der Name die Breite genau fuellt */
+  font-size: calc((100vw - 2 * var(--inhalt)) / 7.45);
   line-height: 0.85;
   letter-spacing: -0.05em;
   white-space: nowrap;
-  color: var(--salbei);
+  color: #2F6B4C;   /* gedecktes Smaragd, gerade kraeftig genug zum Lesen */
 }
 
-.footer-copy {
-  grid-column: 1 / 6;
+.footer-zeile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
   font-size: var(--step-small);
-  color: var(--text-muted) !important;
 }
+.footer-copy { color: var(--text-muted) !important; }
 .footer-links {
-  grid-column: 6 / 13;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem 1.75rem;
-  font-size: var(--step-small);
   color: var(--text-muted);
 }
 .footer-links a { transition: color 0.2s var(--ease); }
@@ -782,15 +773,11 @@ p { color: var(--text); }
    Diese Seiten haben eine schlichtere Kopfzeile mit .container. */
 .container {
   width: 100%;
-  max-width: calc(48rem + 2 * var(--innen));
+  max-width: calc(48rem + 2 * var(--inhalt));
   margin-inline: auto;
-  padding-inline: var(--innen);
+  padding-inline: var(--inhalt);
 }
-.site-header .container.nav {
-  max-width: none;
-  padding: var(--fuge) var(--rand) 0;
-  grid-template-columns: max-content;
-}
+.site-header .container.nav { max-width: none; margin: 0; }
 
 .legal { padding-block: clamp(3rem, 8vw, 6rem); }
 .legal h1 { margin-bottom: 2rem; }
@@ -821,26 +808,22 @@ p { color: var(--text); }
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem 2rem;
-  margin: 0 var(--rand);
-  width: auto;
-  padding: var(--innen);
-  background: var(--kachel);
-  border-radius: var(--radius);
+  padding: 0;
   font-size: var(--step-small);
   color: var(--text-muted);
 }
 .site-footer .container.footer-inner p { color: var(--text-muted); }
 
-/* Fehlerseite und Dankeseite: eine Kachel in Waldgruen ueber den Schirm */
+/* Fehlerseite und Dankeseite: ein Feld in Flaschengruen ueber den Schirm */
 .page-404 {
   min-height: 100svh;
-  padding: var(--fuge);
+  padding: var(--rand);
   display: grid;
 }
 .page-404 .container {
   max-width: none;
   background: var(--wald);
-  border-radius: var(--radius);
+  border-radius: var(--feld-radius);
   padding: var(--innen);
   display: flex;
   flex-direction: column;
@@ -1003,21 +986,28 @@ p { color: var(--text); }
   to   { opacity: 1; transform: none; }
 }
 
+
 /* 14. BEWEGUNG
    ------------------------------------------------------------------------
-   Die Kacheln des Hero setzen sich beim Laden nacheinander. Teile jeder
-   Sektion steigen beim Hereinscrollen auf, die Verzoegerung setzt
+   Das Hero Feld und seine Teile setzen sich beim Laden nacheinander. Teile
+   jeder Sektion steigen beim Hereinscrollen auf, die Verzoegerung setzt
    js/script.js. Das erste Bildschirmfoto im Portfolio oeffnet sich einmal
    wie ein Verschluss von links. */
-@keyframes kachelAuf {
-  from { opacity: 0; transform: translateY(20px) scale(0.985); }
+@keyframes feldAuf {
+  from { opacity: 0; transform: translateY(20px) scale(0.99); }
   to   { opacity: 1; transform: none; }
 }
-.hero-brett > * { animation: kachelAuf 0.8s var(--ease) both; }
-.hero-brett > :nth-child(2) { animation-delay: 0.08s; }
-.hero-brett > :nth-child(3) { animation-delay: 0.16s; }
-.hero-brett > :nth-child(4) { animation-delay: 0.24s; }
-.hero-brett > :nth-child(5) { animation-delay: 0.32s; }
+@keyframes karteAuf {
+  from { opacity: 0; transform: translate(4%, 6%); }
+  to   { opacity: 1; transform: none; }
+}
+.hero-feld       { animation: feldAuf 0.9s var(--ease) both; }
+.hero-karte      { animation: karteAuf 1.6s var(--ease) 0.2s both; }
+.name-gross      { animation: feldAuf 0.9s var(--ease) 0.12s both; }
+.hero-aussage    { animation: feldAuf 0.9s var(--ease) 0.24s both; }
+.hero-fakten     { animation: feldAuf 0.9s var(--ease) 0.36s both; }
+.status          { animation: feldAuf 0.9s var(--ease) 0.42s both; }
+.hero-aktion     { animation: feldAuf 0.9s var(--ease) 0.48s both; }
 
 .reveal {
   opacity: 0;
@@ -1030,72 +1020,63 @@ p { color: var(--text); }
    von 1.12 auf 1. Die Klasse .zu setzt nur js/script.js, ohne JavaScript
    bleibt das Bild also einfach offen. */
 .verschluss {
-  clip-path: inset(0 0 0 0);
+  clip-path: inset(0 0 0 0 round var(--radius));
   transition: clip-path 1.1s cubic-bezier(0.77, 0, 0.18, 1);
 }
-.verschluss img { transition: transform 1.4s var(--ease), filter 0.4s var(--ease); }
-.verschluss.zu { clip-path: inset(0 100% 0 0); }
+.verschluss img { transition: transform 1.4s var(--ease); }
+.verschluss.zu { clip-path: inset(0 100% 0 0 round var(--radius)); }
 .verschluss.zu img { transform: scale(1.12); }
 
 /* 15. RESPONSIVE
    ------------------------------------------------------------------------ */
 @media (max-width: 1100px) {
-  .kachel-name { grid-column: 1 / 13; min-height: 34svh; }
-  .kachel-aussage { grid-column: 1 / 8; }
-  .kachel-aktion { grid-column: 8 / 13; min-height: 12rem; }
-  .kachel-fakten { grid-column: 1 / 8; }
-  .kachel-karte { grid-column: 8 / 13; }
-  .hero-brett { grid-template-rows: none; min-height: 0; grid-auto-flow: row dense; }
+  .hero-feld { min-height: 0; padding-bottom: calc(var(--innen) + 4rem); }
   .name-gross { font-size: min(19svh, calc((100vw - 2 * var(--rand) - 2 * var(--innen)) / 5.1)); }
+  .hero-aussage { grid-column: 1 / -1; padding-top: 2.5rem; }
 
-  .leistungen-reihen { grid-template-columns: 1fr 1fr; }
-  .leistung:nth-child(n + 2) { background: var(--kachel); }
-  .leistung:nth-child(3),
-  .leistung:nth-child(4) { background: var(--kachel-2); }
-  .leistung:last-child { background: var(--kachel-2); }
-  .leistungen-reihen { grid-column: 1 / 13; }
+  .hero-aktion { grid-column: 6 / -1; grid-row: 1; min-height: 6.5rem; }
+  .status { grid-column: 1 / 6; grid-row: 1; padding-top: 0; }
+  .hero-fakten { grid-column: 1 / -1; grid-row: 2; }
 
-  .about-text,
-  .about-satz { grid-column: 1 / 13; }
-  .about-satz { min-height: 12rem; }
+  .leistungen-feld { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-left: var(--rand); }
 
-  /* Streifen gestapelt: Infokachel oben, Bilder darunter */
-  .streifen { grid-template-columns: minmax(0, 1fr); }
-  .streifen-bilder { height: clamp(13rem, 34vw, 17rem); }
+  .about-feld { margin-right: var(--rand); }
 
-  /* Kacheln, die mit einem Link enden, bekommen unten mehr Luft, damit
-     der Link nicht wie eine Beschriftung der Kachel darunter wirkt */
-  .kachel-aussage,
-  .kontakt-formular { padding-bottom: calc(var(--innen) + 3.5rem); }
+  .projekt,
+  .projekt-links {
+    grid-template-columns: minmax(0, 1fr);
+    margin-inline: var(--rand) 0;
+    padding: var(--innen) 0 var(--innen) var(--innen);
+    border-radius: var(--feld-radius) 0 0 var(--feld-radius);
+  }
+  .projekt-links .projekt-info { order: 0; }
+  .projekt-info { padding-right: var(--innen); }
+  .projekt-links .streifen-bilder { border-radius: var(--radius) 0 0 var(--radius); }
 
-  .fragen-kopf { grid-column: 1 / 13; }
-  .fragen-kopf h2 { position: static; }
-  .faq { grid-column: 1 / 13; }
+  .fragen { grid-template-columns: minmax(0, 1fr); }
+  .fragen-titel { position: static; }
 
-  .contact-intro { grid-column: 1 / 13; }
-  .kontakt-weg { grid-column: span 6; }
-  .kontakt-formular { grid-column: 1 / 13; grid-row: auto; }
-
-  .footer-copy { grid-column: 1 / 13; }
-  .footer-links { grid-column: 1 / 13; }
+  .kontakt-feld { grid-template-columns: minmax(0, 1fr); }
+  .contact-intro { padding-bottom: 0; }
 }
 
 @media (max-width: 760px) {
-  :root { --header-h: 66px; --fuge: 6px; --rand: 6px; }
+  :root { --header-h: 64px; }
 
   h1, h2 { font-size: min(var(--step-head), 8vw); }
 
-  .nav { grid-template-columns: minmax(0, 1fr) auto; }
   .nav-toggle { display: block; }
   .nav-list {
     position: absolute;
-    top: calc(100% + var(--fuge));
+    top: 100%;
     left: var(--rand);
     right: var(--rand);
     flex-direction: column;
+    align-items: stretch;
     gap: 0;
-    padding: 0.5rem 1.25rem 1.25rem !important;
+    padding: 0.5rem 1.25rem 1.25rem;
     background: var(--kachel-2);
+    border-radius: var(--feld-radius);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45); /* taste-skill-ignore: Menue schwebt */
     /* geschlossen: unsichtbar und nicht anklickbar */
     opacity: 0;
@@ -1105,28 +1086,34 @@ p { color: var(--text); }
                 visibility 0.25s;
   }
   .nav-list.open { opacity: 1; visibility: visible; transform: none; }
-  .nav-list a { display: block; width: 100%; padding: 0.85rem 0; font-size: 1.125rem; color: var(--text); }
-  .nav-cta-item { margin-left: 0; border-left: none; margin-top: 0.75rem; }
-  .nav-list .nav-cta { width: 100%; justify-content: center; padding: 1rem; border-radius: var(--radius); }
+  .nav-list a { display: block; padding: 0.85rem 0; font-size: 1.125rem; color: var(--text); }
+  .nav-cta-item { margin-left: 0; margin-top: 0.75rem; }
+  .nav-list .nav-cta { display: flex; justify-content: center; padding: 1rem; }
 
-  .kachel-name { min-height: 26svh; }
-  .name-gross { font-size: 17.5vw; }
-  .kachel-aussage,
-  .kachel-fakten,
-  .kachel-karte { grid-column: 1 / 13; }
-  .kachel-aktion { grid-column: 1 / 13; min-height: 7rem; }
-  .kachel-karte svg { max-height: 9rem; }
+  .name-gross { font-size: 16vw; }
+  .hero-aktion { grid-column: 1 / -1; margin-top: -3rem; min-height: 7.5rem; }
+  .status { grid-column: 1 / -1; grid-row: 2; padding-top: 1.5rem; }
+  .hero-fakten { grid-row: 3; grid-template-columns: 1fr 1fr; gap: 1.25rem; padding-top: 1.25rem; }
 
-  .leistungen-reihen { grid-template-columns: 1fr; }
-  .leistung { min-height: 0; gap: 0.6rem; }
-  .leistung:first-child { grid-row: auto; min-height: 12rem; }
-  .leistung:last-child { display: flex; }
+  .leistungen-titel span:nth-child(2) { padding-left: 2.5rem; }
+  .leistungen-feld { grid-template-columns: minmax(0, 1fr); }
 
+  .about-text { columns: 1; }
 
-  .streifen-bilder { height: 12rem; }
+  .streifen-bilder { height: 11.5rem; }
 
-  .kontakt-weg { grid-column: 1 / 13; min-height: 4.5rem; }
+  .faq-eintrag summary { font-size: 1.1875rem; padding: 1.1rem 3.25rem 1.1rem 1rem; }
+  .faq-eintrag summary::before,
+  .faq-eintrag summary::after { right: 1rem; }
+  .faq-eintrag p { padding: 0 1rem 1.25rem; }
+  .fragen { padding-inline: var(--rand); }
+  .fragen-titel { padding-inline: calc(var(--inhalt) - var(--rand)); }
+
   #contactForm { grid-template-columns: 1fr; }
+  .kontakt-feld { padding-inline: 1.25rem; }
+  .kontakt-formular { margin-inline: -0.5rem; padding: 1.25rem; }
+
+  .footer-zeile { flex-direction: column; align-items: flex-start; }
 
   .cc-overlay { left: var(--rand); right: var(--rand); width: auto; }
   .cc-dialog { padding: 1rem; }

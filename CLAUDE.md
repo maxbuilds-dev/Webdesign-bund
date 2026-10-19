@@ -98,14 +98,15 @@ background. Don't introduce a framework or bundler unless explicitly asked.
                         # HTML with the site fonts (see SEO and GEO).
                         # bekoela-konfigurator.jpg: second reference, see
                         # Page structure.
-                        # streifen-bio-*.jpg, druck-bekoela-*.jpg: extra
-                        # screenshots for the portfolio strips.
+                        # streifen-bio-*.jpg, druck-bekoela-bett.jpg,
+                        # bekoela-konfigurator-mobil.jpg: extra screenshots
+                        # for the portfolio rows.
 ```
 The HTML is deliberately not split into partials: that would need a build step or
 runtime JavaScript, both of which contradict the stack decision above.
 
 ## Design system
-**Design 4, "das Brett"**, built on branch `design-v3` on 19 Oct 2026 with taste-skill.
+**Design 4, "Felder"** (started as "das Brett"), built on branch `design-v3` on 19 Oct 2026 with taste-skill.
 Max rejected design 3 (white page, serif Zodiak, screenshots in the hero, loose layout)
 the same day: "sieht echt schlimm aus". His answers that shaped design 4: **the whole
 page dark forest green**, start completely new, and he disliked the serif, the pictures
@@ -119,65 +120,71 @@ Max had ruled out; the second ("Two-by-two board") also wanted two photographs, 
 were replaced by a facts tile and an Austria tile. Sheet: `.taste-skill/direction.json`
 (git-ignored).
 
-The idea: the page is one board of tiles fitted edge to edge, every tile one thing (the
-name, a statement, a service, a screenshot, a question, the action). No empty bands
-between sections. Second round, same day, Max: deeper "luxury" greens, less "cut cut
-cut", tiles should flow into each other, reference images too big, Über mich photo
-"grauenhaft". So: joints only 4px in a ground barely darker than the tiles, radius
-14px, the photo removed, the strips smaller with uniform frames.
+Second round, same day: Max asked for deeper "luxury" greens and less hard edges, and
+called the setzkasten photo in Über mich "grauenhaft" (removed). Third round, same day.
+Max: "nicht alles hat seine eigene Kachel", the board was
+"zu genau, zu strikt, zu langweilig", things should flow into each other in form (the
+colours were fine), the big empty tile in Über mich had to go, and he supplied a second
+bekoela screenshot (mobile). So the board became **fields**:
+
+The idea now: a deep green ground with a few large, softly rounded fields of different
+widths. They lean alternately against the left or right screen edge and reach into each
+other: the sage action reaches up into the hero field, the form sticks out below the
+Kontakt field. Much of the content stands freely on the ground. No tile grid any more.
 
 Everything is driven by CSS custom properties at the top of `css/style.css`.
 
-- **Palette, all deep green.** Ground and joints `#050D09`, tiles `#08150F`, second
-  tone `#0B1B14`, third tone `#10241A` (hover, fields), bottle green `#0E3322` for large
-  colour tiles (name, section headings, Webdesign, Über mich sentence, Kontakt intro,
-  footer name), **pale sage `#A9CBB3`** (`--salbei`) for the one action (Kontakt,
-  Erstgespräch tile, submit button), open questions, links and the name. Text
-  `#E9EFE9`, muted `#93A898`. The tile tones sit close together on purpose so the
-  board reads as one surface. **No blue, no indigo, no violet**
-  (Max's "purple problem"), no white sections any more. No gradients, glow, blur or
-  glass, no 1px lines (form fields have none either), no shadows on resting tiles (only
-  the cookie panel and the mobile menu float), no section labels, no numerals. One
-  radius, 14px; joints 4px.
+- **Palette, all deep green.** Ground `#050D09`, dark fields `#08150F` / `#0B1B14`,
+  form fields `#10241A`, bottle green `#0E3322` for the big fields (hero, Über mich,
+  Kontakt), `#12402B` tone on tone (Austria in the hero), muted emerald `#2F6B4C` for
+  the footer name (just above 3:1), **pale sage `#A9CBB3`** (`--salbei`) for the one
+  action (Kontakt pill, Erstgespräch field, submit button), the name, service titles,
+  open questions and links. Text `#E9EFE9`, muted `#93A898`. **No blue, no indigo, no
+  violet** (Max's "purple problem"), no white sections. No gradients, glow, blur or
+  glass, no 1px lines, no shadows on resting surfaces (only the cookie panel and the
+  mobile menu float), no section labels, no numerals. Field radius about 32px, image
+  frames 14px, buttons fully round.
 - **Type.** Stack Sans Headline (300 for headings, 500 for the name) and Stack Sans
   Text (body), both OFL, variable woff2 from Fontsource, self-hosted in
   `assets/fonts/`. Five sizes. Every heading two lines or fewer at every width.
-- **Header** is the top row of tiles: logo on bottle green, link tile, Kontakt in sage
-  (the fuge between the last two is a ground-coloured `border-left`). Sticky.
+- **Header**: plain bar on the ground, logo, links, Kontakt as a sage pill. Sticky.
   **Do not put `overflow-x: hidden` on `body`**; `html` has `overflow-x: clip`.
-- **Hero, no pictures:** "Webdesign Bund" huge on forest green, the h1 statement with
-  the sub sentence and "Referenz ansehen", the three facts, the outline of Austria
-  (Natural Earth, public domain, inline SVG) with "Kapazität für neue Projekte", and
-  "Erstgespräch vereinbaren" as a whole sage tile. Fills the first screen exactly.
-- **Leistungen:** heading tile across the width (second line right-aligned), then six
-  tiles in four sizes: Webdesign tall on forest green, four small ones in two tones,
-  Wartung und Betreuung wide.
-- **Über mich:** text tile and the last paragraph on a bottle green tile beside it. No
-  photo: the setzkasten picture was removed on Max's verdict. All paragraphs identical in
-  colour and size.
-- **Portfolio:** heading tile, then one strip per work: an info tile and the screenshots,
-  swipeable sideways with scroll snapping. The info tile sets the strip height (the image
-  row has `contain: size`); every image sits in the same 3:2 frame on a mat in the tile
-  tone, `object-fit: contain`, so desktop and phone shots look like one set. Bioenergetik: desktop,
-  mobile, `streifen-bio-*.jpg` (renders of the client site). bekoela: the configurator
-  plus two crops (`druck-bekoela-*.jpg`). The first screenshot opens once like a shutter
-  (`.verschluss`, `js/script.js` section 1).
-- **Fragen:** heading on forest green left, the questions as tiles; one open at a time
-  (`name="fragen"`), the open one turns sage.
-- **Kontakt:** intro on forest green, mail and phone as their own tiles, the form in a
-  tile with filled fields.
-- **Footer:** the name across the full width in sage on bottle green, then two tiles.
+- **Hero, no pictures:** one bottle green field with "Webdesign Bund" huge in sage, the
+  h1 statement, sub sentence and "Referenz ansehen" bottom right, the outline of Austria
+  (Natural Earth, public domain, inline SVG) tone on tone and cropped by the field edge.
+  Below on the ground the three facts and "Kapazität für neue Projekte"; the sage
+  "Erstgespräch vereinbaren" field overlaps the hero field from below (negative margin).
+  The arrow is an inline SVG because Stack Sans has no arrow glyph.
+- **Leistungen:** heading on the ground, second line indented; the six services in one
+  dark field that runs to the right edge, three columns, titles in sage.
+- **Über mich:** one bottle green field from the left edge, "Max Bund" on top, the four
+  paragraphs in two columns. No photo, no separate statement. All paragraphs identical
+  in colour and size.
+- **Portfolio:** heading on the ground, one dark field per work, the first leaning on
+  the right edge, the second on the left. Info text and a sideways row of screenshots,
+  every image in the same 3:2 frame on a darker mat, `object-fit: contain`.
+  Bioenergetik: desktop, mobile, `streifen-bio-*.jpg`. bekoela: desktop configurator,
+  `bekoela-konfigurator-mobil.jpg` (Max's iPhone screenshot of 19 Oct 2026, status bar
+  and Safari address bar cropped, 900x1690, EXIF stripped) and the bed crop
+  `druck-bekoela-bett.jpg`. The first screenshot opens once like a shutter
+  (`.verschluss`, `js/script.js` section 1, observed via its `.projekt` field).
+- **Fragen:** heading left (sticky), questions as an open list on the ground; one open
+  at a time (`name="fragen"`), the open one gets a dark field and a sage question.
+- **Kontakt:** one bottle green field, intro and mail and phone left, the form on a
+  darker field that reaches below the green one.
+- **Footer:** "Webdesign Bund" across the full width in muted emerald, legal links below.
 - **Subpages** (Impressum, Datenschutz, 404, danke) use the same dark tokens.
 - **Cookie panel** non-modal bottom right; the footer gets extra bottom padding while it
   is open. Consent rules below unchanged.
-- **Motion:** hero tiles settle in on load, section parts rise in staggered on scroll,
-  the shutter, hover feedback on every tile, link and button. `prefers-reduced-motion`
-  turns all of it off.
-- Favicon: real files, `img-src 'self'` stays plain. `og-bild.jpg` re-rendered as a
-  small board in this style.
-- taste-skill inspector: 0 FAIL. Remaining WARNs, defended: no video (no honest clip),
-  sideways strips (intended, snap and keyboard focus), "card rows" (FAQ tiles),
-  "empty middle" and "off centre" are measuring artefacts of the shutter and the strips.
+- **Motion:** hero field, name, statement, facts and action settle in on load, Austria
+  drifts in, section parts rise in staggered on scroll, the shutter, hover feedback on
+  links, buttons, questions and screenshots. `prefers-reduced-motion` turns all of it off.
+- Favicon: real files, `img-src 'self'` stays plain. `og-bild.jpg` re-rendered in this
+  style (green field, name, statement, Austria).
+- taste-skill inspector: 0 FAIL (with `--allow covered-text`: the fixed cookie panel
+  covers text while scrolling). WARNs, defended: no video (no honest clip), sideways
+  strips (intended), "empty middle" (the closed shutter at measuring time), "ragged
+  edges" (the asymmetric fields are the point after Max's "zu strikt").
 
 ## Design skills (added 19 Oct 2026)
 `.claude/skills/design-taste-frontend/` is taste-skill (Leonxlnx/taste-skill
@@ -229,8 +236,8 @@ Order changed by Max on 18 Sep 2026, Fragen added 18 Oct 2026. Nav: Home, Leistu
    consent.
    **Second reference since 18 Oct 2026: the bekoela configurator**
    (https://bekoela.com), a product configurator for made-to-measure beds that Max
-   built. Second strip in the portfolio; there is only a desktop screenshot, the
-   other two images are crops of it.
+   built. Second field in the portfolio: the desktop screenshot, a mobile screenshot
+   (Max, 19 Oct 2026) and a crop of the bed.
    `assets/img/bekoela-konfigurator.jpg` is cropped from Max's iPad screenshot to the
    configurator panel only: the page header was dropped because the WordPress admin
    bar ("Duplicate Post", "Willkommen, Max Bund") overlapped it, and the mouse
