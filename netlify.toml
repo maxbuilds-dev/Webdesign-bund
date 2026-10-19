@@ -4,3 +4,12 @@
 
 [build]
   publish = "."
+
+# Arbeitsdateien fuer Claude Code (Skills, Projektnotizen) nicht
+# veroeffentlichen. Netlify liefert sonst jede Datei im Repo aus.
+# force = true greift auch dann, wenn die Datei tatsaechlich existiert.
+[[redirects]]
+  from = "/.claude/*"
+  to = "/404.html"
+  status = 404
+  force = true

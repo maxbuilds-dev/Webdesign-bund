@@ -83,6 +83,7 @@ background. Don't introduce a framework or bundler unless explicitly asked.
 ├── danke.html          # confirmation page for the no-JavaScript form submit
 ├── llms.txt            # plain summary for AI assistants, see SEO and GEO
 ├── favicon.ico         # fallback for browsers that ask for /favicon.ico
+├── .claude/skills/     # design skills for Claude Code, not published (netlify.toml)
 ├── css/style.css       # design tokens at the top, then section by section
 ├── css/fonts.css       # @font-face only
 ├── js/script.js        # nav, scroll reveals, contact form
@@ -181,6 +182,37 @@ colours and spacing there, not in the components.
   plain `'self'`, no `data:`, in all four meta tags and in `_headers`.
 - All paragraphs in Über mich are identical in colour (`--text`) and size, on Max's
   request. No lead paragraph.
+
+## Design skills (added 19 Oct 2026)
+`.claude/skills/design-taste-frontend/` is taste-skill (Leonxlnx/taste-skill
+@ b9ca2fd, MIT), committed so every cloud session on this repo loads it. Emil
+Kowalski's skills (`emil-design-eng`, `apple-design`, `break-ui`,
+`find-animation-opportunities`, `animation-performance`,
+`animation-vocabulary`) come from Max's claude.ai account. Netlify must not
+publish the folder; `netlify.toml` returns 404 for `/.claude/*`. Keep that rule.
+
+How they rank against this file:
+1. **This CLAUDE.md wins over every skill.** Skills are written for the open
+   web and for new sites; this site has approved decisions.
+2. **Approved design decisions are not skill findings.** taste-skill's house
+   rules forbid things Max chose on purpose: section labels with an accent
+   line, 1px lines, the paper white ground, the diagonal line pattern in the
+   hero (a `repeating-linear-gradient`), the large faint numerals on the cards.
+   Do not remove or "fix" these because a skill or its linter flags them.
+   Mention a conflict once if it seems relevant, then follow Max.
+3. **No full redesign unless Max asks for one.** Default use is review and
+   polish of what exists. A full taste-skill run (draw a new direction) only on
+   an explicit request, and then on a branch or as screenshots first, since
+   the current design was approved.
+4. **No external sources, whatever a skill suggests.** No Google Fonts link,
+   no hotlinked images (picsum.photos, Unsplash, museum servers), no CDN
+   scripts (GSAP, Lenis). Download into `assets/`, and update `_headers` plus
+   the meta CSP only if a change truly needs it (it should not).
+5. **Copy rules still apply** to anything a skill writes: no dashes, formal
+   Sie, the Tone of voice section above.
+6. Skill scripts (`node .claude/skills/design-taste-frontend/scripts/...`)
+   may run during development; their output follows the rules above before it
+   lands in the site.
 
 ## Page structure (single page, anchor nav, smooth scroll, no router)
 Order changed by Max on 18 Sep 2026, Fragen added 18 Oct 2026. Nav: Home, Leistungen,
