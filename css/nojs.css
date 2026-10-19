@@ -15,9 +15,3 @@
   opacity: 1;
   transform: none;
 }
-
-/* Der Leuchtpunkt wird sonst ebenfalls per JavaScript eingeblendet */
-.glow-orb {
-  opacity: 0.6;
-  transform: translateX(-50%) scale(1);
-}

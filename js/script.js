@@ -1,7 +1,7 @@
 /* ==========================================================================
    Webdesign Bund, script.js
    Inhalt:
-   1. Leuchtpunkt im Hero (Bloom -> Dauerpuls)
+   1. Grosser Abzug im Hero: langsamer Wechsel zwischen vier Ansichten
    2. Navigationsleiste beim Scrollen abdunkeln
    3. Mobiles Menü öffnen/schließen
    4. Aktiven Menüpunkt hervorheben
@@ -10,6 +10,7 @@
    7. Mailadressen in den Links zusammensetzen
    8. Zustimmungsmanager fuer Cookies und externe Inhalte
    9. Jahreszahl im Footer
+   10. Portfolio: Umschalter Desktop und Smartphone
    ========================================================================== */
 
 (function () {
@@ -17,20 +18,39 @@
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* 1. LEUCHTPUNKT ------------------------------------------------------- */
-  var orb = document.getElementById('glowOrb');
-  if (orb && !reducedMotion) {
-    orb.classList.add('bloom');
-    orb.addEventListener('animationend', function handler(e) {
-      if (e.animationName === 'orbBloom') {
-        orb.classList.remove('bloom');
-        orb.classList.add('pulse-loop');
-        orb.removeEventListener('animationend', handler);
-      }
-    });
-  } else if (orb) {
-    orb.style.opacity = '0.6';
-    orb.style.transform = 'translateX(-50%) scale(1)';
+  /* 1. GROSSER ABZUG IM HERO ---------------------------------------------
+     Vier Bilder liegen uebereinander. Alle sechs Sekunden wird das naechste
+     eingeblendet (die Ueberblendung selbst dauert 1,6 Sekunden, siehe CSS).
+     Ist der Tab nicht sichtbar, pausiert der Wechsel. Bei reduzierter
+     Bewegung bleibt das erste Bild stehen. */
+  var druck = document.getElementById('heroDruck');
+  if (druck && !reducedMotion) {
+    var drucke = druck.querySelectorAll('.druck-bild');
+    var aktuell = 0;
+    var takt = null;
+
+    var weiter = function () {
+      var naechstes = (aktuell + 1) % drucke.length;
+      var bild = drucke[naechstes];
+      /* erst wechseln, wenn das Bild geladen ist, sonst blitzt der Grund */
+      if (!bild.complete) { bild.loading = 'eager'; return; }
+      drucke[aktuell].classList.remove('ist-aktiv');
+      bild.classList.add('ist-aktiv');
+      aktuell = naechstes;
+    };
+    var starten = function () { if (!takt) takt = setInterval(weiter, 6000); };
+    var anhalten = function () { clearInterval(takt); takt = null; };
+
+    if (drucke.length > 1) {
+      /* die anderen Bilder nach dem ersten Wechsel vorladen */
+      setTimeout(function () {
+        Array.prototype.forEach.call(drucke, function (b) { b.loading = 'eager'; });
+      }, 1500);
+      starten();
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) anhalten(); else starten();
+      });
+    }
   }
 
   /* 2. HEADER BEIM SCROLLEN ---------------------------------------------- */
@@ -97,8 +117,17 @@
     sections.forEach(function (section) { spy.observe(section); });
   }
 
-  /* 5. EINBLENDEN BEIM SCROLLEN ------------------------------------------ */
+  /* 5. EINBLENDEN BEIM SCROLLEN ------------------------------------------
+     Jedes Element bekommt eine kleine Verzoegerung nach seiner Position in
+     der Sektion, damit Ueberschrift, Text und Bild nacheinander kommen. */
   var revealItems = document.querySelectorAll('.reveal');
+  var proSektion = new Map();
+  Array.prototype.forEach.call(revealItems, function (el) {
+    var sektion = el.closest('section') || document.body;
+    var nr = proSektion.get(sektion) || 0;
+    el.style.transitionDelay = Math.min(nr, 6) * 80 + 'ms';
+    proSektion.set(sektion, nr + 1);
+  });
 
   if (reducedMotion || !('IntersectionObserver' in window)) {
     Array.prototype.forEach.call(revealItems, function (el) {
@@ -106,15 +135,12 @@
     });
   } else {
     var revealObserver = new IntersectionObserver(function (entries, observer) {
-      entries.forEach(function (entry, i) {
+      entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        // leichter Versatz, damit Karten nacheinander erscheinen
-        setTimeout(function () {
-          entry.target.classList.add('visible');
-        }, i * 90);
+        entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     Array.prototype.forEach.call(revealItems, function (el) {
       revealObserver.observe(el);
@@ -142,6 +168,7 @@
     if (!note) return;
     note.textContent = text;
     note.style.color = warnung ? '#FFC864' : '';
+    note.style.fontWeight = warnung ? '600' : '';
   }
 
   if (form) {
@@ -404,22 +431,36 @@
   /* --- Anzeigen und schliessen ------------------------------------------ */
   var ccZuletztFokussiert = null;
 
-  function ccOeffnen(detail) {
+  /* Solange das Feld offen ist, bekommt die Fusszeile unten so viel Platz
+     wie das Feld hoch ist. So verdeckt es am Seitenende weder den Namen
+     noch Impressum und Datenschutz. */
+  function ccPlatzHalten() {
+    var hoehe = overlay.hidden ? 0 : overlay.offsetHeight + 24;
+    document.documentElement.style.setProperty('--cc-platz', hoehe + 'px');
+  }
+  window.addEventListener('resize', function () { if (overlay && !overlay.hidden) ccPlatzHalten(); });
+
+  /* Das Feld sperrt die Seite nicht. Beim ersten Besuch erscheint es,
+     ohne den Fokus zu stehlen. Ueber "Cookies verwalten" geoeffnet, springt
+     der Fokus hinein und nach dem Schliessen dorthin zurueck. */
+  function ccOeffnen(detail, fokus) {
     if (!overlay) return;
-    ccZuletztFokussiert = document.activeElement;
+    ccZuletztFokussiert = fokus ? document.activeElement : null;
     ccDetailAufbauen(ccLesen());
     ansichtKurz.hidden = !!detail;
     ansichtDetail.hidden = !detail;
     overlay.hidden = false;
-    document.body.classList.add('cc-offen');
-    var ersterKnopf = dialog.querySelector('button:not([hidden])');
-    if (ersterKnopf) ersterKnopf.focus();
+    ccPlatzHalten();
+    if (fokus) {
+      var ersterKnopf = dialog.querySelector('.cc-view:not([hidden]) button');
+      if (ersterKnopf) ersterKnopf.focus();
+    }
   }
 
   function ccSchliessen() {
     if (!overlay) return;
     overlay.hidden = true;
-    document.body.classList.remove('cc-offen');
+    ccPlatzHalten();
     if (ccZuletztFokussiert && ccZuletztFokussiert.focus) ccZuletztFokussiert.focus();
   }
 
@@ -456,37 +497,42 @@
     });
 
     var oeffner = document.getElementById('ccOeffnen');
-    if (oeffner) oeffner.addEventListener('click', function () { ccOeffnen(true); });
+    if (oeffner) oeffner.addEventListener('click', function () { ccOeffnen(true, true); });
 
     /* Escape zaehlt als Ablehnung, nicht als stille Zustimmung */
     document.addEventListener('keydown', function (e) {
       if (overlay.hidden) return;
-      if (e.key === 'Escape') { ccAlle(false); return; }
-      if (e.key !== 'Tab') return;
-      /* Fokus im Dialog halten */
-      var ziele = dialog.querySelectorAll('button:not([disabled]), a[href], input:not([disabled])');
-      var sichtbar = Array.prototype.filter.call(ziele, function (el) {
-        return el.offsetParent !== null;
-      });
-      if (!sichtbar.length) return;
-      var erster = sichtbar[0], letzter = sichtbar[sichtbar.length - 1];
-      if (e.shiftKey && document.activeElement === erster) {
-        e.preventDefault(); letzter.focus();
-      } else if (!e.shiftKey && document.activeElement === letzter) {
-        e.preventDefault(); erster.focus();
-      }
+      if (e.key === 'Escape') ccAlle(false);
     });
 
     var gespeichert = ccLesen();
     if (gespeichert) {
       ccAnwenden(gespeichert);
     } else {
-      ccOeffnen(false);
+      ccOeffnen(false, false);
     }
   }
 
   /* 9. JAHRESZAHL --------------------------------------------------------- */
   var jahr = document.getElementById('jahr');
   if (jahr) jahr.textContent = String(new Date().getFullYear());
+
+  /* 10. PORTFOLIO: DESKTOP UND SMARTPHONE ----------------------------------
+     Zwei Knoepfe ueber dem Bildschirmfoto von Bioenergetik mq5. Der Rahmen
+     bekommt data-ansicht, das CSS blendet das passende Bild ein. Ohne
+     JavaScript bleibt der Schalter verborgen und die Desktopansicht steht. */
+  var schalter = document.getElementById('ansichtSchalter');
+  var rahmen = document.getElementById('portfolioRahmen');
+  if (schalter && rahmen) {
+    schalter.hidden = false;
+    schalter.addEventListener('click', function (e) {
+      var knopf = e.target.closest('button[data-ansicht]');
+      if (!knopf) return;
+      rahmen.setAttribute('data-ansicht', knopf.getAttribute('data-ansicht'));
+      Array.prototype.forEach.call(schalter.querySelectorAll('button'), function (b) {
+        b.setAttribute('aria-pressed', String(b === knopf));
+      });
+    });
+  }
 
 })();

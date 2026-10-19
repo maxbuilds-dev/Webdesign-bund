@@ -88,7 +88,7 @@ background. Don't introduce a framework or bundler unless explicitly asked.
 ├── css/fonts.css       # @font-face only
 ├── js/script.js        # nav, scroll reveals, contact form
 └── assets/
-    ├── fonts/          # Inter + Space Grotesk, self-hosted woff2
+    ├── fonts/          # Zodiak + Hanken Grotesk, self-hosted woff2
     └── img/            # bioenergetikmq5.jpg is the portfolio image, resized
                         # to 1600px and stripped of EXIF. No portrait photo of
                         # Max: he decided against one in Über mich.
@@ -98,90 +98,75 @@ background. Don't introduce a framework or bundler unless explicitly asked.
                         # HTML with the site fonts (see SEO and GEO).
                         # bekoela-konfigurator.jpg: second reference, see
                         # Page structure.
+                        # druck-*.jpg: crops of both client sites for the
+                        # hero and Leistungen; setzkasten.jpg: CC0 photo for
+                        # Über mich (see Design system).
 ```
 The HTML is deliberately not split into partials: that would need a build step or
 runtime JavaScript, both of which contradict the stack decision above.
 
 ## Design system
-Design 2, live on `main` since 17 Sep 2026: **light page with dark accent blocks.**
-Max found the original all-dark design too dark, too plain and too stacked, approved
-this one from screenshots. The first dark design is preserved on the branch
-`backup/design-v1` (commit d1aa586). Do not delete that branch. The working branch
-`design-neu` is merged; it only still exists because the session's push proxy refuses
-branch deletions and tag pushes, Max can delete it on GitHub.
+**Design 3, "Abzüge an der Wand"**, built on branch `design-v3` on 19 Oct 2026 with
+taste-skill after Max asked for a full redesign ("behalte den Grünton, alles andere bis
+auf die Texte darfst du ändern"). **Not on `main` until Max approves the screenshots.**
+Design 2 (light page, dark blocks, Space Grotesk/Inter, section labels, diagonal
+lines) stays on `main` until then; design 1 is preserved on `backup/design-v1`
+(commit d1aa586). Do not delete that branch.
 
-Everything is driven by CSS custom properties at the top of `css/style.css`, so change
-colours and spacing there, not in the components.
+Idea: Max's real built websites hang like prints on a dark gallery wall. taste-skill
+dealt the direction "Photographs at uneven sizes" (seed 1693263509), hero "Two prints
+in darkness", type Zodiak / Hanken Grotesk, palette "Sheet and biro" with its blue
+replaced by Max's green. Sheet: `.taste-skill/direction.json` (git-ignored).
 
-- **Warm palette.** Paper white `#F6F4EF`, white surfaces, warm near-black text
-  `#17150F`. **One accent only: forest green `#14532D`** (`--accent`, hover
-  `--accent-hover`; on dark blocks `#7FD0A4`). Max chose green over the terracotta
-  that was live for a few hours on 17 Sep 2026, then asked for it "deeper, a real
-  forest green" and "throughout", so the **dark blocks are green-black too**
-  (`--dark-bg #0E1C15`), not neutral black. **No blue, no indigo, no violet
-  anywhere**, Max called that "the purple problem": blue-violet is the colour every
-  AI template defaults to. The favicon and `theme-color` meta follow the palette.
-  No gradients, no glow, no blur, no glass. The other tells Max named, removed on
-  17 Sep 2026: gradient pills and icon tiles, drifting colour blobs, a floating check
-  chip, 3D-tilted mockups, a dotted grid, gradient top bars on cards, icon boxes, big
-  rounded corners on the dark blocks, and above all **the coloured left stripe on a
-  tinted callout box** under the options. Do not bring any of these back. Radii are
-  4 to 10px, block edges are straight, shadows are faint, lines are 1px.
-  Research behind it (fetching the sites themselves is blocked by the proxy, only
-  search summaries were readable): light backgrounds dominate current studio sites,
-  off-white plus black with one warm accent is the recurring pairing, typography does
-  the work, not effects.
-- **Dark blocks** (hero, Kontakt, footer, the 404 page) carry the class `theme-dark`,
-  which remaps the same tokens to dark values. Components never use literal colours,
-  so anything placed inside a dark block recolours itself. Add the class, nothing else.
-  Max likes the rhythm dark start, light middle, dark end. Keep it.
-- Headings Space Grotesk 700, body Inter 400/500/600.
-- Fonts are **self-hosted** in `assets/fonts/` as variable woff2. Do not switch back to
-  the Google Fonts CDN: the privacy policy currently states that no visitor IP reaches
-  any third party, and that claim depends on this.
-- Header: sticky, transparent with light text over the hero, white once scrolled
-  (`.scrolled`, set by JS) or while the mobile menu is open (`:has`). Its height is
-  `--header-h`; the hero pulls itself up by exactly that amount so the dark block
-  reaches the top edge. **Do not put `overflow-x: hidden` on `body`**: it turns body
-  into a scroll container and the sticky header stops sticking. `html` has
-  `overflow-x: clip`, that is enough.
-- **Hero is text only** (Max's decision, 17 Sep 2026): label, headline, paragraph,
-  two buttons, then the three facts as a row. No image up there. The background
-  pattern is wide diagonal lines (`.bg-grid`, `repeating-linear-gradient` at
-  -34deg, 120px apart, radially masked). Max asked for "something diagonal, different,
-  bigger"; the exact angle and spacing are open for adjustment.
-- The portfolio card shows the screenshot as a composition: straight browser frame
-  plus an overlapping phone frame (`.projekt-visual`, `.pv-browser`, `.pv-phone`).
-  The browser frame holds `#projektBild` and the placeholder fallback; the phone
-  is decorative (`aria-hidden`) and shows `assets/img/bioenergetikmq5-mobil.jpg`, a
-  real mobile screenshot of the client site supplied by Max on 23 Sep 2026 (1206x2256
-  original, resized to 900 wide, EXIF stripped, no device bars to crop). No tilt, no
-  floating.
-- Signature animations kept from design 1: the glow orb blooms and then pulses, the
-  hero headline wipes in with a glow edge, sections reveal on scroll. Nothing else moves.
-- `prefers-reduced-motion` disables all of it. Keep it that way.
-- Section labels are small uppercase text with a short accent line, not pills.
-  **Section headings have no subtext** under Leistungen and Portfolio (Max, 18 Sep
-  2026: "minimalistischer"). Only Kontakt keeps its intro paragraph.
-- **Leistungen is one grid of six text-only cards** (title plus two short sentences,
-  no icons, no bullet lists), modelled on the tile grids Max sent as reference
-  (alexanderneumann.at, matthiasdrissen.com). The six, set by Max on 18 Sep 2026:
-  Webdesign, Redesign, WordPress, Onlineshops (WordPress and WooCommerce), Hosting und
-  Domains, Wartung und Betreuung. Card titles are in accent green, each card carries a
-  large faint numeral top right from a CSS counter (`.card::before`). The copy is
-  Claude's, short on purpose; Max can edit it. The earlier "Option A, B, C" technical
-  variants were folded into these six and no longer appear on the page. Leistungen
-  sits on the normal paper ground; **Über mich carries the light green tint
-  `#E6EDE7`** (swapped on Max's request, 18 Sep 2026).
-- **Ablauf was removed** on 18 Sep 2026 (Max's decision). Do not bring it back
-  without asking.
-- Favicon: real files, not a data URI. `assets/img/favicon.svg` (SVG), `favicon-32.png`,
-  `apple-touch-icon.png` (180px, opaque paper background, iOS dislikes transparency)
-  and `/favicon.ico` as fallback. Switched because Safari on Max's iPad kept showing
-  the cached blue dot from the data URI. Consequence: `img-src` in the CSP is now
-  plain `'self'`, no `data:`, in all four meta tags and in `_headers`.
-- All paragraphs in Über mich are identical in colour (`--text`) and size, on Max's
-  request. No lead paragraph.
+Everything is driven by CSS custom properties at the top of `css/style.css`.
+
+- **Palette.** White ground `#FFFFFF`, ink `#111611`, muted `#566057`, one tone step
+  `#EEF2EE` (mats behind screenshots, form fields), light green tint `#E6EDE7` for Über
+  mich and Fragen. **One accent: forest green `#14532D`** (on dark `#7FD0A4`), dark
+  fields green-black `#0E1C15` (hero, Kontakt, footer, 404, danke). **No blue, no
+  indigo, no violet**, Max's "purple problem". No gradients, no glow, no blur, no glass,
+  no shadows on resting surfaces (only the cookie panel and the mobile menu float), no
+  1px dividers, no section labels, no card numerals, no pills. Corners are square.
+- **Dark fields** carry `theme-dark`, which remaps the tokens. Add the class, nothing else.
+- **Type.** Zodiak 300 (Fontshare, ITF Free Font License) for h1/h2, Zodiak 100 for the
+  full width name in the footer; Hanken Grotesk (OFL) for everything else. Both
+  self-hosted in `assets/fonts/`. Five sizes only (`--step-small` to `--step-display`).
+  Every heading stays at two lines or fewer at every width; on phones h1/h2 are capped
+  at 7.6vw for that reason.
+- **Grid.** Twelve columns, one pair of outer margins (`--rand`). Each section places
+  its parts on those columns, no two neighbours share a layout.
+- **Header:** sticky, dark like the hero at the top, white once scrolled (`.scrolled`)
+  or while the mobile menu is open. The Kontakt button is the one light rectangle over
+  the hero, green on white. **Do not put `overflow-x: hidden` on `body`**; `html` has
+  `overflow-x: clip`.
+- **Hero:** large 4:5 print on the right showing the bioenergetik mobile site, crossfading
+  between four sections (`druck-bio-1..4.jpg`, `js/script.js` section 1, pauses when the
+  tab is hidden); small dimmed square on the left with the bekoela bed
+  (`druck-bekoela-bett.jpg`); headline, sentence and buttons bottom left. The three facts
+  moved to Über mich, "Kapazität für neue Projekte" moved to Kontakt.
+- **Leistungen:** the six services as three text columns, two each, one size, titles in
+  green; a print of the bekoela model list (`druck-bekoela-auswahl.jpg`) on the right.
+- **Über mich:** text, then a wide photo of a letterpress type case
+  (`setzkasten.jpg`, "Type case letterpress drawer", CC0, via rawpixel,
+  https://www.rawpixel.com/image/6016674; no credit required) with the last paragraph on a
+  white block, a green tile with the outline of Austria (Natural Earth, public domain,
+  inline SVG) and the three facts. All paragraphs identical in colour and size.
+- **Portfolio:** two works placed loosely, screenshots on a tone mat. The bioenergetik
+  card has the page's one interactive thing: **Desktop / Smartphone** buttons that swap
+  the screenshot (`js/script.js` section 10; hidden without JavaScript). The labels
+  "Desktop" and "Smartphone" are new copy added by Claude.
+- **Fragen:** wide heading, questions from column 5, no rules; an open question gets a
+  white tile; chevron from two strokes.
+- **Footer:** "Webdesign Bund" at full width in Zodiak 100, legal links below.
+- **Cookie panel** is a non-modal panel bottom right (full width on phones). It does not
+  lock the page; the footer gets extra bottom padding while it is open so it never hides
+  Impressum and Datenschutz. Consent rules below are unchanged.
+- **Motion:** hero parts rise in on load, section parts rise in staggered on scroll,
+  the hero print crossfades and zooms very slowly, hover feedback on links, buttons,
+  questions and screenshots. `prefers-reduced-motion` turns all of it off.
+- Favicon: real files (`favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`,
+  `/favicon.ico`), `img-src 'self'` stays plain.
+- `og-bild.jpg` was re-rendered in this design (headline, two prints).
 
 ## Design skills (added 19 Oct 2026)
 `.claude/skills/design-taste-frontend/` is taste-skill (Leonxlnx/taste-skill
@@ -194,12 +179,11 @@ publish the folder; `netlify.toml` returns 404 for `/.claude/*`. Keep that rule.
 How they rank against this file:
 1. **This CLAUDE.md wins over every skill.** Skills are written for the open
    web and for new sites; this site has approved decisions.
-2. **Approved design decisions are not skill findings.** taste-skill's house
-   rules forbid things Max chose on purpose: section labels with an accent
-   line, 1px lines, the paper white ground, the diagonal line pattern in the
-   hero (a `repeating-linear-gradient`), the large faint numerals on the cards.
-   Do not remove or "fix" these because a skill or its linter flags them.
-   Mention a conflict once if it seems relevant, then follow Max.
+2. **Approved design decisions are not skill findings.** Whatever Max approved
+   stays, even if a skill or its linter flags it. Mention a conflict once if it
+   seems relevant, then follow Max. (Design 3 itself was built with
+   taste-skill and passes its inspector; the one allowed exception is
+   `covered-text`, caused by the fixed cookie panel.)
 3. **No full redesign unless Max asks for one.** Default use is review and
    polish of what exists. A full taste-skill run (draw a new direction) only on
    an explicit request, and then on a branch or as screenshots first, since
@@ -236,8 +220,8 @@ Order changed by Max on 18 Sep 2026, Fragen added 18 Oct 2026. Nav: Home, Leistu
    consent.
    **Second reference since 18 Oct 2026: the bekoela configurator**
    (https://bekoela.com), a product configurator for made-to-measure beds that Max
-   built. Card is mirrored (image left, text right, `.project-umgekehrt`) in a plain
-   frame without phone (`.projekt-rahmen`), there is only a desktop screenshot.
+   built. Placed right and lower than the first work (`.project-umgekehrt`), text on
+   the left; there is only a desktop screenshot.
    `assets/img/bekoela-konfigurator.jpg` is cropped from Max's iPad screenshot to the
    configurator panel only: the page header was dropped because the WordPress admin
    bar ("Duplicate Post", "Willkommen, Max Bund") overlapped it, and the mouse

@@ -277,9 +277,9 @@
   }
   </script>
 
-  <!-- Schriften lokal, keine Verbindung zu Google -->
-  <link rel="preload" href="assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Schriften lokal, keine Verbindung zu Google oder Fontshare -->
+  <link rel="preload" href="assets/fonts/Zodiak-300.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/HankenGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
   <!-- Ohne JavaScript blieben die Einblend-Elemente unsichtbar.
@@ -308,24 +308,43 @@
         <li><a href="#ueber-mich">Über mich</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#fragen">Fragen</a></li>
-        <li><a class="nav-cta" href="#kontakt">Kontakt</a></li>
+        <li class="nav-cta-item"><a class="nav-cta" href="#kontakt">Kontakt</a></li>
       </ul>
     </div>
   </header>
 
   <main>
-    <!-- ===== HERO ===== -->
+    <!-- ===== HERO =====
+         Zwei Abzuege echter Arbeiten im Dunkeln, wie an einer Galeriewand.
+         Der grosse zeigt die Handyansicht von Bioenergetik mq5 und wechselt
+         langsam zwischen vier Abschnitten der Seite (js/script.js,
+         Abschnitt 1). Der kleine zeigt das Bett aus dem bekoela
+         Konfigurator. -->
     <section class="hero theme-dark" id="hero">
-      <div class="bg-grid" aria-hidden="true"></div>
-      <div class="glow-orb" id="glowOrb" aria-hidden="true"></div>
+      <div class="container hero-grid">
 
-      <div class="container">
+        <figure class="druck druck-gross" id="heroDruck">
+          <img class="druck-bild ist-aktiv" src="assets/img/druck-bio-1.jpg"
+               alt="Bioenergetik mq5 auf dem Smartphone: Startseite"
+               width="880" height="1100" fetchpriority="high">
+          <img class="druck-bild" src="assets/img/druck-bio-2.jpg"
+               alt="Bioenergetik mq5 auf dem Smartphone: Angebote"
+               width="880" height="1100" loading="lazy" decoding="async">
+          <img class="druck-bild" src="assets/img/druck-bio-3.jpg"
+               alt="Bioenergetik mq5 auf dem Smartphone: IMEDIS Bioresonanz"
+               width="880" height="1100" loading="lazy" decoding="async">
+          <img class="druck-bild" src="assets/img/druck-bio-4.jpg"
+               alt="Bioenergetik mq5 auf dem Smartphone: Kontakt"
+               width="880" height="1100" loading="lazy" decoding="async">
+        </figure>
+
+        <figure class="druck druck-klein">
+          <img src="assets/img/druck-bekoela-bett.jpg"
+               alt="Bett aus dem bekoela Konfigurator mit Maßangaben"
+               width="640" height="640">
+        </figure>
+
         <div class="hero-copy">
-          <span class="hero-badge">
-            <span class="dot" aria-hidden="true"></span>
-            Kapazität für neue Projekte
-          </span>
-
           <h1>Ein digitaler Auftritt, der Vertrauen schafft.</h1>
 
           <p class="hero-sub">
@@ -336,42 +355,22 @@
 
           <div class="hero-actions">
             <a class="btn btn-primary" href="#kontakt">Erstgespräch vereinbaren</a>
-            <a class="btn btn-ghost" href="#portfolio">Referenz ansehen</a>
-          </div>
-
-        </div>
-
-        <!-- Drei Fakten, ueber die ganze Breite unter beiden Spalten -->
-        <div class="hero-trust">
-          <div>
-            <strong>Ab 2 Woche</strong>
-            <span>bis zur Veröffentlichung</span>
-          </div>
-          <div>
-            <strong>100 %</strong>
-            <span>individuell umgesetzt</span>
-          </div>
-          <div>
-            <strong>Fixpreis</strong>
-            <span>vor Projektbeginn vereinbart</span>
+            <a class="text-link" href="#portfolio">Referenz ansehen</a>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- ===== LEISTUNGEN ===== -->
+    <!-- ===== LEISTUNGEN =====
+         Sechs Leistungen als Textspalten in einer Schriftgroesse, zwei je
+         Spalte. Rechts ein Abzug aus dem bekoela Konfigurator. -->
     <section id="leistungen">
-      <div class="container">
-        <div class="section-head reveal">
-          <span class="section-label">Leistungen</span>
-          <h2>Von der Konzeption bis zur Veröffentlichung</h2>
-        </div>
+      <div class="container leistungen-grid">
+        <h2 class="reveal">Von der Konzeption bis zur Veröffentlichung</h2>
 
-        <!-- Sechs Leistungen, nur Text. Die grosse Ziffer rechts oben kommt
-             aus dem CSS (Zaehler). -->
-        <div class="card-grid">
-
-          <article class="card reveal">
+        <div class="leistung-spalte">
+          <article class="leistung reveal">
             <h3>Webdesign</h3>
             <p>
               Ein vollständiger Webauftritt, von der Struktur über die
@@ -379,7 +378,7 @@
             </p>
           </article>
 
-          <article class="card reveal">
+          <article class="leistung reveal">
             <h3>Redesign</h3>
             <p>
               Überarbeitung bestehender Websites, die veraltet wirken oder am
@@ -387,8 +386,10 @@
               übernommen.
             </p>
           </article>
+        </div>
 
-          <article class="card reveal">
+        <div class="leistung-spalte">
+          <article class="leistung reveal">
             <h3>WordPress</h3>
             <p>
               Websites mit Verwaltungsbereich, über den Sie Inhalte selbst
@@ -397,7 +398,7 @@
             </p>
           </article>
 
-          <article class="card reveal">
+          <article class="leistung reveal">
             <h3>Onlineshops</h3>
             <p>
               Umsetzung von Onlineshops mit WordPress und WooCommerce.
@@ -405,8 +406,10 @@
               Sortiment abgestimmt.
             </p>
           </article>
+        </div>
 
-          <article class="card reveal">
+        <div class="leistung-spalte">
+          <article class="leistung reveal">
             <h3>Hosting und Domains</h3>
             <p>
               Veröffentlichung, Domain und Verschlüsselung übernehme ich.
@@ -414,71 +417,131 @@
             </p>
           </article>
 
-          <article class="card reveal">
+          <article class="leistung reveal">
             <h3>Wartung und Betreuung</h3>
             <p>
               Aktualisierungen, Sicherheitsupdates und Erweiterungen nach der
               Veröffentlichung. Technische Fragen werden laufend betreut.
             </p>
           </article>
-
         </div>
+
+        <figure class="druck leistungen-druck reveal">
+          <img src="assets/img/druck-bekoela-auswahl.jpg"
+               alt="Modellauswahl im bekoela Konfigurator mit Preisen je Modell"
+               width="532" height="665" loading="lazy" decoding="async">
+        </figure>
       </div>
     </section>
 
-    <!-- ===== ÜBER MICH ===== -->
+    <!-- ===== ÜBER MICH =====
+         Text oben, darunter ein breites Foto mit dem letzten Absatz auf
+         einem weissen Feld, daneben eine gruene Kachel mit dem Umriss
+         Oesterreichs und darunter die drei Fakten. Alle Absaetze gleich in
+         Farbe und Groesse. -->
     <section id="ueber-mich">
-      <div class="container">
-        <div class="about">
-          <div class="about-head reveal">
-            <span class="section-label">Über mich</span>
-            <h2>Max Bund</h2>
-          </div>
-          <div class="about-text reveal">
-            <p>
-              Unternehmerisch bin ich, seit ich in der Schulzeit mein erstes
-              Unternehmen im Rahmen eines Schulprojekts als CEO geführt habe.
-              Wir haben es profitabel betrieben, nicht als Planspiel, sondern
-              mit echten Kunden und echten Margen. Der technische Teil begleitet
-              mich noch länger. Erste Berührung mit dem Programmieren hatte ich
-              in der Mittelschule, darauf aufgebaut habe ich eigenständig und
-              bringe mir seither laufend neue Techniken bei.
-            </p>
-            <p>
-              Weil ich selbst Unternehmen aufgebaut habe, weiß ich, wie viel an
-              einer guten Website hängt. Deshalb baue ich sie jetzt für andere.
-            </p>
-            <p>
-              Neue Werkzeuge nehme ich in Betrieb, sobald sie einen Vorteil
-              bringen. Künstliche Intelligenz setze ich beim Aufbau gezielt ein,
-              das senkt Entwicklungszeit und damit den Preis. Gestaltung,
-              Struktur und alle inhaltlichen Entscheidungen treffe ich selbst.
-            </p>
+      <div class="container about-grid">
+        <h2 class="reveal">Max Bund</h2>
+
+        <div class="about-text">
+          <p class="reveal">
+            Unternehmerisch bin ich, seit ich in der Schulzeit mein erstes
+            Unternehmen im Rahmen eines Schulprojekts als CEO geführt habe.
+            Wir haben es profitabel betrieben, nicht als Planspiel, sondern
+            mit echten Kunden und echten Margen. Der technische Teil begleitet
+            mich noch länger. Erste Berührung mit dem Programmieren hatte ich
+            in der Mittelschule, darauf aufgebaut habe ich eigenständig und
+            bringe mir seither laufend neue Techniken bei.
+          </p>
+          <p class="reveal">
+            Weil ich selbst Unternehmen aufgebaut habe, weiß ich, wie viel an
+            einer guten Website hängt. Deshalb baue ich sie jetzt für andere.
+          </p>
+          <p class="reveal">
+            Neue Werkzeuge nehme ich in Betrieb, sobald sie einen Vorteil
+            bringen. Künstliche Intelligenz setze ich beim Aufbau gezielt ein,
+            das senkt Entwicklungszeit und damit den Preis. Gestaltung,
+            Struktur und alle inhaltlichen Entscheidungen treffe ich selbst.
+          </p>
+        </div>
+
+        <!-- Foto: Setzkasten mit Schriftschubladen, CC0 (gemeinfrei), via
+             rawpixel, https://www.rawpixel.com/image/6016674 -->
+        <figure class="about-foto reveal">
+          <img src="assets/img/setzkasten.jpg"
+               alt="Setzkasten einer Druckerei, Schubladen beschriftet mit Schriftgrößen und Schriftnamen"
+               width="1024" height="640" loading="lazy" decoding="async">
+          <figcaption>
             <p>
               Vom ersten Gespräch bis zum Launch bin ich selbst verantwortlich,
               kein Projekt wird durchgereicht.
             </p>
-          </div>
+          </figcaption>
+        </figure>
 
+        <!-- Umriss Oesterreichs aus Natural Earth (gemeinfrei) -->
+        <div class="about-kachel reveal" aria-hidden="true">
+          <svg viewBox="0 0 1000 506" focusable="false"><path d="M0 336L11 313L13 298L3 289L0 287L3 285L16 287L25 281L29 277L41 281L58 291L67 297L70 301L72 305L71 312L75 315L83 316L88 318L86 327L86 334L94 333L103 328L111 318L115 307L119 284L119 281L125 284L148 282L159 287L177 288L176 291L179 297L187 306L191 311L199 312L211 309L218 306L221 308L232 306L242 299L245 294L255 290L268 282L287 275L348 268L351 263L350 251L352 249L359 252L372 255L382 259L388 265L393 265L402 261L414 259L425 264L429 271L427 274L427 279L431 283L440 290L451 296L458 296L459 290L462 276L463 261L460 253L454 251L446 250L442 248L443 244L450 232L450 216L436 197L424 180L424 173L431 163L442 155L466 141L474 138L483 136L498 130L505 124L509 118L516 84L517 83L519 81L544 92L546 91L551 89L559 80L560 73L560 61L561 49L562 45L566 46L577 53L585 60L593 77L611 82L635 82L643 75L651 72L659 75L677 78L679 64L690 49L695 44L708 44L711 33L714 3L717 0L727 0L736 6L739 10L744 10L751 7L758 5L771 8L797 22L810 27L818 26L826 26L856 47L878 51L897 51L903 44L912 39L920 39L928 42L942 52L949 54L958 55L965 57L971 73L974 78L973 80L973 87L967 96L962 108L962 119L976 156L989 178L992 187L1000 193L992 201L990 214L985 219L984 226L986 232L986 240L989 251L976 253L962 253L957 254L952 257L947 255L934 245L926 243L921 243L917 248L910 253L904 258L906 261L933 270L938 285L933 296L931 302L924 306L916 310L907 311L906 317L909 336L907 340L904 345L907 360L912 362L914 365L913 371L911 377L909 384L908 388L905 389L892 388L882 394L861 415L854 419L846 427L846 446L845 448L843 451L818 445L817 445L801 447L789 456L775 461L746 458L718 461L711 464L704 466L697 470L693 477L686 486L676 493L665 499L662 503L659 505L653 502L648 502L642 500L622 498L600 494L589 489L577 486L565 484L553 483L547 482L520 475L501 475L477 472L430 461L416 457L403 456L387 452L375 447L367 435L359 421L345 401L341 392L346 383L351 377L350 374L347 373L320 381L295 392L285 392L275 390L263 389L250 392L225 394L211 401L202 416L196 428L192 432L184 433L170 432L161 429L153 419L138 417L125 417L121 415L122 408L117 396L108 392L85 416L79 418L61 411L46 401L44 394L42 387L28 381L12 378L7 378L9 374L11 368L9 363L6 358L4 353L3 347L2 343L1 339L0 336Z"/></svg>
         </div>
+
+        <dl class="about-fakten">
+          <div class="reveal">
+            <dt>Ab 2 Woche</dt>
+            <dd>bis zur Veröffentlichung</dd>
+          </div>
+          <div class="reveal">
+            <dt>100 %</dt>
+            <dd>individuell umgesetzt</dd>
+          </div>
+          <div class="reveal">
+            <dt>Fixpreis</dt>
+            <dd>vor Projektbeginn vereinbart</dd>
+          </div>
+        </dl>
       </div>
     </section>
 
-    <!-- ===== PORTFOLIO ===== -->
+    <!-- ===== PORTFOLIO =====
+         Zwei Arbeiten, lose gesetzt: die erste links, die zweite rechts und
+         tiefer. Bei Bioenergetik mq5 laesst sich zwischen Desktop und
+         Smartphone umschalten (js/script.js, Abschnitt 10). Ohne
+         JavaScript bleibt der Schalter verborgen und die Desktopansicht
+         steht da. -->
     <section id="portfolio">
       <div class="container">
-        <div class="section-head reveal">
-          <span class="section-label">Portfolio</span>
-          <h2>Ausgewählte Arbeiten</h2>
-        </div>
+        <h2 class="reveal">Ausgewählte Arbeiten</h2>
 
-        <article class="project reveal">
-          <div class="project-info">
-            <div class="project-meta">
-              <span class="tag">Redesign</span>
-              <span class="tag">Humanenergetik</span>
-              <span class="tag">Launch 2026</span>
+        <article class="project">
+          <div class="project-bild reveal">
+            <div class="ansicht-schalter" id="ansichtSchalter" role="group" aria-label="Ansicht" hidden>
+              <button type="button" aria-pressed="true" data-ansicht="desktop">Desktop</button>
+              <button type="button" aria-pressed="false" data-ansicht="mobil">Smartphone</button>
             </div>
+
+            <div class="projekt-rahmen" id="portfolioRahmen" data-ansicht="desktop">
+              <img class="projekt-desktop" id="projektBild"
+                   src="assets/img/bioenergetikmq5.jpg"
+                   alt="Startseite von Bioenergetik mq5, Bildschirmfoto der veröffentlichten Seite"
+                   width="1600" height="1090" loading="lazy" decoding="async">
+              <img class="projekt-mobil" src="assets/img/bioenergetikmq5-mobil.jpg"
+                   alt="Startseite von Bioenergetik mq5 auf dem Smartphone"
+                   width="900" height="1684" loading="lazy" decoding="async">
+              <div class="embed-platzhalter" id="embedPlatzhalter" hidden>
+                <span>Bioenergetik mq5</span>
+                <small>
+                  Praxis für Humanenergetik. Das Bildschirmfoto fehlt noch,
+                  die Seite selbst erreichen Sie über den Link daneben.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-info reveal">
+            <p class="project-meta">
+              <span>Redesign</span>
+              <span>Humanenergetik</span>
+              <span>Launch 2026</span>
+            </p>
             <h3>Bioenergetik mq5</h3>
             <p>
               Vollständiges Redesign für eine Praxis für Humanenergetik,
@@ -488,50 +551,30 @@
               Smartphone ebenso trägt wie am Desktop.
             </p>
             <!-- EINZIGE STELLE FUER DIE ADRESSE DER KUNDENSEITE. -->
-            <a class="btn btn-ghost" id="projektLink"
+            <a class="text-link" id="projektLink"
                href="https://bioenergetik-mq5.at"
                target="_blank" rel="noopener">
               Projekt ansehen &rarr;
             </a>
           </div>
-
-          <!-- Bildschirmfoto der Kundenseite in einem Browser- und einem
-               Telefonrahmen. Liegt auf demselben Server, es wird also nichts
-               von aussen geladen und keine Zustimmung gebraucht. Fehlt die
-               Datei, blendet js/script.js den Platzhalter ein. Das Telefon
-               zeigt das Bildschirmfoto der Handyansicht und ist rein
-               dekorativ. -->
-          <div class="projekt-visual">
-            <div class="pv-browser" id="portfolioRahmen">
-              <img class="projekt-bild" id="projektBild"
-                   src="assets/img/bioenergetikmq5.jpg"
-                   alt="Startseite von Bioenergetik mq5, Bildschirmfoto der veröffentlichten Seite"
-                   width="1600" height="1090" loading="lazy" decoding="async">
-              <div class="embed-platzhalter" id="embedPlatzhalter" hidden>
-                <span>Bioenergetik mq5</span>
-                <small>
-                  Praxis für Humanenergetik. Das Bildschirmfoto fehlt noch,
-                  die Seite selbst erreichen Sie über den Link daneben.
-                </small>
-              </div>
-            </div>
-            <div class="pv-phone" aria-hidden="true">
-              <img src="assets/img/bioenergetikmq5-mobil.jpg" alt="" width="900" height="1684" loading="lazy" decoding="async">
-            </div>
-          </div>
         </article>
 
-        <!-- Zweite Referenz: Produktkonfigurator. Bild links, Text rechts,
-             damit die beiden Karten nicht gleich aussehen. Ein einfacher
-             Rahmen ohne Telefon, es gibt von diesem Projekt nur die
-             Desktopansicht. -->
-        <article class="project project-umgekehrt reveal">
-          <div class="project-info">
-            <div class="project-meta">
-              <span class="tag">Konfigurator</span>
-              <span class="tag">Möbel</span>
-              <span class="tag">2026</span>
+        <!-- Zweite Referenz: Produktkonfigurator, rechts und tiefer gesetzt -->
+        <article class="project project-umgekehrt">
+          <div class="project-bild reveal">
+            <div class="projekt-rahmen">
+              <img src="assets/img/bekoela-konfigurator.jpg"
+                   alt="Konfigurator von bekoela: Bett Aurelia in 180 mal 200 Zentimetern mit Maßangaben, daneben die Modellauswahl und der Gesamtpreis"
+                   width="1600" height="1034" loading="lazy" decoding="async">
             </div>
+          </div>
+
+          <div class="project-info reveal">
+            <p class="project-meta">
+              <span>Konfigurator</span>
+              <span>Möbel</span>
+              <span>2026</span>
+            </p>
             <h3>bekoela Konfigurator</h3>
             <p>
               Produktkonfigurator für Betten nach Maß. Modell, Bett, Material,
@@ -539,18 +582,11 @@
               Ansicht zeigt das Bett mit seinen Maßen, und der Gesamtpreis
               aktualisiert sich mit jeder Auswahl.
             </p>
-            <a class="btn btn-ghost"
+            <a class="text-link"
                href="https://bekoela.com"
                target="_blank" rel="noopener">
               Projekt ansehen &rarr;
             </a>
-          </div>
-
-          <div class="projekt-rahmen">
-            <img class="projekt-bild"
-                 src="assets/img/bekoela-konfigurator.jpg"
-                 alt="Konfigurator von bekoela: Bett Aurelia in 180 mal 200 Zentimetern mit Maßangaben, daneben die Modellauswahl und der Gesamtpreis"
-                 width="1600" height="1034" loading="lazy" decoding="async">
           </div>
         </article>
       </div>
@@ -561,38 +597,35 @@
          ohne JavaScript. Derselbe Inhalt steht als FAQPage in den
          strukturierten Daten im Kopf, beides gemeinsam aendern. -->
     <section id="fragen">
-      <div class="container">
-        <div class="section-head reveal">
-          <span class="section-label">Fragen</span>
-          <h2>Häufige Fragen</h2>
-        </div>
+      <div class="container fragen-grid">
+        <h2 class="reveal">Häufige Fragen</h2>
 
-        <div class="faq reveal">
-          <details class="faq-eintrag">
+        <div class="faq">
+          <details class="faq-eintrag reveal">
             <summary>Was kostet eine Website?</summary>
             <p>Der Preis richtet sich nach Umfang und Technik. Nach dem kostenlosen Erstgespräch erhalten Sie ein schriftliches Angebot mit Fixpreis. Die Umsetzung beginnt erst nach Ihrer Freigabe, nachträgliche Kosten entstehen nur für Leistungen, die Sie zusätzlich beauftragen.</p>
           </details>
-          <details class="faq-eintrag">
+          <details class="faq-eintrag reveal">
             <summary>Wie lange dauert es bis zur Veröffentlichung?</summary>
             <p>Eine schlanke Website ist ab zwei Wochen veröffentlicht. WordPress Websites und Onlineshops benötigen je nach Umfang länger. Der Zeitrahmen wird im Angebot festgehalten.</p>
           </details>
-          <details class="faq-eintrag">
+          <details class="faq-eintrag reveal">
             <summary>Brauche ich WordPress?</summary>
             <p>Nur, wenn Sie Inhalte regelmäßig selbst bearbeiten möchten, etwa für Neuigkeiten, einen Blog oder einen Onlineshop. Ändern sich Inhalte selten, ist eine statische Website die bessere Wahl: sehr schnelle Ladezeiten, kein Wartungsaufwand und keine laufenden Systemkosten.</p>
           </details>
-          <details class="faq-eintrag">
+          <details class="faq-eintrag reveal">
             <summary>Warum kein Baukasten wie Wix oder Jimdo?</summary>
             <p>Bei einem Baukasten ist Ihre Seite auf das begrenzt, was der Anbieter vorsieht, und die Daten liegen dauerhaft bei einem fremden System. Eine individuell entwickelte Website gehört Ihnen und lässt sich ohne diese Grenzen erweitern.</p>
           </details>
-          <details class="faq-eintrag">
+          <details class="faq-eintrag reveal">
             <summary>Übernehmen Sie auch Domain, Hosting und Mailkonten?</summary>
             <p>Ja. Veröffentlichung, Domain und Verschlüsselung übernehme ich, ebenso die Einrichtung von Mailkonten und Weiterleitungen.</p>
           </details>
-          <details class="faq-eintrag">
+          <details class="faq-eintrag reveal">
             <summary>Was passiert nach der Veröffentlichung?</summary>
             <p>Auf Wunsch betreue ich die Website weiter: Aktualisierungen, Sicherheitsupdates, Erweiterungen und technische Fragen. Bei einem Verwaltungsbereich erhalten Sie Zugänge und eine kurze Anleitung.</p>
           </details>
-          <details class="faq-eintrag">
+          <details class="faq-eintrag reveal">
             <summary>Arbeiten Sie nur mit Unternehmen aus der Region?</summary>
             <p>Nein. Ich arbeite für Unternehmen und Selbstständige aller Branchen in ganz Österreich. Die Abstimmung erfolgt per Telefon oder Mail.</p>
           </details>
@@ -602,131 +635,128 @@
 
     <!-- ===== KONTAKT ===== -->
     <section id="kontakt" class="theme-dark">
-      <div class="container">
-        <div class="contact reveal">
+      <div class="container contact">
 
-          <div class="contact-intro">
-            <span class="section-label">Kontakt</span>
-            <h2>Sprechen wir über Ihr Vorhaben</h2>
-            <p>
-              Das Erstgespräch ist kostenlos und unverbindlich. Schildern Sie
-              kurz Ihr Vorhaben, ich antworte in der Regel innerhalb eines
-              Werktags.
-            </p>
+        <div class="contact-intro">
+          <h2 class="reveal">Sprechen wir über Ihr Vorhaben</h2>
+          <p class="reveal">
+            Das Erstgespräch ist kostenlos und unverbindlich. Schildern Sie
+            kurz Ihr Vorhaben, ich antworte in der Regel innerhalb eines
+            Werktags.
+          </p>
 
-            <div class="contact-direct">
-              <!-- Die Adresse steht absichtlich nicht komplett im HTML.
-                   js/script.js setzt sie beim Laden zusammen, damit einfache
-                   Spam-Sammler sie nicht auslesen koennen. Ohne JavaScript
-                   bleibt die lesbare Schreibweise mit (at) stehen. -->
-              <a href="#kontakt" data-mail="office" data-domain="webdesign-bund.at">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                  <path d="m3 7 9 6 9-6"></path>
-                </svg>
-                <span class="mail-text">office (at) webdesign-bund.at</span>
-              </a>
+          <p class="contact-status reveal">
+            <span class="dot" aria-hidden="true"></span>
+            Kapazität für neue Projekte
+          </p>
 
-              <a href="tel:+436643988466">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"></path>
-                </svg>
-                <span>+43 664 3988466</span>
-              </a>
-            </div>
+          <div class="contact-direct reveal">
+            <!-- Die Adresse steht absichtlich nicht komplett im HTML.
+                 js/script.js setzt sie beim Laden zusammen, damit einfache
+                 Spam-Sammler sie nicht auslesen koennen. Ohne JavaScript
+                 bleibt die lesbare Schreibweise mit (at) stehen. -->
+            <a href="#kontakt" data-mail="office" data-domain="webdesign-bund.at">
+              <span class="mail-text">office (at) webdesign-bund.at</span>
+            </a>
+            <a href="tel:+436643988466">+43 664 3988466</a>
+          </div>
+        </div>
+
+        <!-- Netlify Forms. Netlify erkennt das Formular beim Veroeffentlichen
+             am Attribut data-netlify und nimmt die Eingaben entgegen, ohne
+             dass die Seite einen eigenen Server braucht. Das versteckte
+             Feld form-name muss den Namen des Formulars tragen, sonst
+             ordnet Netlify die Sendung nicht zu.
+             action und method stehen bewusst im HTML: ohne JavaScript wird
+             ganz normal abgeschickt und der Besucher landet auf danke.html.
+             Mit JavaScript bleibt er hier und bekommt die Rueckmeldung an
+             Ort und Stelle (js/script.js, Abschnitt 6). -->
+        <form id="contactForm" name="kontakt" action="/danke.html" method="POST"
+              data-netlify="true" netlify-honeypot="botcheck" novalidate>
+          <input type="hidden" name="form-name" value="kontakt">
+          <input type="hidden" name="subject" id="mailBetreff" value="Anfrage über webdesign-bund.at">
+          <div class="form-row">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="Max Mustermann">
           </div>
 
-          <!-- Netlify Forms. Netlify erkennt das Formular beim Veroeffentlichen
-               am Attribut data-netlify und nimmt die Eingaben entgegen, ohne
-               dass die Seite einen eigenen Server braucht. Das versteckte
-               Feld form-name muss den Namen des Formulars tragen, sonst
-               ordnet Netlify die Sendung nicht zu.
-               action und method stehen bewusst im HTML: ohne JavaScript wird
-               ganz normal abgeschickt und der Besucher landet auf danke.html.
-               Mit JavaScript bleibt er hier und bekommt die Rueckmeldung an
-               Ort und Stelle (js/script.js, Abschnitt 6). -->
-          <form id="contactForm" name="kontakt" action="/danke.html" method="POST"
-                data-netlify="true" netlify-honeypot="botcheck" novalidate>
-            <input type="hidden" name="form-name" value="kontakt">
-            <input type="hidden" name="subject" id="mailBetreff" value="Anfrage über webdesign-bund.at">
-            <div class="form-row">
-              <label for="name">Name *</label>
-              <input type="text" id="name" name="name" required autocomplete="name" placeholder="Max Mustermann">
-            </div>
+          <div class="form-row">
+            <label for="betrieb">Unternehmen</label>
+            <input type="text" id="betrieb" name="betrieb" autocomplete="organization" placeholder="Mustermann GmbH">
+          </div>
 
-            <div class="form-row">
-              <label for="betrieb">Unternehmen</label>
-              <input type="text" id="betrieb" name="betrieb" autocomplete="organization" placeholder="Mustermann GmbH">
-            </div>
+          <div class="form-row">
+            <label for="email">Mail *</label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="max@mustermann.at">
+          </div>
 
-            <div class="form-row">
-              <label for="email">Mail *</label>
-              <input type="email" id="email" name="email" required autocomplete="email" placeholder="max@mustermann.at">
-            </div>
+          <div class="form-row">
+            <label for="telefon">Telefon</label>
+            <input type="tel" id="telefon" name="telefon" autocomplete="tel" placeholder="+43 660 1234567">
+          </div>
 
-            <div class="form-row">
-              <label for="telefon">Telefon</label>
-              <input type="tel" id="telefon" name="telefon" autocomplete="tel" placeholder="+43 660 1234567">
-            </div>
+          <div class="form-row">
+            <label for="anliegen">Anliegen *</label>
+            <select id="anliegen" name="anliegen" required>
+              <option value="" disabled selected>Bitte auswählen</option>
+              <option>Neue Website</option>
+              <option>Redesign einer bestehenden Website</option>
+              <option>Laufende Betreuung</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
 
-            <div class="form-row">
-              <label for="anliegen">Anliegen *</label>
-              <select id="anliegen" name="anliegen" required>
-                <option value="" disabled selected>Bitte auswählen</option>
-                <option>Neue Website</option>
-                <option>Redesign einer bestehenden Website</option>
-                <option>Laufende Betreuung</option>
-                <option>Sonstiges</option>
-              </select>
-            </div>
+          <div class="form-row">
+            <label for="nachricht">Nachricht *</label>
+            <textarea id="nachricht" name="nachricht" required placeholder="Kurze Beschreibung Ihres Vorhabens und des gewünschten Zeitrahmens."></textarea>
+          </div>
 
-            <div class="form-row">
-              <label for="nachricht">Nachricht *</label>
-              <textarea id="nachricht" name="nachricht" required placeholder="Kurze Beschreibung Ihres Vorhabens und des gewünschten Zeitrahmens."></textarea>
-            </div>
+          <!-- Bot-Falle. Ueber netlify-honeypot="botcheck" am Formular
+               verwirft Netlify jede Sendung, in der dieses Feld gesetzt
+               ist. js/script.js prueft zusaetzlich selbst. -->
+          <div class="hp" aria-hidden="true">
+            <label for="botcheck">Dieses Feld leer lassen</label>
+            <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
+          </div>
 
-            <!-- Bot-Falle. Ueber netlify-honeypot="botcheck" am Formular
-                 verwirft Netlify jede Sendung, in der dieses Feld gesetzt
-                 ist. js/script.js prueft zusaetzlich selbst. -->
-            <div class="hp" aria-hidden="true">
-              <label for="botcheck">Dieses Feld leer lassen</label>
-              <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off">
-            </div>
+          <button type="submit" class="btn btn-primary">Anfrage senden</button>
 
-            <button type="submit" class="btn btn-primary">Anfrage senden</button>
+          <p class="form-note" id="formNote">
+            * Pflichtfeld. Ihre Anfrage wird über Netlify, den Betreiber
+            dieser Website, an mich zugestellt.
+            <a href="datenschutz.html">Datenschutz</a>
+          </p>
+        </form>
 
-            <p class="form-note" id="formNote">
-              * Pflichtfeld. Ihre Anfrage wird über Netlify, den Betreiber
-              dieser Website, an mich zugestellt.
-              <a href="datenschutz.html">Datenschutz</a>
-            </p>
-          </form>
-
-        </div>
       </div>
     </section>
   </main>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- ===== FOOTER =====
+       Der Name kehrt ueber die ganze Breite zurueck. -->
   <footer class="site-footer theme-dark">
-    <div class="container footer-inner">
-      <p>&copy; <span id="jahr">2026</span> Webdesign Bund, Max Bund</p>
-      <nav class="footer-links" aria-label="Rechtliches">
-        <a href="#kontakt" data-mail="office" data-domain="webdesign-bund.at"><span class="mail-text">office (at) webdesign-bund.at</span></a>
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
-        <button type="button" class="footer-btn" id="ccOeffnen">Cookies verwalten</button>
-      </nav>
+    <div class="container">
+      <p class="footer-name" aria-hidden="true">Webdesign Bund</p>
+      <div class="footer-inner">
+        <p>&copy; <span id="jahr">2026</span> Webdesign Bund, Max Bund</p>
+        <nav class="footer-links" aria-label="Rechtliches">
+          <a href="#kontakt" data-mail="office" data-domain="webdesign-bund.at"><span class="mail-text">office (at) webdesign-bund.at</span></a>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+          <button type="button" class="footer-btn" id="ccOeffnen">Cookies verwalten</button>
+        </nav>
+      </div>
     </div>
   </footer>
 
   <!-- ===== ZUSTIMMUNGSMANAGER =====
-       Zwei Ansichten in einem Dialog: die kurze Abfrage und die
-       ausfuehrlichen Einstellungen. Steuerung in js/script.js, Abschnitt 8.
+       Zwei Ansichten in einem Feld unten rechts: die kurze Abfrage und die
+       ausfuehrlichen Einstellungen. Das Feld sperrt die Seite nicht, sie
+       bleibt lesbar, bis entschieden ist. Steuerung in js/script.js, Abschnitt 8.
        Die Kategorien sind dort als Datenstruktur hinterlegt und lassen sich
        fuer Kundenprojekte erweitern. -->
   <div class="cc-overlay" id="ccOverlay" hidden>
-    <div class="cc-dialog" role="dialog" aria-modal="true"
+    <div class="cc-dialog" role="dialog" aria-modal="false"
          aria-labelledby="ccTitel" id="ccDialog">
 
       <h2 class="cc-titel" id="ccTitel">Cookies und externe Inhalte</h2>
