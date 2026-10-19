@@ -38,7 +38,6 @@
   --kachel-2:   #0B1B14;   /* zweite Stufe: dunkle Felder */
   --kachel-3:   #10241A;   /* dritte Stufe: Hover, Formularfelder */
   --wald:       #0E3322;   /* Flaschengruen: grosse Felder */
-  --wald-2:     #12402B;   /* Ton in Ton auf Flaschengruen: Oesterreich */
   --salbei:     #A9CBB3;   /* Akzent: die Handlung, offene Frage, Fokus */
   --salbei-hi:  #C2DCC9;
   --auf-salbei: #06140D;   /* Schrift auf Salbeigruen */
@@ -278,9 +277,8 @@ main > section + section { margin-top: var(--abstand); }
 
 /* 5. HERO
    ------------------------------------------------------------------------
-   Ein grosses Feld in Flaschengruen: oben der Name, unten rechts die
-   Aussage. Oesterreich liegt Ton in Ton darin und laeuft ueber den Rand
-   hinaus. Unter dem Feld stehen die Fakten frei auf dem Grund, die
+   Ein grosses Feld in Flaschengruen mit einem dezenten Linienmuster:
+   oben der Name, unten rechts die Aussage. Unter dem Feld stehen die Fakten frei auf dem Grund, die
    Handlung in Salbeigruen greift von unten in das Feld hinein. */
 .hero { padding-inline: var(--rand); }
 
@@ -298,21 +296,16 @@ main > section + section { margin-top: var(--abstand); }
   border-radius: var(--feld-radius);
 }
 
-.hero-karte {
+/* Dezentes Muster: weite, schraege Linien, die zu den Raendern auslaufen.
+   Eine Bilddatei statt eines CSS Verlaufs, die Ausblendung steckt in der
+   SVG Datei selbst. */
+.hero-feld::before {
+  content: '';
   position: absolute;
-  right: -7%;
-  bottom: -22%;
-  width: 64%;
-  overflow: visible;   /* die aeusseren Linien reichen ueber das ganze Feld */
+  inset: 0;
+  background: url('../assets/img/hero-muster.svg') center / cover no-repeat;
   pointer-events: none;
 }
-.hero-karte .flaeche { fill: var(--wald-2); }
-.hero-karte .linie {
-  fill: none;
-  stroke: var(--wald-2);
-  stroke-width: 1.25;
-}
-.hero-karte .hoehenlinien-innen .linie { stroke: #18503A; }
 
 .name-gross {
   position: relative;
@@ -472,8 +465,8 @@ main > section + section { margin-top: var(--abstand); }
    ------------------------------------------------------------------------
    Je Arbeit ein dunkles Feld, abwechselnd an den rechten und den linken
    Rand gelehnt. Die Bilderreihe laeuft im ersten Feld bis an den Rand.
-   Alle Bilder haben dieselbe Hoehe und ihr eigenes Seitenverhaeltnis, mit
-   einem schmalen Passepartout und engen Abstaenden. */
+   Je zwei Bilder, Desktop und Smartphone, gleich hoch in ihrem eigenen
+   Seitenverhaeltnis, mit schmalem Passepartout und engem Abstand. */
 .portfolio-titel { padding-inline: var(--inhalt); }
 
 .projekt {
@@ -514,7 +507,7 @@ main > section + section { margin-top: var(--abstand); }
 .streifen-bilder {
   display: flex;
   gap: 0.5rem;
-  height: clamp(13rem, 19vw, 18rem);
+  height: clamp(13rem, 24vw, 22rem);
   min-width: 0;
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -524,6 +517,8 @@ main > section + section { margin-top: var(--abstand); }
   border-radius: var(--radius);
 }
 .projekt:not(.projekt-links) .streifen-bilder { border-radius: var(--radius) 0 0 var(--radius); }
+/* im linken Feld ruecken die Bilder an den Text heran */
+.projekt-links .streifen-bilder { justify-content: safe flex-end; }
 
 .streifen-bild {
   flex: none;
@@ -1003,12 +998,7 @@ main > section + section { margin-top: var(--abstand); }
   from { opacity: 0; transform: translateY(20px) scale(0.99); }
   to   { opacity: 1; transform: none; }
 }
-@keyframes karteAuf {
-  from { opacity: 0; transform: translate(4%, 6%); }
-  to   { opacity: 1; transform: none; }
-}
 .hero-feld       { animation: feldAuf 0.9s var(--ease) both; }
-.hero-karte      { animation: karteAuf 1.6s var(--ease) 0.2s both; }
 .name-gross      { animation: feldAuf 0.9s var(--ease) 0.12s both; }
 .hero-aussage    { animation: feldAuf 0.9s var(--ease) 0.24s both; }
 .hero-fakten     { animation: feldAuf 0.9s var(--ease) 0.36s both; }
@@ -1057,7 +1047,7 @@ main > section + section { margin-top: var(--abstand); }
   }
   .projekt-links .projekt-info { order: 0; }
   .projekt-info { padding-right: var(--innen); }
-  .projekt-links .streifen-bilder { border-radius: var(--radius) 0 0 var(--radius); }
+  .projekt-links .streifen-bilder { border-radius: var(--radius) 0 0 var(--radius); justify-content: flex-start; }
 
   .fragen { grid-template-columns: minmax(0, 1fr); }
   .fragen-titel { position: static; }
@@ -1106,7 +1096,7 @@ main > section + section { margin-top: var(--abstand); }
 
   .about-text { columns: 1; }
 
-  .streifen-bilder { height: 11.5rem; }
+  .streifen-bilder { height: min(10rem, 44vw); }
 
   .faq-eintrag summary { font-size: 1.1875rem; padding: 1.1rem 3.25rem 1.1rem 1rem; }
   .faq-eintrag summary::before,

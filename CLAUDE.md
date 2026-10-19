@@ -98,9 +98,8 @@ background. Don't introduce a framework or bundler unless explicitly asked.
                         # HTML with the site fonts (see SEO and GEO).
                         # bekoela-konfigurator.jpg: second reference, see
                         # Page structure.
-                        # streifen-bio-*.jpg, druck-bekoela-bett.jpg,
-                        # bekoela-konfigurator-mobil.jpg: extra screenshots
-                        # for the portfolio rows.
+                        # bekoela-konfigurator-mobil.jpg: second bekoela
+                        # screenshot. hero-muster.svg: line pattern.
 ```
 The HTML is deliberately not split into partials: that would need a build step or
 runtime JavaScript, both of which contradict the stack decision above.
@@ -136,7 +135,7 @@ Everything is driven by CSS custom properties at the top of `css/style.css`.
 
 - **Palette, all deep green.** Ground `#050D09`, dark fields `#08150F` / `#0B1B14`,
   form fields `#10241A`, bottle green `#0E3322` for the big fields (hero, Über mich,
-  Kontakt), `#12402B` tone on tone (Austria in the hero), muted emerald `#2F6B4C` for
+  Kontakt), muted emerald `#2F6B4C` for
   the footer name (just above 3:1), **pale sage `#A9CBB3`** (`--salbei`) for the one
   action (Kontakt pill, Erstgespräch field, submit button), the name, service titles,
   open questions and links. Text `#E9EFE9`, muted `#93A898`. **No blue, no indigo, no
@@ -150,12 +149,12 @@ Everything is driven by CSS custom properties at the top of `css/style.css`.
 - **Header**: plain bar on the ground, logo, links, Kontakt as a sage pill. Sticky.
   **Do not put `overflow-x: hidden` on `body`**; `html` has `overflow-x: clip`.
 - **Hero, no pictures:** one bottle green field with "Webdesign Bund" huge in sage, the
-  h1 statement, sub sentence and "Referenz ansehen" bottom right, the outline of Austria
-  (Natural Earth, public domain, inline SVG) tone on tone and cropped by the field edge.
-  Around and inside it, scaled copies of the same outline as thin lines, like contour
-  lines on a map (`.hoehenlinien`, `<use>` with `vector-effect: non-scaling-stroke`,
-  `overflow: visible`); they run across the whole field as the subtle background
-  pattern Max asked for on 19 Oct 2026 ("unauffälliges Muster").
+  h1 statement, sub sentence and "Referenz ansehen" bottom right. Background pattern
+  (Max, 19 Oct 2026: "unauffälliges Muster"): wide diagonal lines in faint sage from
+  `assets/img/hero-muster.svg` (`.hero-feld::before`), fading out towards the edges
+  inside the SVG itself, so no CSS gradient. **No Austria outline anywhere any more:**
+  the cropped outline with contour lines around it reminded Max of a penis. Do not bring
+  the map shape back.
   Below on the ground the three facts and "Kapazität für neue Projekte"; the sage
   "Erstgespräch vereinbaren" field overlaps the hero field from below (negative margin).
   The arrow is an inline SVG because Stack Sans has no arrow glyph.
@@ -165,13 +164,12 @@ Everything is driven by CSS custom properties at the top of `css/style.css`.
   paragraphs in two columns. No photo, no separate statement. All paragraphs identical
   in colour and size.
 - **Portfolio:** heading on the ground, one dark field per work, the first leaning on
-  the right edge, the second on the left. Info text and a sideways row of screenshots,
-  all at the same height in their own aspect ratio, on a narrow darker mat with small
-  gaps (the earlier uniform 3:2 frames left too much space around the phone shots).
-  Bioenergetik: desktop, mobile, `streifen-bio-*.jpg`. bekoela: desktop configurator,
+  the right edge, the second on the left. Info text and **exactly two screenshots per
+  work, desktop and smartphone** (Max, 19 Oct 2026), same height in their own aspect
+  ratio, narrow darker mat, small gap. Bioenergetik: `bioenergetikmq5.jpg` and
+  `bioenergetikmq5-mobil.jpg`. bekoela: `bekoela-konfigurator.jpg` and
   `bekoela-konfigurator-mobil.jpg` (Max's iPhone screenshot of 19 Oct 2026, status bar
-  and Safari address bar cropped, 900x1690, EXIF stripped) and the bed crop
-  `druck-bekoela-bett.jpg`. The first screenshot opens once like a shutter
+  and Safari address bar cropped, 900x1690, EXIF stripped). The first screenshot opens once like a shutter
   (`.verschluss`, `js/script.js` section 1, observed via its `.projekt` field).
 - **Fragen:** heading left (sticky), questions as an open list on the ground; one open
   at a time (`name="fragen"`), the open one gets a dark field and a sage question.
@@ -181,15 +179,13 @@ Everything is driven by CSS custom properties at the top of `css/style.css`.
 - **Subpages** (Impressum, Datenschutz, 404, danke) use the same dark tokens.
 - **Cookie panel** non-modal bottom right; the footer gets extra bottom padding while it
   is open. Consent rules below unchanged.
-- **Motion:** hero field, name, statement, facts and action settle in on load, Austria
-  drifts in, section parts rise in staggered on scroll, the shutter, hover feedback on
+- **Motion:** hero field, name, statement, facts and action settle in on load, section parts rise in staggered on scroll, the shutter, hover feedback on
   links, buttons, questions and screenshots. `prefers-reduced-motion` turns all of it off.
 - Favicon: real files, `img-src 'self'` stays plain. `og-bild.jpg` re-rendered in this
-  style (green field, name, statement, Austria).
+  style (green field with the line pattern, name, statement).
 - taste-skill inspector: 0 FAIL (with `--allow covered-text`: the fixed cookie panel
   covers text while scrolling). WARNs, defended: no video (no honest clip), sideways
-  strips (intended), "empty middle" (the closed shutter at measuring time), "ragged
-  edges" (the asymmetric fields are the point after Max's "zu strikt").
+  rows (intended), "ragged edges" (the asymmetric fields are the point after Max's "zu strikt").
 
 ## Design skills (added 19 Oct 2026)
 `.claude/skills/design-taste-frontend/` is taste-skill (Leonxlnx/taste-skill
@@ -241,8 +237,8 @@ Order changed by Max on 18 Sep 2026, Fragen added 18 Oct 2026. Nav: Home, Leistu
    consent.
    **Second reference since 18 Oct 2026: the bekoela configurator**
    (https://bekoela.com), a product configurator for made-to-measure beds that Max
-   built. Second field in the portfolio: the desktop screenshot, a mobile screenshot
-   (Max, 19 Oct 2026) and a crop of the bed.
+   built. Second field in the portfolio: the desktop screenshot and a mobile
+   screenshot (Max, 19 Oct 2026).
    `assets/img/bekoela-konfigurator.jpg` is cropped from Max's iPad screenshot to the
    configurator panel only: the page header was dropped because the WordPress admin
    bar ("Duplicate Post", "Willkommen, Max Bund") overlapped it, and the mouse

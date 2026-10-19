@@ -318,17 +318,12 @@
 
   <main>
     <!-- ===== HERO =====
-         Ein grosses Feld in Flaschengruen mit dem Namen und der Aussage.
-         Der Umriss Oesterreichs liegt Ton in Ton darin und laeuft ueber den
-         Rand hinaus. Darunter auf dem Grund die drei Fakten; die Handlung
+         Ein grosses Feld in Flaschengruen mit dem Namen und der Aussage,
+         im Hintergrund ein dezentes Muster aus weiten, schraegen Linien
+         (css/style.css, .hero-feld::before). Darunter auf dem Grund die drei Fakten; die Handlung
          in Salbeigruen greift von unten in das Feld hinein. Keine Bilder. -->
     <section class="hero" id="hero">
       <div class="hero-feld">
-        <!-- Umriss Oesterreichs aus Natural Earth (gemeinfrei). Um die Flaeche
-             herum und in ihr liegen vergroesserte und verkleinerte Kopien
-             als feine Linien, wie Hoehenlinien auf einer Landkarte. Sie
-             reichen ueber das ganze Feld und bilden das dezente Muster. -->
-        <svg class="hero-karte" viewBox="0 0 1000 506" focusable="false" aria-hidden="true"><defs><path id="at-umriss" vector-effect="non-scaling-stroke" d="M0 336L11 313L13 298L3 289L0 287L3 285L16 287L25 281L29 277L41 281L58 291L67 297L70 301L72 305L71 312L75 315L83 316L88 318L86 327L86 334L94 333L103 328L111 318L115 307L119 284L119 281L125 284L148 282L159 287L177 288L176 291L179 297L187 306L191 311L199 312L211 309L218 306L221 308L232 306L242 299L245 294L255 290L268 282L287 275L348 268L351 263L350 251L352 249L359 252L372 255L382 259L388 265L393 265L402 261L414 259L425 264L429 271L427 274L427 279L431 283L440 290L451 296L458 296L459 290L462 276L463 261L460 253L454 251L446 250L442 248L443 244L450 232L450 216L436 197L424 180L424 173L431 163L442 155L466 141L474 138L483 136L498 130L505 124L509 118L516 84L517 83L519 81L544 92L546 91L551 89L559 80L560 73L560 61L561 49L562 45L566 46L577 53L585 60L593 77L611 82L635 82L643 75L651 72L659 75L677 78L679 64L690 49L695 44L708 44L711 33L714 3L717 0L727 0L736 6L739 10L744 10L751 7L758 5L771 8L797 22L810 27L818 26L826 26L856 47L878 51L897 51L903 44L912 39L920 39L928 42L942 52L949 54L958 55L965 57L971 73L974 78L973 80L973 87L967 96L962 108L962 119L976 156L989 178L992 187L1000 193L992 201L990 214L985 219L984 226L986 232L986 240L989 251L976 253L962 253L957 254L952 257L947 255L934 245L926 243L921 243L917 248L910 253L904 258L906 261L933 270L938 285L933 296L931 302L924 306L916 310L907 311L906 317L909 336L907 340L904 345L907 360L912 362L914 365L913 371L911 377L909 384L908 388L905 389L892 388L882 394L861 415L854 419L846 427L846 446L845 448L843 451L818 445L817 445L801 447L789 456L775 461L746 458L718 461L711 464L704 466L697 470L693 477L686 486L676 493L665 499L662 503L659 505L653 502L648 502L642 500L622 498L600 494L589 489L577 486L565 484L553 483L547 482L520 475L501 475L477 472L430 461L416 457L403 456L387 452L375 447L367 435L359 421L345 401L341 392L346 383L351 377L350 374L347 373L320 381L295 392L285 392L275 390L263 389L250 392L225 394L211 401L202 416L196 428L192 432L184 433L170 432L161 429L153 419L138 417L125 417L121 415L122 408L117 396L108 392L85 416L79 418L61 411L46 401L44 394L42 387L28 381L12 378L7 378L9 374L11 368L9 363L6 358L4 353L3 347L2 343L1 339L0 336Z"/></defs><g class="hoehenlinien"><use href="#at-umriss" class="linie" transform="translate(500 253) scale(1.22) translate(-500 -253)"/><use href="#at-umriss" class="linie" transform="translate(500 253) scale(1.5) translate(-500 -253)"/><use href="#at-umriss" class="linie" transform="translate(500 253) scale(1.85) translate(-500 -253)"/><use href="#at-umriss" class="linie" transform="translate(500 253) scale(2.3) translate(-500 -253)"/><use href="#at-umriss" class="linie" transform="translate(500 253) scale(2.85) translate(-500 -253)"/><use href="#at-umriss" class="linie" transform="translate(500 253) scale(3.5) translate(-500 -253)"/><use href="#at-umriss" class="linie" transform="translate(500 253) scale(4.3) translate(-500 -253)"/><use href="#at-umriss" class="linie" transform="translate(500 253) scale(5.3) translate(-500 -253)"/></g><use href="#at-umriss" class="flaeche"/><g class="hoehenlinien-innen"><use href="#at-umriss" class="linie" transform="translate(500 253) scale(0.78) translate(-500 -253)"/><use href="#at-umriss" class="linie" transform="translate(500 253) scale(0.56) translate(-500 -253)"/><use href="#at-umriss" class="linie" transform="translate(500 253) scale(0.34) translate(-500 -253)"/></g></svg>
 
         <p class="name-gross" aria-hidden="true">Webdesign<br>Bund</p>
 
@@ -471,8 +466,8 @@
 
     <!-- ===== PORTFOLIO =====
          Je Arbeit ein dunkles Feld, abwechselnd an den rechten und den
-         linken Rand gelehnt. Darin Name und Beschreibung und eine Reihe
-         Bildschirmfotos in gleichen Rahmen, seitlich wischbar. -->
+         linken Rand gelehnt. Darin Name und Beschreibung und je zwei
+         Bildschirmfotos: Desktop und Smartphone. -->
     <section id="portfolio">
       <h2 class="portfolio-titel reveal">Ausgewählte Arbeiten</h2>
 
@@ -499,7 +494,7 @@
           </a>
         </div>
 
-        <div class="streifen-bilder" tabindex="0" aria-label="Bioenergetik mq5, Bilder seitlich wischen">
+        <div class="streifen-bilder" tabindex="0" aria-label="Bioenergetik mq5, Bildschirmfotos">
           <figure class="streifen-bild verschluss" id="portfolioRahmen">
             <img id="projektBild" src="assets/img/bioenergetikmq5.jpg"
                  alt="Startseite von Bioenergetik mq5, Bildschirmfoto der veröffentlichten Seite"
@@ -516,21 +511,6 @@
             <img src="assets/img/bioenergetikmq5-mobil.jpg"
                  alt="Startseite von Bioenergetik mq5 auf dem Smartphone"
                  width="900" height="1684" loading="lazy" decoding="async">
-          </figure>
-          <figure class="streifen-bild">
-            <img src="assets/img/streifen-bio-verfahren.jpg"
-                 alt="Bioenergetik mq5: Abschnitt mit den zwei Verfahren"
-                 width="1152" height="720" loading="lazy" decoding="async">
-          </figure>
-          <figure class="streifen-bild">
-            <img src="assets/img/streifen-bio-imedis-mobil.jpg"
-                 alt="Bioenergetik mq5 auf dem Smartphone: IMEDIS Bioresonanz"
-                 width="432" height="720" loading="lazy" decoding="async">
-          </figure>
-          <figure class="streifen-bild">
-            <img src="assets/img/streifen-bio-kontakt.jpg"
-                 alt="Bioenergetik mq5: Kontaktbereich mit Terminanfrage"
-                 width="1152" height="720" loading="lazy" decoding="async">
           </figure>
         </div>
       </article>
@@ -556,7 +536,7 @@
           </a>
         </div>
 
-        <div class="streifen-bilder" tabindex="0" aria-label="bekoela Konfigurator, Bilder seitlich wischen">
+        <div class="streifen-bilder" tabindex="0" aria-label="bekoela Konfigurator, Bildschirmfotos">
           <figure class="streifen-bild">
             <img src="assets/img/bekoela-konfigurator.jpg"
                  alt="Konfigurator von bekoela: Bett Aurelia in 180 mal 200 Zentimetern mit Maßangaben, daneben die Modellauswahl und der Gesamtpreis"
@@ -566,11 +546,6 @@
             <img src="assets/img/bekoela-konfigurator-mobil.jpg"
                  alt="bekoela Konfigurator auf dem Smartphone: Bett Elara in Nussbaum, Auswahl von Holzdekor und Innenleben, Gesamtpreis"
                  width="900" height="1690" loading="lazy" decoding="async">
-          </figure>
-          <figure class="streifen-bild">
-            <img src="assets/img/druck-bekoela-bett.jpg"
-                 alt="Bett aus dem bekoela Konfigurator mit Maßangaben"
-                 width="640" height="640" loading="lazy" decoding="async">
           </figure>
         </div>
       </article>
