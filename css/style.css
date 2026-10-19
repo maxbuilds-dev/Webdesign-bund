@@ -1,9 +1,9 @@
 /* ==========================================================================
    Webdesign Bund, Stylesheet (Design 4: das Brett)
-   Die ganze Seite ist dunkles Waldgruen. Sie besteht aus Kacheln, die mit
-   schmalen Fugen dicht aneinander sitzen, wie auf einem aufgeraeumten
-   Schreibtisch von oben. Jede Kachel ist eine gefuellte Flaeche in einer
-   Gruenstufe, ein Foto oder die eine Handlung in Minzgruen.
+   Die ganze Seite ist tiefes Flaschengruen. Sie besteht aus Kacheln, die
+   mit sehr schmalen, kaum sichtbaren Fugen ineinander uebergehen. Jede
+   Kachel ist eine gefuellte Flaeche in einer Gruenstufe, ein
+   Bildschirmfoto oder die eine Handlung in hellem Salbeigruen.
    Keine Linien, keine Schatten auf ruhenden Flaechen, keine Verlaeufe.
 
    Aufbau:
@@ -26,20 +26,23 @@
 
 /* 1. DESIGN-TOKENS
    ------------------------------------------------------------------------
-   Fuenf Gruenstufen und eine helle Schrift. Komponenten kennen nur die
-   Token, nie konkrete Farben. */
+   Tiefe, fast schwarze Gruenstufen, die nah beieinander liegen, damit die
+   Kacheln ineinander uebergehen statt hart abzugrenzen. Dazu Flaschengruen
+   fuer grosse Flaechen und ein gedecktes, helles Salbeigruen als einziger
+   Akzent (Max, 19 Okt 2026: "wirklich schoene Luxus Gruentoene").
+   Komponenten kennen nur die Token, nie konkrete Farben. */
 :root {
-  --bg:        #0B1711;   /* Grund und Fugen, das dunkelste Gruen */
-  --kachel:    #12251B;   /* eine Stufe heller: normale Kachel */
-  --kachel-2:  #183224;   /* zweite Stufe: abwechselnde Kacheln, Felder */
-  --kachel-3:  #1F3F2D;   /* dritte Stufe: Hover, Felder im Formular */
-  --wald:      #14532D;   /* Waldgruen: grosse Farbflaechen */
-  --minze:     #7FD0A4;   /* Akzent: die Handlung, offene Frage, Fokus */
-  --minze-hi:  #9ADEB9;
-  --auf-minze: #0B1711;   /* Schrift auf Minzgruen */
+  --bg:         #050D09;   /* Grund und Fugen, das dunkelste Gruen */
+  --kachel:     #08150F;   /* normale Kachel, kaum heller als der Grund */
+  --kachel-2:   #0B1B14;   /* zweite Stufe: abwechselnde Kacheln */
+  --kachel-3:   #10241A;   /* dritte Stufe: Hover, Felder im Formular */
+  --wald:       #0E3322;   /* Flaschengruen: grosse Farbflaechen */
+  --salbei:     #A9CBB3;   /* Akzent: die Handlung, offene Frage, Fokus */
+  --salbei-hi:  #C2DCC9;
+  --auf-salbei: #06140D;   /* Schrift auf Salbeigruen */
 
-  --text:      #EEF3EF;
-  --text-muted:#A3B8AA;
+  --text:       #E9EFE9;
+  --text-muted: #93A898;
 
   /* Schrift: Stack Sans Headline fuer Grosses, Stack Sans Text fuer alles
      andere. Fuenf Groessen, mehr nicht. */
@@ -52,12 +55,12 @@
   --step-head:    clamp(1.875rem, 1.1rem + 2.9vw, 3.75rem);      /* 30 bis 60 */
   --step-display: clamp(4rem, 0.5rem + 10.6vw, 13rem);           /* der Name */
 
-  /* Das Brett: schmale Fugen, schmale Raender, eine Rundung */
-  --fuge:      8px;
-  --rand:      8px;
-  --innen:     clamp(1.25rem, 2.2vw, 2.25rem);  /* Innenabstand der Kacheln */
-  --radius:    6px;
-  --header-h:  68px;   /* 8px Fuge plus 60px Kachelreihe */
+  /* Das Brett: feine Fugen, schmale Raender, weiche Rundung */
+  --fuge:      4px;
+  --rand:      6px;
+  --innen:     clamp(1.25rem, 2.4vw, 2.5rem);  /* Innenabstand der Kacheln */
+  --radius:    14px;
+  --header-h:  66px;   /* 6px Rand plus 60px Kachelreihe */
 
   --ease:      cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -117,10 +120,10 @@ h3 {
 
 p { color: var(--text); }
 
-::selection { background: var(--minze); color: var(--auf-minze); }
+::selection { background: var(--salbei); color: var(--auf-salbei); }
 
 :focus-visible {
-  outline: 2px solid var(--minze);
+  outline: 2px solid var(--salbei);
   outline-offset: 2px;
 }
 
@@ -129,8 +132,8 @@ p { color: var(--text); }
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--minze);
-  color: var(--auf-minze);
+  background: var(--salbei);
+  color: var(--auf-salbei);
   padding: 0.75rem 1.25rem;
   z-index: 200;
   font-weight: 600;
@@ -157,11 +160,11 @@ p { color: var(--text); }
 }
 .kachel-2     { background: var(--kachel-2); }
 .kachel-wald  { background: var(--wald); }
-.kachel-minze { background: var(--minze); }
-.kachel-minze,
-.kachel-minze p { color: var(--auf-minze); }
+.kachel-salbei { background: var(--salbei); }
+.kachel-salbei,
+.kachel-salbei p { color: var(--auf-salbei); }
 
-/* Schaltflaeche: Minzgruen, eine Farbe */
+/* Schaltflaeche: Salbeigruen, eine Farbe */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -177,20 +180,20 @@ p { color: var(--text); }
   transition: background-color 0.25s var(--ease), transform 0.15s var(--ease);
 }
 .btn:active { transform: scale(0.99); }
-.btn-primary { background: var(--minze); color: var(--auf-minze); }
-.btn-primary:hover { background: var(--minze-hi); }
+.btn-primary { background: var(--salbei); color: var(--auf-salbei); }
+.btn-primary:hover { background: var(--salbei-hi); }
 
 /* Textlink: unterstrichen, die Linie wird beim Ueberfahren kraeftiger */
 .text-link {
   display: inline-block;
   font-weight: 500;
-  color: var(--minze);
+  color: var(--salbei);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.3em;
   transition: text-decoration-thickness 0.2s var(--ease), color 0.2s var(--ease);
 }
-.text-link:hover { text-decoration-thickness: 2px; color: var(--minze-hi); }
+.text-link:hover { text-decoration-thickness: 2px; color: var(--salbei-hi); }
 
 /* 4. NAVIGATION
    ------------------------------------------------------------------------
@@ -228,7 +231,7 @@ p { color: var(--text); }
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--minze);
+  background: var(--salbei);
 }
 
 .nav-list {
@@ -261,13 +264,13 @@ p { color: var(--text); }
   align-items: center;
   height: 100%;
   padding-inline: 1.5rem;
-  background: var(--minze);
-  color: var(--auf-minze);
+  background: var(--salbei);
+  color: var(--auf-salbei);
   font-weight: 600;
   border-radius: 0 var(--radius) var(--radius) 0;
   transition: background-color 0.2s var(--ease);
 }
-.nav-list .nav-cta:hover { background: var(--minze-hi); color: var(--auf-minze); }
+.nav-list .nav-cta:hover { background: var(--salbei-hi); color: var(--auf-salbei); }
 
 /* Menue auf dem Telefon */
 .nav-toggle {
@@ -302,7 +305,7 @@ p { color: var(--text); }
    ------------------------------------------------------------------------
    Fuenf Kacheln fuellen den ersten Bildschirm genau: oben der Name auf
    Waldgruen und die Aussage, unten die Fakten, Oesterreich und die
-   Handlung in Minzgruen. */
+   Handlung in Salbeigruen. */
 .hero-brett {
   min-height: calc(100svh - var(--header-h));
   grid-template-rows: minmax(0, 1.2fr) minmax(0, 1fr);
@@ -320,7 +323,7 @@ p { color: var(--text); }
   font-size: min(var(--step-display), 19svh, calc((50vw - 8px - 2 * var(--innen)) / 5.05));
   line-height: 0.88;
   letter-spacing: -0.05em;
-  color: var(--minze);
+  color: var(--salbei);
 }
 
 .kachel-aussage {
@@ -343,7 +346,7 @@ p { color: var(--text); }
   grid-column: 1 / 6;
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
-  gap: 1.1rem 1.5rem;
+  gap: 1.1rem 2.5rem;
   align-content: end;
   align-items: baseline;
 }
@@ -387,14 +390,14 @@ p { color: var(--text); }
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--minze);
+  background: var(--salbei);
 }
 
-/* Die Handlung: eine ganze Kachel in Minzgruen */
+/* Die Handlung: eine ganze Kachel in Salbeigruen */
 .kachel-aktion {
   grid-column: 10 / 13;
-  background: var(--minze);
-  color: var(--auf-minze);
+  background: var(--salbei);
+  color: var(--auf-salbei);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -411,7 +414,7 @@ p { color: var(--text); }
   line-height: 1;
   transition: transform 0.3s var(--ease);
 }
-.kachel-aktion:hover { background: var(--minze-hi); }
+.kachel-aktion:hover { background: var(--salbei-hi); }
 .kachel-aktion:hover .pfeil { transform: translateX(6px); }
 .kachel-aktion:active { transform: scale(0.995); }
 
@@ -422,7 +425,7 @@ p { color: var(--text); }
    Tonstufen. */
 .leistungen-kopf {
   grid-column: 1 / 13;
-  padding-block: clamp(2.5rem, 6vw, 5rem);
+  padding-block: clamp(3.5rem, 6vw, 5rem);
 }
 .leistungen-kopf h2 span { display: block; }
 .leistungen-kopf h2 span:nth-child(2) { text-align: right; }
@@ -442,7 +445,7 @@ p { color: var(--text); }
   border-radius: var(--radius);
   background: var(--kachel);
 }
-.leistung h3 { color: var(--minze); }
+.leistung h3 { color: var(--salbei); }
 /* Nicht sechs gleiche Kacheln: die erste steht hoch ueber zwei Reihen auf
    Waldgruen, die letzte liegt breit ueber die ganze Reihe, dazwischen vier
    kleine in zwei abwechselnden Tonstufen. */
@@ -465,7 +468,6 @@ p { color: var(--text); }
    ------------------------------------------------------------------------ */
 .about-text {
   grid-column: 1 / 8;
-  grid-row: 1 / 3;
   display: grid;
   align-content: start;
   gap: 1.25rem;
@@ -474,18 +476,8 @@ p { color: var(--text); }
 /* Alle Absaetze gleich: Farbe und Groesse */
 .about-text p { max-width: 40em; }
 
-.about-foto {
-  grid-column: 8 / 13;
-  grid-row: 1;
-  padding: 0;
-  overflow: hidden;
-  min-height: 18rem;
-}
-.about-foto img { width: 100%; height: 100%; object-fit: cover; }
-
 .about-satz {
   grid-column: 8 / 13;
-  grid-row: 2;
   display: flex;
   align-items: flex-end;
 }
@@ -514,19 +506,19 @@ p { color: var(--text); }
   min-width: 0;
 }
 
+/* Die Hoehe eines Streifens bestimmt die Infokachel. Die Bilderreihe
+   meldet dank contain: size keine eigene Groesse und passt sich an. */
 .streifen {
-  --streifen-h: clamp(22rem, 34vw, 34rem);
-  display: flex;
+  display: grid;
+  grid-template-columns: clamp(20rem, 36vw, 34rem) minmax(0, 1fr);
   gap: var(--fuge);
-  height: var(--streifen-h);
+  min-height: clamp(15rem, 21vw, 20rem);
   min-width: 0;
 }
 
 .streifen-info {
-  flex: 0 0 clamp(18rem, 27vw, 27rem);
   display: flex;
   flex-direction: column;
-  overflow: auto;
 }
 .streifen-info h3 { margin-bottom: 0.9rem; }
 .streifen-info p:not(.project-meta) { font-size: 1rem; line-height: 1.55; }
@@ -544,7 +536,7 @@ p { color: var(--text); }
 .streifen-bilder {
   display: flex;
   gap: var(--fuge);
-  flex: 1;
+  contain: size;
   min-width: 0;
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -553,21 +545,27 @@ p { color: var(--text); }
   scrollbar-color: var(--kachel-3) transparent;
   border-radius: var(--radius);
 }
+/* Jedes Bild bekommt denselben Rahmen im Seitenverhaeltnis 3:2, mit
+   einem Passepartout in der Kachelfarbe. Hohe Handyansichten stehen darin
+   ganz, mittig, statt den Streifen zu sprengen. */
 .streifen-bild {
   flex: none;
   height: 100%;
+  aspect-ratio: 3 / 2;
+  padding: clamp(0.6rem, 1vw, 0.9rem);
   scroll-snap-align: start;
   border-radius: var(--radius);
   overflow: hidden;
-  background: var(--kachel);
+  background: var(--kachel-2);
 }
 .streifen-bild img {
+  width: 100%;
   height: 100%;
-  width: auto;
-  max-width: none;
-  transition: transform 0.6s var(--ease), filter 0.4s var(--ease);
+  object-fit: contain;
+  border-radius: calc(var(--radius) - 6px);
+  transition: transform 0.6s var(--ease);
 }
-.streifen-bild:hover img { transform: scale(1.02); }
+.streifen-bild:hover img { transform: scale(1.03); }
 
 /* Platzhalter, falls das Bildschirmfoto fehlt */
 .embed-platzhalter {
@@ -586,7 +584,7 @@ p { color: var(--text); }
 /* 9. FRAGEN
    ------------------------------------------------------------------------
    Links die Ueberschrift auf Waldgruen, rechts gefuellte Kacheln. Eine
-   offene Frage wird Minzgruen. */
+   offene Frage wird Salbeigruen. */
 .fragen-kopf { grid-column: 1 / 6; }
 .fragen-kopf h2 { position: sticky; top: calc(var(--header-h) + var(--innen)); }
 
@@ -635,10 +633,10 @@ p { color: var(--text); }
 .faq-eintrag summary::after { transform: rotate(90deg); }
 .faq-eintrag[open] summary::after { transform: rotate(0deg); }
 
-.faq-eintrag[open] { background: var(--minze); }
+.faq-eintrag[open] { background: var(--salbei); }
 .faq-eintrag[open],
 .faq-eintrag[open] summary,
-.faq-eintrag[open] p { color: var(--auf-minze); }
+.faq-eintrag[open] p { color: var(--auf-salbei); }
 
 .faq-eintrag p {
   padding: 0 var(--innen) var(--innen);
@@ -666,7 +664,7 @@ p { color: var(--text); }
   overflow-wrap: anywhere;
   transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
 }
-.kontakt-weg:hover { background: var(--kachel-3); color: var(--minze); }
+.kontakt-weg:hover { background: var(--kachel-3); color: var(--salbei); }
 
 .kontakt-formular {
   grid-column: 6 / 13;
@@ -707,7 +705,7 @@ p { color: var(--text); }
 .form-row input:focus,
 .form-row textarea:focus,
 .form-row select:focus {
-  outline: 2px solid var(--minze);
+  outline: 2px solid var(--salbei);
   outline-offset: 0;
   background: var(--kachel-3);
 }
@@ -748,7 +746,7 @@ p { color: var(--text); }
   line-height: 0.85;
   letter-spacing: -0.05em;
   white-space: nowrap;
-  color: var(--minze);
+  color: var(--salbei);
 }
 
 .footer-copy {
@@ -805,7 +803,7 @@ p { color: var(--text); }
 .legal p, .legal li { font-size: 1rem; }
 .legal p + p { margin-top: 0.6rem; }
 .legal ul { margin: 0.75rem 0 0 1.2rem; display: grid; gap: 0.4rem; }
-.legal a { color: var(--minze); text-decoration: underline; text-underline-offset: 0.2em; }
+.legal a { color: var(--salbei); text-decoration: underline; text-underline-offset: 0.2em; }
 
 .back-link {
   display: inline-block;
@@ -815,7 +813,7 @@ p { color: var(--text); }
   margin-bottom: 2rem;
   transition: color 0.2s var(--ease);
 }
-.back-link:hover { color: var(--minze); }
+.back-link:hover { color: var(--salbei); }
 
 .site-footer .container.footer-inner {
   max-width: none;
@@ -948,7 +946,7 @@ p { color: var(--text); }
 .cc-eintrag code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.8125rem;
-  color: var(--minze);
+  color: var(--salbei);
   white-space: nowrap;
 }
 .cc-eintrag p { font-size: var(--step-small); line-height: 1.45; }
@@ -992,11 +990,11 @@ p { color: var(--text); }
   background: var(--text);
   transition: transform 0.25s var(--ease);
 }
-.cc-schalter input:checked + .cc-regler { background: var(--minze); }
-.cc-schalter input:checked + .cc-regler::after { transform: translateX(20px); background: var(--auf-minze); }
+.cc-schalter input:checked + .cc-regler { background: var(--salbei); }
+.cc-schalter input:checked + .cc-regler::after { transform: translateX(20px); background: var(--auf-salbei); }
 .cc-schalter input:disabled + .cc-regler { opacity: 0.6; }
 .cc-schalter input:focus-visible + .cc-regler {
-  outline: 2px solid var(--minze);
+  outline: 2px solid var(--salbei);
   outline-offset: 3px;
 }
 
@@ -1057,19 +1055,17 @@ p { color: var(--text); }
   .leistung:last-child { background: var(--kachel-2); }
   .leistungen-reihen { grid-column: 1 / 13; }
 
-  .about-text { grid-column: 1 / 13; grid-row: auto; }
-  .about-foto { grid-column: 1 / 8; grid-row: auto; aspect-ratio: 4 / 3; min-height: 0; }
-  .about-satz { grid-column: 8 / 13; grid-row: auto; }
+  .about-text,
+  .about-satz { grid-column: 1 / 13; }
+  .about-satz { min-height: 12rem; }
 
   /* Streifen gestapelt: Infokachel oben, Bilder darunter */
-  .streifen { flex-direction: column; height: auto; }
-  .streifen-info { flex: none; overflow: visible; }
-  .streifen-bilder { height: clamp(16rem, 46vw, 24rem); flex: none; }
+  .streifen { grid-template-columns: minmax(0, 1fr); }
+  .streifen-bilder { height: clamp(13rem, 34vw, 17rem); }
 
   /* Kacheln, die mit einem Link enden, bekommen unten mehr Luft, damit
      der Link nicht wie eine Beschriftung der Kachel darunter wirkt */
   .kachel-aussage,
-  .streifen-info,
   .kontakt-formular { padding-bottom: calc(var(--innen) + 3.5rem); }
 
   .fragen-kopf { grid-column: 1 / 13; }
@@ -1126,10 +1122,8 @@ p { color: var(--text); }
   .leistung:first-child { grid-row: auto; min-height: 12rem; }
   .leistung:last-child { display: flex; }
 
-  .about-foto,
-  .about-satz { grid-column: 1 / 13; }
 
-  .streifen-bilder { height: 16rem; }
+  .streifen-bilder { height: 12rem; }
 
   .kontakt-weg { grid-column: 1 / 13; min-height: 4.5rem; }
   #contactForm { grid-template-columns: 1fr; }

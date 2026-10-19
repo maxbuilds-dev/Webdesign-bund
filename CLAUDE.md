@@ -99,8 +99,7 @@ background. Don't introduce a framework or bundler unless explicitly asked.
                         # bekoela-konfigurator.jpg: second reference, see
                         # Page structure.
                         # streifen-bio-*.jpg, druck-bekoela-*.jpg: extra
-                        # screenshots for the portfolio strips;
-                        # setzkasten.jpg: CC0 photo for Über mich.
+                        # screenshots for the portfolio strips.
 ```
 The HTML is deliberately not split into partials: that would need a build step or
 runtime JavaScript, both of which contradict the stack decision above.
@@ -120,47 +119,54 @@ Max had ruled out; the second ("Two-by-two board") also wanted two photographs, 
 were replaced by a facts tile and an Austria tile. Sheet: `.taste-skill/direction.json`
 (git-ignored).
 
-The idea: the page is one board of tiles fitted edge to edge with 8px joints, every tile
-one thing (the name, a statement, a service, a photo, a question, the action). No empty
-bands between sections; sections join with the same 8px joint.
+The idea: the page is one board of tiles fitted edge to edge, every tile one thing (the
+name, a statement, a service, a screenshot, a question, the action). No empty bands
+between sections. Second round, same day, Max: deeper "luxury" greens, less "cut cut
+cut", tiles should flow into each other, reference images too big, Über mich photo
+"grauenhaft". So: joints only 4px in a ground barely darker than the tiles, radius
+14px, the photo removed, the strips smaller with uniform frames.
 
 Everything is driven by CSS custom properties at the top of `css/style.css`.
 
-- **Palette, all green.** Ground and joints `#0B1711`, tiles `#12251B`, second tone
-  `#183224`, third tone `#1F3F2D` (hover, fields), forest green `#14532D` for large
-  colour tiles (name, section headings, Kontakt intro, footer name), **mint `#7FD0A4`**
-  for the one action (Kontakt, Erstgespräch tile, submit button), open questions, links
-  and the name. Text `#EEF3EF`, muted `#A3B8AA`. **No blue, no indigo, no violet**
+- **Palette, all deep green.** Ground and joints `#050D09`, tiles `#08150F`, second
+  tone `#0B1B14`, third tone `#10241A` (hover, fields), bottle green `#0E3322` for large
+  colour tiles (name, section headings, Webdesign, Über mich sentence, Kontakt intro,
+  footer name), **pale sage `#A9CBB3`** (`--salbei`) for the one action (Kontakt,
+  Erstgespräch tile, submit button), open questions, links and the name. Text
+  `#E9EFE9`, muted `#93A898`. The tile tones sit close together on purpose so the
+  board reads as one surface. **No blue, no indigo, no violet**
   (Max's "purple problem"), no white sections any more. No gradients, glow, blur or
   glass, no 1px lines (form fields have none either), no shadows on resting tiles (only
   the cookie panel and the mobile menu float), no section labels, no numerals. One
-  radius, 6px.
+  radius, 14px; joints 4px.
 - **Type.** Stack Sans Headline (300 for headings, 500 for the name) and Stack Sans
   Text (body), both OFL, variable woff2 from Fontsource, self-hosted in
   `assets/fonts/`. Five sizes. Every heading two lines or fewer at every width.
-- **Header** is the top row of tiles: logo on forest green, link tile, Kontakt in mint
+- **Header** is the top row of tiles: logo on bottle green, link tile, Kontakt in sage
   (the fuge between the last two is a ground-coloured `border-left`). Sticky.
   **Do not put `overflow-x: hidden` on `body`**; `html` has `overflow-x: clip`.
 - **Hero, no pictures:** "Webdesign Bund" huge on forest green, the h1 statement with
   the sub sentence and "Referenz ansehen", the three facts, the outline of Austria
   (Natural Earth, public domain, inline SVG) with "Kapazität für neue Projekte", and
-  "Erstgespräch vereinbaren" as a whole mint tile. Fills the first screen exactly.
+  "Erstgespräch vereinbaren" as a whole sage tile. Fills the first screen exactly.
 - **Leistungen:** heading tile across the width (second line right-aligned), then six
   tiles in four sizes: Webdesign tall on forest green, four small ones in two tones,
   Wartung und Betreuung wide.
-- **Über mich:** text tile, setzkasten photo (`setzkasten.jpg`, "Type case letterpress
-  drawer", CC0, via rawpixel, https://www.rawpixel.com/image/6016674, no credit needed),
-  the last paragraph on a mint tile. All paragraphs identical in colour and size.
-- **Portfolio:** heading tile, then one strip per work: an info tile and the screenshots
-  at equal height, swipeable sideways with scroll snapping. Bioenergetik: desktop,
+- **Über mich:** text tile and the last paragraph on a bottle green tile beside it. No
+  photo: the setzkasten picture was removed on Max's verdict. All paragraphs identical in
+  colour and size.
+- **Portfolio:** heading tile, then one strip per work: an info tile and the screenshots,
+  swipeable sideways with scroll snapping. The info tile sets the strip height (the image
+  row has `contain: size`); every image sits in the same 3:2 frame on a mat in the tile
+  tone, `object-fit: contain`, so desktop and phone shots look like one set. Bioenergetik: desktop,
   mobile, `streifen-bio-*.jpg` (renders of the client site). bekoela: the configurator
   plus two crops (`druck-bekoela-*.jpg`). The first screenshot opens once like a shutter
   (`.verschluss`, `js/script.js` section 1).
 - **Fragen:** heading on forest green left, the questions as tiles; one open at a time
-  (`name="fragen"`), the open one turns mint.
+  (`name="fragen"`), the open one turns sage.
 - **Kontakt:** intro on forest green, mail and phone as their own tiles, the form in a
   tile with filled fields.
-- **Footer:** the name across the full width in mint on forest green, then two tiles.
+- **Footer:** the name across the full width in sage on bottle green, then two tiles.
 - **Subpages** (Impressum, Datenschutz, 404, danke) use the same dark tokens.
 - **Cookie panel** non-modal bottom right; the footer gets extra bottom padding while it
   is open. Consent rules below unchanged.
