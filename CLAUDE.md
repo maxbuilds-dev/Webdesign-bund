@@ -152,6 +152,10 @@ Everything is driven by CSS custom properties at the top of `css/style.css`.
 - **Hero, no pictures:** one bottle green field with "Webdesign Bund" huge in sage, the
   h1 statement, sub sentence and "Referenz ansehen" bottom right, the outline of Austria
   (Natural Earth, public domain, inline SVG) tone on tone and cropped by the field edge.
+  Around and inside it, scaled copies of the same outline as thin lines, like contour
+  lines on a map (`.hoehenlinien`, `<use>` with `vector-effect: non-scaling-stroke`,
+  `overflow: visible`); they run across the whole field as the subtle background
+  pattern Max asked for on 19 Oct 2026 ("unauffälliges Muster").
   Below on the ground the three facts and "Kapazität für neue Projekte"; the sage
   "Erstgespräch vereinbaren" field overlaps the hero field from below (negative margin).
   The arrow is an inline SVG because Stack Sans has no arrow glyph.
@@ -162,7 +166,8 @@ Everything is driven by CSS custom properties at the top of `css/style.css`.
   in colour and size.
 - **Portfolio:** heading on the ground, one dark field per work, the first leaning on
   the right edge, the second on the left. Info text and a sideways row of screenshots,
-  every image in the same 3:2 frame on a darker mat, `object-fit: contain`.
+  all at the same height in their own aspect ratio, on a narrow darker mat with small
+  gaps (the earlier uniform 3:2 frames left too much space around the phone shots).
   Bioenergetik: desktop, mobile, `streifen-bio-*.jpg`. bekoela: desktop configurator,
   `bekoela-konfigurator-mobil.jpg` (Max's iPhone screenshot of 19 Oct 2026, status bar
   and Safari address bar cropped, 900x1690, EXIF stripped) and the bed crop
