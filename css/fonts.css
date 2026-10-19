@@ -1,52 +1,52 @@
 /* ==========================================================================
-   Schriften: lokal eingebunden, keine Verbindung zu Google oder Fontshare
+   Schriften: lokal eingebunden, keine Verbindung zu Google
+   Stack Sans Headline (Ueberschriften) und Stack Sans Text (alles andere),
+   SIL Open Font License 1.1, ueber Fontsource.
 
-   Zodiak (Ueberschriften): Indian Type Foundry, ueber Fontshare,
-   ITF Free Font License. Zwei feste Schnitte, 100 fuer den grossen Namen
-   im Footer, 300 fuer alle Ueberschriften.
-
-   Hanken Grotesk (Text): SIL Open Font License 1.1, ueber Fontsource.
-   Ein "Variable Font": eine Datei enthaelt alle Strichstaerken.
+   Beide sind "Variable Fonts": eine Datei enthaelt alle Strichstaerken
+   von 200 bis 700.
 
    Die unicode-range sorgt dafuer, dass der Browser latin-ext nur laedt,
    wenn auf der Seite wirklich ein Zeichen daraus vorkommt. Fuer deutschen
    Text (inkl. ä ö ü ß) genuegt latin.
    ========================================================================== */
 
-/* Zodiak, Hairline */
+/* Stack Sans Headline, latin */
 @font-face {
-  font-family: 'Zodiak';
+  font-family: 'Stack Sans Headline';
   font-style: normal;
-  font-weight: 100;
+  font-weight: 200 700;
   font-display: swap;
-  src: url('../assets/fonts/Zodiak-100.woff2') format('woff2');
-}
-
-/* Zodiak, Light */
-@font-face {
-  font-family: 'Zodiak';
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url('../assets/fonts/Zodiak-300.woff2') format('woff2');
-}
-
-/* Hanken Grotesk, latin */
-@font-face {
-  font-family: 'Hanken Grotesk';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('../assets/fonts/HankenGrotesk-latin.woff2') format('woff2');
+  src: url('../assets/fonts/stack-sans-headline-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* Hanken Grotesk, latin ext */
+/* Stack Sans Headline, latin ext */
 @font-face {
-  font-family: 'Hanken Grotesk';
+  font-family: 'Stack Sans Headline';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 200 700;
   font-display: swap;
-  src: url('../assets/fonts/HankenGrotesk-latin-ext.woff2') format('woff2');
+  src: url('../assets/fonts/stack-sans-headline-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Stack Sans Text, latin */
+@font-face {
+  font-family: 'Stack Sans Text';
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url('../assets/fonts/stack-sans-text-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Stack Sans Text, latin ext */
+@font-face {
+  font-family: 'Stack Sans Text';
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url('../assets/fonts/stack-sans-text-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }

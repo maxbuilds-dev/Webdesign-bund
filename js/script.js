@@ -1,7 +1,7 @@
 /* ==========================================================================
    Webdesign Bund, script.js
    Inhalt:
-   1. Grosser Abzug im Hero: langsamer Wechsel zwischen vier Ansichten
+   1. Verschluss: erstes Bildschirmfoto im Portfolio oeffnet sich
    2. Navigationsleiste beim Scrollen abdunkeln
    3. Mobiles Menü öffnen/schließen
    4. Aktiven Menüpunkt hervorheben
@@ -10,7 +10,6 @@
    7. Mailadressen in den Links zusammensetzen
    8. Zustimmungsmanager fuer Cookies und externe Inhalte
    9. Jahreszahl im Footer
-   10. Portfolio: Umschalter Desktop und Smartphone
    ========================================================================== */
 
 (function () {
@@ -18,39 +17,26 @@
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* 1. GROSSER ABZUG IM HERO ---------------------------------------------
-     Vier Bilder liegen uebereinander. Alle sechs Sekunden wird das naechste
-     eingeblendet (die Ueberblendung selbst dauert 1,6 Sekunden, siehe CSS).
-     Ist der Tab nicht sichtbar, pausiert der Wechsel. Bei reduzierter
-     Bewegung bleibt das erste Bild stehen. */
-  var druck = document.getElementById('heroDruck');
-  if (druck && !reducedMotion) {
-    var drucke = druck.querySelectorAll('.druck-bild');
-    var aktuell = 0;
-    var takt = null;
-
-    var weiter = function () {
-      var naechstes = (aktuell + 1) % drucke.length;
-      var bild = drucke[naechstes];
-      /* erst wechseln, wenn das Bild geladen ist, sonst blitzt der Grund */
-      if (!bild.complete) { bild.loading = 'eager'; return; }
-      drucke[aktuell].classList.remove('ist-aktiv');
-      bild.classList.add('ist-aktiv');
-      aktuell = naechstes;
-    };
-    var starten = function () { if (!takt) takt = setInterval(weiter, 6000); };
-    var anhalten = function () { clearInterval(takt); takt = null; };
-
-    if (drucke.length > 1) {
-      /* die anderen Bilder nach dem ersten Wechsel vorladen */
-      setTimeout(function () {
-        Array.prototype.forEach.call(drucke, function (b) { b.loading = 'eager'; });
-      }, 1500);
-      starten();
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) anhalten(); else starten();
+  /* 1. VERSCHLUSS IM PORTFOLIO ------------------------------------------
+     Das erste Bildschirmfoto oeffnet sich einmal von links, sobald es in
+     den Blick kommt. Die Klasse .zu wird nur hier gesetzt: ohne JavaScript
+     oder bei reduzierter Bewegung bleibt das Bild einfach offen. */
+  var verschluesse = document.querySelectorAll('.verschluss');
+  if (verschluesse.length && !reducedMotion && 'IntersectionObserver' in window) {
+    var verschlussBeobachter = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var bild = entry.target.querySelector('.verschluss');
+        if (bild) bild.classList.remove('zu');
+        observer.unobserve(entry.target);
       });
-    }
+    }, { threshold: 0.35 });
+    /* Beobachtet wird der Streifen drumherum: das zugeschnittene Bild
+       selbst hat keine sichtbare Flaeche und meldete sich sonst nie. */
+    Array.prototype.forEach.call(verschluesse, function (el) {
+      el.classList.add('zu');
+      verschlussBeobachter.observe(el.closest('.streifen') || el.parentNode);
+    });
   }
 
   /* 2. HEADER BEIM SCROLLEN ---------------------------------------------- */
@@ -516,23 +502,5 @@
   /* 9. JAHRESZAHL --------------------------------------------------------- */
   var jahr = document.getElementById('jahr');
   if (jahr) jahr.textContent = String(new Date().getFullYear());
-
-  /* 10. PORTFOLIO: DESKTOP UND SMARTPHONE ----------------------------------
-     Zwei Knoepfe ueber dem Bildschirmfoto von Bioenergetik mq5. Der Rahmen
-     bekommt data-ansicht, das CSS blendet das passende Bild ein. Ohne
-     JavaScript bleibt der Schalter verborgen und die Desktopansicht steht. */
-  var schalter = document.getElementById('ansichtSchalter');
-  var rahmen = document.getElementById('portfolioRahmen');
-  if (schalter && rahmen) {
-    schalter.hidden = false;
-    schalter.addEventListener('click', function (e) {
-      var knopf = e.target.closest('button[data-ansicht]');
-      if (!knopf) return;
-      rahmen.setAttribute('data-ansicht', knopf.getAttribute('data-ansicht'));
-      Array.prototype.forEach.call(schalter.querySelectorAll('button'), function (b) {
-        b.setAttribute('aria-pressed', String(b === knopf));
-      });
-    });
-  }
 
 })();
