@@ -109,9 +109,10 @@ runtime JavaScript, both of which contradict the stack decision above.
 Max rejected design 3 (white page, serif Zodiak, screenshots in the hero, loose layout)
 the same day: "sieht echt schlimm aus". His answers that shaped design 4: **the whole
 page dark forest green**, start completely new, and he disliked the serif, the pictures
-in the hero, the emptiness and the pale, colourless look. **Not on `main` until Max
-approves the screenshots.** Design 2 stays live until then; design 1 is preserved on
-`backup/design-v1` (commit d1aa586). Do not delete that branch.
+in the hero, the emptiness and the pale, colourless look. **Approved and merged into
+`main` on 20 Oct 2026** (live via Netlify). Design 2 is the commit before the merge
+(b524043); design 1 is preserved on `backup/design-v1` (commit d1aa586). Do not delete
+that branch. `design-v3` is merged and can be deleted on GitHub.
 
 taste-skill dealt "The well-kept board" (seed 827357733, tone bold, palette kept). The
 hero blueprint was redrawn once because the first one was a sheet of photographs, which
@@ -151,8 +152,8 @@ Everything is driven by CSS custom properties at the top of `css/style.css`.
 - **Hero, no pictures:** one bottle green field with "Webdesign Bund" huge in sage, the
   h1 statement, sub sentence and "Referenz ansehen" bottom right. Background pattern
   (Max, 19 Oct 2026: "unauffälliges Muster"): wide diagonal lines in faint sage from
-  `assets/img/hero-muster.svg` (`.hero-feld::before`), fading out towards the edges
-  inside the SVG itself, so no CSS gradient. **No Austria outline anywhere any more:**
+  `assets/img/hero-muster.svg` (`.hero-feld::before`), evenly across the whole field
+  (Max: "überall, nicht nur rechts"), an image file rather than a CSS gradient. **No Austria outline anywhere any more:**
   the cropped outline with contour lines around it reminded Max of a penis. Do not bring
   the map shape back.
   Below on the ground the three facts and "Kapazität für neue Projekte"; the sage

@@ -296,9 +296,8 @@ main > section + section { margin-top: var(--abstand); }
   border-radius: var(--feld-radius);
 }
 
-/* Dezentes Muster: weite, schraege Linien, die zu den Raendern auslaufen.
-   Eine Bilddatei statt eines CSS Verlaufs, die Ausblendung steckt in der
-   SVG Datei selbst. */
+/* Dezentes Muster: weite, schraege Linien gleichmaessig ueber das ganze
+   Feld, als Bilddatei statt als CSS Verlauf. */
 .hero-feld::before {
   content: '';
   position: absolute;
